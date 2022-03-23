@@ -1,0 +1,79 @@
+Inspiration for different approaches - 
+
+1. Suppose we have an algorithm, say some compression algorithm or any mathematical calculation one.
+2. And that code (code.exe) is running on a computer, and just like a standard code, it takes an input and gives an output.
+3. So now, instead of giving our code to them or anything like that, we create an API for that functionality of code.
+	3.1 So, we will get a HTTP request to that API
+	3.2 And the API will send a response in JSON or XML format.
+
+4. Now, the things that we need to consider here are:
+	4.1 We might need this to connect to a Database. (Fetch data or store some data)
+	4.2 We might require to configure the endpoints for the API.
+	4.3 Consider powerloss scenario
+	4.4 Have to consider various such real time scenarions (like Docker goes down, disk crashes or what not)
+	
+5. Entire point of Point 4 was that whatever happens our service should not go down, because that is absolutely necessary in an enterprise.
+
+6. So, insead of hosting the codebase on-premise, we often go to cloud services. If on-prem is good enough (like 3-4 Machines connect to same Environments), cloud can be avoided
+	6.1 Cloud provides different configuration settings and they also take care of situations like powerless scenario and many things like that.
+	
+7. NOW, when the environment configuration and every failure scenario has been taken care of, we can focus more on business requirements
+
+8. ****IMPORTANT****
+
+	8.1 Now, there could be many connections at a single point of time to our service, and the code is not able to handle it.
+	8.2 Why is the code not able to handle all the connections? Mostly the traffic of request and response. Like multiple people are connecting to some jobapi to run their jobs, and say, each person runs 10-15 jobs and
+	there are 20 people running jobs, this traffic could just lead to a very slow service.
+	8.3 Solutions to the above problem:
+		8.3.1 Buy a bigger machine (More space, more RAM, more computation power basically) - VERTICAL SCALING
+		8.3.2 Buy more machines - HORIZONTAL SCALING
+	
+	
+Horizontal Scaling									vs								Vertical Scaling
+
+1. Need Load balacing, because traffic(load)							Not required as there is only one machine
+   needs to be balanced among all machines		
+
+2. Resilient (if machine fails, we can manage							Here there is single point of failure, if it fails, it fails
+   with other machines, either load or admin work)	
+
+3. Here, to communicate, 2 or more machines need						Here we have Inter Process Communication
+   Network calls (RPC). It is usually slower.
+
+4. Data Inconsistency. So lets say if we have 3							Here since there is just 1 system that resides, thats why this is more consistent.
+   or more services and some data has to go from 
+   machine 1 to 2, and from there to 3...and some
+   other response gets computed.
+   So, the data is complicated to maintain.
+   And if the we want to make the transaction atomic,
+   we have to lock the transaction or the servers
+   (not practical).
+   This gives a Loose Transactional Guarantee.
+
+5. Since the amount of servers we throw at the problem					Hardware Limit
+   is linear(n servers, load balanced between
+   n machines)
+   So, this SCALES WELL
+   
+   
+   
+   
+   
+ 
+What is used in the real world?
+
+Hybrid - A combination of both of the scaling approaches. Because a good design should make the system more resilient, Scaling should be good,
+instead of RPC, we would profer interprocess communication, and of course, data should be consistent across all servers.
+
+Hybrid is mostly horizontally scaled.
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

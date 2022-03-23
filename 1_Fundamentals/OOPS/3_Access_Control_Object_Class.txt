@@ -1,0 +1,34 @@
+Access Control
+    -> The way to define what would be the scope of accessibility of something
+    -> One thing might be accessible in current file, but might not be there in another.
+
+    -> Private
+        -> An entity defined as private cannot be accessed outside that class directly.
+        -> In order to access these things, we need to define public type getters and setters.
+        -> What is point of making anything private?
+            -> Data Hiding
+
+    -> Public
+        -> An entity defined as public can be accessed from anywhere.
+
+    -> Protected
+        -> Accessible in same class, package, subclass (present in same or differnt package).
+        -> Not accessible from outside the package from a class that is not a subclass.
+
+    -> Default
+        -> If we do not specify anything, it will be package private.
+            -> It will be accessible (public) in that package, but private to outside the package members
+        -> This is different from protected in terms of access from a sub-class defined outside the current package.
+            -> Default does not allow this access, protected does.
+
+
+
+Object Class
+    -> Root of the class heirarchy.
+    -> Every class by default extends Object Class.
+    -> If a class is extending some other class, does it still extend Object Class?
+        -> Yes. But not directly, because multiple inheritence is not supported.
+    -> Has few utility methods
+        -> hashCode() - Used in calculating hash value of some object.
+        -> equals() - compares two objects.
+            -> Same logic as String comparison.

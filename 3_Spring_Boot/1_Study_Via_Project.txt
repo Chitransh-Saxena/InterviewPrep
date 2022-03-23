@@ -1,0 +1,362 @@
+Creating a Spring Boot Application
+
+** For architecture of a general Spring based project, look for the section after #####
+
+-> Create an initial project using start.spring.io
+	-> Enter proper dependencies
+	-> Miss out on one or two so that you learn how to insert a dependency manually
+	
+-> Once the project is created, by default we see a main method with @SpringBootApplication annotation with a .run() method already there.
+	-> Entry point for a Spring-MVC application is a dispatcherServelet.
+	-> @SpringBootApplication internally uses 
+		-> @SpringBootConfiguration
+			-> Uses @Configuration - makes the java class as Spring Configuration class and we define all the Spring Beans in this class
+		-> @EnableAutoConfiguration
+			-> Uses @AutoConfigurationPackage - Enables automatic configuration for our Spring Boot application
+		-> @ComponentScan
+			-> Marks the class so that it can be scanned for Spring Beans and auto configuration
+			-> So, basically, @ComponentScan is available at the package level, it scans the package for all the components, and whatever beans are spotted, they are generated and provided to Spring Container
+	
+	-> Just for clarity, all the Standard Annotations like @Controller, @Service etc internally use the @Component annotation and thus, a bean is created and provided to Spring Container out of it.
+	-> @PostConstruct
+		-> Spring calls methods annotated with this right after creating beans (initiliazing beans). 
+		-> This method cannot be static, but can have any level of access.
+		-> Uses?
+			-> Creating some default users right after starting the application
+			-> Populating some fields by calling REST APIs right after starting the application.
+	-> @Resource
+		-> Basically populates a resource by finding a bean of given type.
+			-> Example:
+				-> @Resource(name = "myTestBean")
+					private String someTestBeanItem;
+			
+			-> So now, Spring will search for "myTestBean" in Spring container, and if not found, will throw some exception
+	-> @Bean
+		-> Method level annotation
+		-> Used to configure the beans in java code.
+		-> Implemented in classes that are annotated with @Configuration
+			-> @Configuration - Makes the class as a configuration class and Spring IoC will look for beans in here.
+		-> In general, bean is nothing but an object that is being managed by the spring  container
+		-> Benefit of bean?
+			-> Helps in achieving decoupling.
+			-> How?
+				-> No idea
+	
+	-> @Autowired
+		-> Dependencies are automatically injected in the application
+		-> Not used for primitive types, only for reference types.
+		-> Suppose we have 2 classes, A and B
+			-> If 'A' wants an object of 'B', then A is totally dependent on B
+			-> We can call this 'wiring'
+		-> By this reference, autowiring means, when this wiring happens automatically
+		-> So basically, first we create a bean
+			-> This could be done by any way we require.
+			-> @Component, @Service .. etc.
+		-> Then, where we require this item, we will inject it
+			
+			@Autowired
+			private BusinessLogic businessLogic.
+			
+		-> Here, wherever the BusinessLogic bean was initialized, it was now injected to "businessLogic" object.
+		
+	-> @Qualifier("something")
+		-> When there are multiple beans of same type that could be injected, ambiguity could be produced.
+		-> Example:
+		
+			@Autowired
+			@Qualifier("someSpecialItem")
+			private SomeSpecialItem someSpecialItem.
+	
+
+-> Now we need to understand what are the different components of a Web-Application
+	-> Controller
+		-> This provides access to application via some API endpoints
+		-> These endpoints are called REST endpoints because they are usually made in such a way (either by developer or SpringBoot) that they follow RESTful properties
+		-> This can further contain @RestController annotation - Tells springboot that HTTP requests are handled in this class
+		-> @RequestMapping is used over the functions to tell that when this 'endpoint' is hit, this function will be triggered
+			-> These are further classified as GET, POST, PUT and DELETE.
+	
+	-> Persistance / DAO (Data Access Object)
+		-> In this layer, the objects are stored as Database entities
+		-> We also study the way in which the response from an API is treated as an entity and stored in DB
+		-> We usually use 
+			-> @Repository - Tells the Spring Boot that this class defines data repository
+	
+	-> Service
+		-> Controller never directly interacts with the DAO layer. Why?
+			-> It is just to maintain a certain level of abstraction, in order to ease up future developments and modifications
+		-> This is where Service layer comes in.
+		-> All the business logic goes here too
+		-> @Service - Registers this class in Spring, so that other classes can be injected with it.
+	
+	So, till now this is how the sequence goes
+		Controller's endpoints are the main place to have interaction with the user
+			-> Once we have something to go with, like an API response to store in DB or have some business logic we talk to Service layer
+				-> Now, the service layer has the logic of what has to be done with the data or information we have.
+				
+				
+	
+				
+				
+
+-> Controller, but in detail
+	-> @Controller - Makes the class as a Spring MVC class. Tells Spring that endpoints are exposed via this class.
+	-> Now, we are gonna perform few operations like get, post, put, delete.
+		-> These operations should either return nothing or JSON/XML data to the client
+		-> For this to happen, we use @ResponseBody annotation - Converts the Java object to JSON and sends back to the client
+	
+	-> To use both @Controller and @ResponseBody, Spring provides us with @RestController annotation
+	
+		-> We can further use GET, POST, PUT and DELETE here.
+			-> GET
+			-> PUT
+			-> POST
+			-> DELETE
+			
+		-> @GetMapping
+			-> This returns something to the client.
+			-> This could be anything like a static content of Strings, images or some Java Beans
+		
+		-> Extra point - Direct URI for getMapping works, but we can also provide a general URI before specifiying other REST endpoint URI's
+			-> This can be done using  @RequestMapping(path = "api/v1/App")
+			
+	-> We can also return Java object to the user via GetMapping and returning an object like 'User' or 'Student'
+		-> Spring MVC internally uses jackson library to convert an object into json
+		-> Jackson is message converter
+		
+	-> While we are creating rest endpoints, there is a scenario when we might have to handle some path variables.
+		-> What are path variables?
+			-> Path variables are some extra parameters provided in the end point URI. Example
+				-> http://localhost:8080/api/v1/students/getStudents/<path_var_1> ...
+			-> Some standard examples include adding student's name (firstname and lastname) in the path variable itself.
+		-> How does this work?
+		
+		In below example, when the URI is hit, http://localhost:8080/api/v1/students/getStudents/chitransh/saxena
+			-> the endpoint has 2 template variables, firstName and lastName, which will understand chitransh as the firstName and saxena as the lastName
+			
+		@GetMapping(path = "{firstName}/{lastName}")
+		public Student getStudentWithPathVariable(String firstName, String lastName) {
+
+			return new Student(firstName, lastName);
+		}
+		
+		-> But the mapping of template variable to actual value does not happen automatically, we need to bind that.
+		-> How does that happen?
+			-> @PathVariable annotation.
+			
+			@GetMapping(path = "{firstName}/{lastName}")
+			public Student getStudentWithPathVariable(@PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName) {
+
+				return new Student(firstName, lastName);
+			}
+			
+	-> What we saw above were path variables, i.e. the URI template has the information and that is then bound to the method's paramters
+	-> Now, we are going to talk about query paramters.
+	
+	// http://localhost:8080/api/v1/students/getStudentViaReq?firstName="Malkhan"&lastName="Tika"
+    @GetMapping(path = "/getStudentViaReq")
+    public Student getStudentWithQueryParam(@RequestParam(name = "firstName") String firstName,
+                                            @RequestParam(name = "lastName") String lastName) {
+
+        return new Student(firstName, lastName);
+    }
+	
+	-> The point of concern here is, we are talking about almost 2 very similar things via queryParamter and pathVariable, so what is the point of these 2?
+		-> https://stackoverflow.com/questions/13715811/requestparam-vs-pathvariable#:~:text=2)%20%40RequestParam%20is%20more%20useful,services%20where%20URL%20contains%20values.&text=Both%20the%20annotations%20behave%20exactly%20in%20same%20manner.
+		
+		-> So internet has bunch of differences, but here are few which I understood with my peanut brain
+		
+			-> @PathVariable - This extracts data right from the URI itself
+			-> @QueryParam - This extracts data from the query paramter (firstName="Rajesh"), so here firstName is the paramter and Rajesh is the data which is understood by the API
+		
+			-> @PathVariable is more suitable for RESTful web services where URL contains values.
+
+			-> Major difference
+				-> @RequestParam cannot specify default values
+				-> @PathVariable can do this.
+				-> @RequestBody
+					-> 
+	
+	-> PostMapping
+		-> HTTP Post request
+		-> Create part of CRUD operations.
+		->  @PostMapping(value = "/something", produces = MediaType.APPLICATION_JSON_VALUE)
+			public ResponseEntity<ServiceResponse> myMethod(@RequestBody ServiceRequest serviceRequest) {};
+			
+		-> @RequestBody annotation basically maps the http request body to the entire object.
+			-> Internally, the object is deserialized from JSON to a Java object.\
+			-> By default, the object type we put in @RequestBody must be in line with what we send as request.
+			
+	
+	
+	-> DAO Layer
+		-> Data Access Object.
+		-> We deal with database here.
+		-> Mark the impl class with @Repository
+		
+		
+					
+				
+				
+######################################################
+
+Spring Boot Project Architecture
+
+-> Client sends some request via APIs, then it has to go through the following layers.
+	
+	-> Model
+		-> Here we can define the entities which later might go in as JPA entities, but it is the model or the structure of the data that we are going to operate on.
+		-> Few pointers for the entities present in Model package
+			-> @Data - We can annotate the class with this, it internally uses @Getter, @Setter, @RequiredConstructor etc ...
+			-> @Entity - This annotation specifies that the class is an entity
+			-> @Table - This provides the table with which this entity is mapped.
+				-> Inside this class, we can have a variable which will act as the primary key, that variable could be int id or long id ...etc.
+					-> This is done using @Id.
+				-> Also, for this primary key generation, we need a strategy, this can be controlled using
+					-> @GeneratedValue(strategy = "")
+			
+		-> So, once we have a class with all the above attributes properly marked, Hibernate will generate the table into the DB mapped via properties file.
+		-> One big clarification, in this component "Model", we create entities which are basically tables in the DB, but this does not make this as "DAO" component
+			-> The function of that component is to act as an interface between the developer and the operations we perform on the DB using the entities generated in the "Model" component.
+		-> Sometimes the model class is annotated with @Component when JPA / Hibernate is not involved.
+			-> So, basically we are creating a custom bean here and providing it to Spring IoC
+			
+		
+	-> DAO - Here is the logic to store the data in DB or any persistance layer
+		-> So, this is usually an interface which extends JpaRepository<1, 2>
+			-> Here 1 and 2 are arguments
+				-> 1 = Name of the entity which we want to handle, for example, Employee, Student etc.
+				-> 2 = Type of the primary Key, usually int or Long
+				
+		-> Usually we do NOT need to add @Repository annotation because extending to JpaInterface already does that.
+		
+	
+	-> Exception
+		-> So, this one is basically a matter of choice and programming practise
+		-> Here we define whatever exception we want to handle
+		-> We also use @ResponseStatus() annotation
+			-> So, whenever this class of exception will be toggled, the client will see the Status sent by @ResponseStatus annotation
+			-> Example
+				-> In case we are making an exception for ResourceNotFoundException, so we can annotate this class with @ResponseStatus(HttpStatus.NOT_FOUND)
+					-> What this will do is, that when the exception is hit, and we know that resource was not found, the annotation will send the HTTP status of NOT_FOUND to the client.
+					
+	-> Service -  Here is the business logic, where the programming logic of what to do with the client's request is there.
+		-> The structure of the Service component / layer is a little more abstract
+			-> It has 2 componenets
+				-> Service Interface
+				-> Service Implementation
+			
+		-> So, for each kind of service, first we create an interface and then an implementation class for that
+		-> And so the actual implementation will look something like this "public class EmployeeServiceImpl implements EmployeeService"
+		
+		-> Now, for example, we want to save one Employee entity in the DB via some api whose logic actually resides in the Service component
+			-> So, for any job, we are going to define the method definition in the interface and then implement that in the Impl class.
+			-> In case of saving an employee, the interface method will look something like this. => Employee saveEmployee(Employee employee);
+			-> In Impl class, this will look something like this. =>
+				
+				->	@Override
+					Employee saveEmployee(Employee employee) {
+						return null;
+					}
+				-> So now the topic to think is, how do we tell what employee is this? Do we create the object here? Do we use some contructor or do we use some getter.
+				-> Decision of Constructor based injection or Setter based injection
+					-> Whenever we have mandatory paramters, we use constructor based injection and whenever we have optional paramters we use setter based injection
+					-> Still need clarity on this.
+				
+				-> But still, how do we save the Employee using this implementation?
+					-> We need to save the employee in the DB, so we use the DAO's method "save"
+					-> Before this, we need to have an instance of DAO or EmployeeRepository
+						-> And create a constructor for this.
+						-> Usually we have to do @Autowired for the configuration, but in case a class is "Spring Bean" and it has only 1 dependency injection, @Autowired can be omitted.
+					-> Once we have the instance, we just use the save method.
+					
+					@Override
+					Employee saveEmployee(Employee employee) {
+						return employeeRepository.save(employee);
+					}
+					
+					
+	-> Controller - Contains the REST endpoints which will handle all those requests in some manner
+		-> These manners are mostly 
+			-> GET
+			-> PUT
+			-> POST
+			-> DELETE
+			
+			
+			-> POST is used to save an Entities details into the system via REST endpoint.
+				-> A general structure looks like this.
+				@PostMapping(name = "/saveEmployees")
+				public ResponseEntity<Employee> saveEmployee(@RequestBody Employee employee) {
+
+					return new ResponseEntity<Employee>(employeeService.saveEmployee(employee), HttpStatus.CREATED);
+				}
+				
+				-> NOTE:
+					-> The return type of ResponseEntity because it serves multiple purposes. It controls entire information of status, header etc.
+					-> How the paramter has @RequestBody
+			
+	
+#################################################################
+
+13-10-2021
+	
+	-> Create a raw spring boot project from the initializer and add dependencies
+	-> If you miss out any dependency, you can add later in pom.xml file
+	-> Create packages for all the various components (Service, Controller, Entitity, Repository)
+		-> Started with first creating few entities like Department
+		-> To make a class as an entity so that it can interact with the database, using the JPA, we need to annotate the class with @Entity
+			-> Just like all the tables in DB, you need primary key, and to define which field will be primary key, you need to annotate with @Id and strategy for the generation
+		
+		-> For Services,
+			-> We create a service interface and a class implementing the service.
+
+		-> For Repository, we create interface which basically extends the JpaRepository
+			
+			-> Save the entity to DB - Use POST Mapping - This basically posts the entity to DB.
+			-> Fetch the already present data from the DB - GET Mapping
+				-> What is Optional<Student>, I used this to findById()
+			
+			-> Another way to fetch by ID is to use Path Variable (value = "/getStudents/{id})
+		
+			-> Delete student from the student database. - DELETE Mapping.
+			
+			-> One more variation of the get mapping is findBySomePropertyName, example findStudentByName.
+				-> This is a little different from findById, because for this we get direct method from JpaRepository, but for this case, we need to make some modifications
+		
+	
+
+###################################################################
+
+-> What if a microservice application goes down? How to make it fault tolerant?
+	-> What I already learnt from Nielsen?
+		-> Horizontal scaling (Run multiple instances of the service)
+			-> Make this application available on multiple servers and use some load balancer or API gateway to make call to these service
+			-> If one service is down, call to another service could be made.
+-> What if a microservice is slow?
+	-> Understanding the reason
+		-> DB calls
+			-> Implement caching
+		-> Network latency (latency = amount of time to capture a packet of data)
+			-> Not sure how to handle this.
+		-> Code level optimization
+		-> Threads
+			-> One thread might have held something.
+			-> Solution for this
+				-> Adding timeout to the code here.
+	
+-> How to add common path to endpoint mappings like /v2 to all API Mappings?
+	-> RequestMapping(value = "/v2")
+		-> This only works for one file
+	-> If this needs to be done for all files
+		-> server.contextPath or server.servelet.contextPath = "/v2"
+	
+
+-> @RestController Vs @Controller
+	-> First, we need to understand the difference between a web application and REST API
+		-> Web Application is something that is supposed to be human readable (made of HTML + CSS + JS)
+		-> REST API is something that is to be understood by some REST client.
+			-> REST API returns JSON or XML that is supposed to be read by the client.
+	
+	-> Now, @Controller maps the model object to a view or template and makes it human readable.
+	-> @RestController simply returns object and object data is directly written into HTTP response as JSON or XML.

@@ -1,0 +1,58 @@
+-> Load Balancing - The concept of having a service running on n number of servers and balancing the requests amongst those n servers is called Load Balancing.
+
+-> How can this be achieved? One approach could be using consistent hashing. Let's see simple Hashing for Now.
+
+-> The approach is simple.
+	
+	1. We can assume that each request to a server is having at least one unique id called request_id.
+	2. We can then devise a hash function to which we can pass that id and it will return an integer to us.
+	3. Now we can apply some mathematics and formulate a way to direct the request to a particular server based on the Integer we get after all the calculation
+
+
+
+########################################################################################################################
+
+Load Balancer typically distributes the incoming requests from the clients to healthy servers in a logical fashion programmed by the architects
+
+-> This logic could be based on any thought process
+	-> Load should be in round-robin fashion in case of horizontally scaled application
+	-> Load should be in such a way, that first 1 server is totally loaded to use maximum CPU capacity
+	-> Prevent usage of unhealthy servers
+
+-> Usually reverse proxies (which take care of requests coming in from clients) are programmed with the logic to distribute the load among servers in some fashion
+-> nginx is one DNS gateway service which does the work of reverse proxy and load balancer too
+-> Load balancers could also be programmed to re-route the same user to same client
+	-> This could be for several reasons, one such reason could be caching
+	-> If caching is done on NAS storage level (Network Attached Storage, this can be accessed by all the servers), then above logic might not be needed
+
+Layer 4 Load Balancing - 
+	-> Looks at the 4th Network Layer (Transport Layer) to decide how to distribute requests
+	-> This involves looking at source, destination IP and ports in the header.
+		-> IT DOES NOT LOOK AT THE CONTENT OF THE PACKET
+
+Layer 7 Load Balancing - 
+	-> This looks at the application layer and decides how to distribute the request
+		-> The header, message, cookies etc.
+	-> This LB reads the messages, and makes a load balancing decision
+
+	-> Example - A video request would be forwarded to a video hosting server.
+		-> A simple text request would be forwarded to a text related lighter server
+
+
+Disadvantages of a load balancer
+	-> Can create a performance bottleneck if not configured properly or lacks resources
+	-> Sometimes increases complexity
+	-> A single load balancer is a single point of failure
+		-> But multiple load balancers increase the complexity
+
+###############################################################################################################################
+
+PERSONAL CLARIFICATION
+
+How does the load balancer using Redis works?
+
+-> Write a simple script to upload the metrics to redis cache in each server which you we are gonna use
+-> This service will be running in a while(true) state in each of the server, thus updating the metrics in redis cache always
+
+-> When a request is created to run a order
+

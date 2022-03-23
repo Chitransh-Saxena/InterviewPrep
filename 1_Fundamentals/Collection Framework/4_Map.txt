@@ -1,0 +1,75 @@
+Map
+-> Map is the interface which is implemented
+
+Map<Integer, String> m = new HashMap<>();
+
+-> m.put(k,v);
+-> m.get(k);
+-> m.contains(k);
+-> HashMap stores unique keys
+    -> In case of new value for same key, updates the  value at that key
+
+-> m.getOrDefault(k, default_if_no_key)
+
+for(Map.EntrySet<String, Integer> e: m.EntrySet()) {
+
+    e.getKey();
+    e.getValue();
+}
+
+for(String k: m.getKeySet()) {
+    k;
+}
+
+-> TreeMap
+    -> Sorts the keys, uses binary search tree
+    -> Sorts the strings in lexographical order
+
+Understanding Internal Functioning of a HashMap
+
+        hashMap stores a key value pair
+        Internally, for each key, it generates a hash value, and then that is stored as key.
+            -> And for this key, we store a value
+        -> Now, java usually converts all primitive types of data as integer once it is converted into a hash code
+        
+        -> Insertion, Find, and deletion happens in O(1) time in HashMap.
+            -> So, from this we understand that for hashcode, there is no looping, there is just a formula involved
+        
+        -> Java also provides an override for the HashCode function for custom classes where directly finding hashcode could lead to collisions with default method
+
+        *** But why do we need hash function? Why don't we directly store the key's original state as a key? Why do we convert it into a hashCode and do it?
+
+        Hash Table (insert into Map)
+
+            -> Hash Table is basically an array of Type Node. Node[] HashTable = new Node[N];
+
+            -> Node class looks like this
+                -> class Node{
+                    K Key;
+                    V Value;
+                    int Hash;
+                    Node next;
+                }
+            
+            -> So, for example we have some element (example: 10) to be inserted into an empty Map
+                -> K = 10, V = <any number, does not matter>, Hash = function(K), next = null (for now, if we have some element which could have same Hash output as this, then next will point to Node of that Key)
+                -> So, let's assume that we have some hash function which is doing some mathematical calculation, and it gives us some number
+                    -> We can discuss later how a good hash function should be formed
+                -> So, we will go the index = Hash in the HashTable, and store the Node over there (K,V,Hash,next)
+                -> If, we already have some Node in that index, then we should store this current element as `next` of the already existing element over there in that Hash Index
+
+            -> So, above basically explains how a data is inserted in the Hash Table
+
+        How does get() work in HashMap?
+            
+                -> Basically calculate the Hash value of the Key
+                -> Based on the output, go to the index, and fetch the element, if not present, give default value
+                -> If more than one element are there in that index and current element is not the element that we want, so we would traverse that linked list until we get our element or list finishes
+
+                -> Because of the linkedList traversal the complexity of the get function becomes O(1 + len_of_chain_at_index)
+
+                -> So in Java8, one thing was introduced regarding this chain length
+                    -> If the length of the chain crosses a certain limit, then the linked list is reconstructed into a self balancing binary search tree
+                    -> Why was this done?   
+                        -> Because now the look up time is not O(len) anymore, it becomes O(log(len))
+    */

@@ -1,0 +1,13 @@
+For Each
+    -> By default, we have external for loops
+    -> List<Integer> li = {1,2,3,4,5};
+        for(Integer x: li) {
+
+            SOP(x);
+        }
+    
+    -> Above will work just fine and is called external for loop
+    -> From Java 8, we have internal loop
+        -> li.forEach(i -> SOP(i));
+        -> Advantage
+            -> This is much faster than external for loop.

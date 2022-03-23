@@ -1,0 +1,51 @@
+What is database sharding?
+
+    -> It is basically splitting the database into multiple physical servers
+    -> Why?
+        -> Based on size of DB in 1 server, it is sometimes faster to look up in smaller chunks
+
+How is it different from indexing?
+
+    -> Indexing is splitting in the same machine, sharding splits across different servers
+
+Horizontal Sharding
+
+    -> Basic Sharding - Splitting rows into multiple servers
+        -> Row 1-5000 in Server A, 5001 - 10000 in server B ...
+
+Vertical Scaling - 
+
+    -> This is kind of like Normalization, where the Table is split based on columns
+
+
+-> What is normalization and different types of normalizations
+	-> It is way of organising data to avoid any duplicacy and redundancy
+	-> There are various levels of normalization forms
+		-> Base - 1 NF - All the cells must have a single value
+			-> This can lead to uniqueness of one particular column, but duplication of another
+			-> To clean this duplication of another column of data, we move on to 2NF
+		-> 2-NF -  Database should be in 1 NF and should have a single column primary key
+			-> So, practically this could divide the tables into 2 different tables to avoid duplications and maintain unqiueness of the data
+			-> But, after adding a primary key and dividing them into a different tables, we can see there might be some columns in Table B where primary key of table A is repeated
+			-> This is why we need 3 NF here
+		-> 3-NF - Database must be in 2-NF and should not have any transitive functional dependency
+			-> Transitive functional dependecy is basically when one column tells about another, and with that, we can know about third column
+			-> Example, we have a table like this {book, author, author_age}
+				-> Here, if we know book, we know the author, and thus the author_age
+			-> So, to implement this, we kind of divide the table into even more table (non-dependant columns)
+				-> This helps in lowering the redundancy even further
+		-> BCNF - Used when database is in 3rd NF, but still some anamolies present
+			-> Anomalies like, more than 1 candidate key
+
+
+Key Based vs Range Based Sharding
+
+    -> Key Based is the concept where the key is converted to a Hash. A concept very similar to Hash table is used.
+    -> The data is split across several servers based on this Hash
+    -> Why we do this?
+        -> For really high amount of data
+    -> Problems?
+        -> Performing queries which are range bound is sort of slow
+
+    Range Based
+        -> Row 1-5000 in Server A, 5001 - 10000 in server B ...

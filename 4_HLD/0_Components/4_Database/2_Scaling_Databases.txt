@@ -1,0 +1,31 @@
+There are different ways to scale a database
+
+1. Master - Slave Replication
+2. Master - Master Replication
+3. Federation
+4. Sharding
+5. Denormalization
+6. SQL Tuning
+
+
+
+Master - Slave Replication
+    -> When a write happens, it happens to master
+    -> This is then replicated to slave nodes
+
+    -> So, read happens from either slave or master nodes
+    -> But write happens only to master nodes
+
+Master - Master Replication
+
+    -> These are basically 2 DBs serving same requests
+        -> Kinda like horizontal scaling with RAID mirroring
+
+Federation
+
+    -> Database is split into multiple based on categories
+    -> This results in less read and write traffic for all.
+
+Sharding 
+    -> Different Rows are stored in differnt physical machines
+    -> Helps lower the traffic to one server

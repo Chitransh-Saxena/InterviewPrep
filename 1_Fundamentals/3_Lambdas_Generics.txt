@@ -1,0 +1,15 @@
+Lambda Functions
+    -> It is a one line function.
+    -> It is inline (in C++)
+    -> Ex.
+        -> int sum (int a, int b) {
+                return a + b;
+        }
+
+        -> So, now if we have a list of numbers where we want to perform this operation of addition
+        ArrayList<Integer> li = new ArrayList<>(Arrays.asList(1,2,3,4));
+
+        li.forEach((item) -> SOP (item + 1));
+
+        -> here item represents each item one by one.
+    -> LHS of arrow has parameters and RHS of the array contains the body of the function.

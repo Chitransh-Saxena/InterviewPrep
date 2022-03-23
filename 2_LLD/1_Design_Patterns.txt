@@ -1,0 +1,141 @@
+-> What is a Design Pattern?
+    -> Typical, pre-made templates to problems occuring in the day to development of softwares.
+    -> A pattern cannot be copied and pasted, but it can surely be adapted and your code base can be based upon a pattern.
+
+-> Classification of patterns
+
+    -> Creational patterns
+        -> This provides object creation flexibility and re-usability.
+
+    -> Structural Pattern
+        -> How to assemble objects and classes into one larger structure, while still keeping the design flexible and efficient
+
+    -> Behavioural Pattern
+        -> Take care of effective communication and assignment of responsibilities among differnt objects
+
+-> Creational Pattern
+    -> Factory - Based on the input, we instantiate the necessary object and laod those functionalities
+        -> Use this when we do not know in advance the type of request that might be coming
+        -> Uses SIP and OCP principle of SOLID.
+    -> Abstract Factory
+        -> Lets us create related objects without specifying their concrete class
+        -> Create the interface for the basic family
+            -> Then create various variants of the objects by implementing the base_family properties.
+        -> Implements SIP and OCP principle
+    
+    -> Builder Pattern
+        -> Create complex immutable objects from another complex object.
+        -> Example - How HttpRequest is built using URI builder. That is the builderpattern in use.
+            -> new Request.Builder()
+            .url("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY")
+            .build(); // defaults to GET
+        -> Typically have a giant base class with all the possible things in mind, set constructor value to true or false based on requirement.
+        -> Based on SIP, not OCP because things can change.
+
+    -> Prototype
+        -> Pattern that allows us to copy existing objects without making the code dependent on the class
+            -> clone() method or a deep copy using constructor.
+        
+    -> Singleton
+        -> One single object for across the scope of program
+        -> Database connections, logging object ....we only need 1.
+        -> Create the object in the getter, mark the constructor as private and return the obejct via getter each time.(if exists, return object else create one and return)
+        -> Violates SIP - Pattern does 2 things at a time.
+            -> Need to take care in multi-threaded environment.
+
+
+-> Structural Design Pattern
+    -> Adaptor
+        -> Allows objects with incompatible interfaces to collaberate
+        -> Example - You fetch data in XML format, but you use a library which uses json for the works
+            -> So, you use a adaptor to convert from XML -> JSON.
+        -> It increases the complexity, but if it is necessary, it has to be done.
+    
+    -> Bridge
+        -> This is based on Association property of composition.
+        -> Say we have a parent class Shape and children classes circle and square.
+            -> We want to incorporate color to them.
+            -> So, one way is to have another color interface, but this will increase complexity like redCircle, blueCircle, redSquare ...etc.
+            -> What we could do, add a Proprty of Color in the Shape itself.
+                 -> Shape 'owns a' color. (Composition) {Aggregation is a 'has a' association, like Department has a student)
+        -> Based on SRP and OCP.
+    
+    -> Composite
+        -> Let's you compose a tree of complex objects and let's us work such that this one tree is a single object.
+        -> Use only when the core model of the application can be represented as a tree or heirarchial structure.
+            -> And once we have a tree like structure, for anything we like, we can do a tree traversal.
+        -> Based on OCP principle.
+
+    -> Decorator
+        -> Attach new behaviour into an object by wrapping this object into another special object.
+        -> This kind of requirement arises when we are supposed to implement multiple behaviours at the same time.
+            -> Like there is a Notification class.
+            -> If you like notificaiton via Facebook, we can have FacebookNotification, if via SMS, we can have smsNotifcation ...etc.
+                -> But if someone asks for notification at all channels, do we call instance of each class?
+            -> In this case we use Aggregation and Composition.
+            -> So, we can provide a baseDecorator object which will tell all the communication channels needed
+    
+        ***** still not clear
+
+    -> Facade
+        -> Provides simplified interface to a library.
+        -> Example - We have a library that fetches data from cloud in parquet format and gives us something in return.
+            -> Now, we want that returned data to be more in the kind of format which we want.
+            -> So, we will do some filteration ..... but since it is needed everytime, we are not gonna do it everytime.
+            -> We will create an interface between that library and our core application.
+            -> Now, this interface could do all the work, and the code is in just one place
+            -> Also, in future if we want to make changes to implementation of interface, it is just done in place, 
+                -> otherwise it would have been done in all the places the library is used.
+        
+    -> Flyweight
+        -> Let's us fit more data into the RAM.
+        -> This is basically cache.
+    
+    -> Proxy
+        -> Let's you provide a substitute for another object.
+
+
+-> Behavioural patterns
+
+    -> Chain of Responsibility
+        -> Instead of adding functionalities to current system
+        -> We can extend the work to other APIs and let the chain continue.
+        -> This is on the basis of OCP and SRP principle, but it can increase network latency sometimes.
+    
+    -> Command
+        -> Turns request into a stand-alone object that contains all the informations.
+        -> Example - RequestBody param in endpoints.
+    
+    -> Iterator
+        -> Let's us traverse over a collection of objects.
+
+    -> Mediator
+        -> @Controller
+        -> Takes care of how the communication happens.
+    
+    -> Momento
+        -> Save and let's you restore previous state of any system
+        -> How does the ctrl + z work on most things?
+            -> Maintains a history of each item (kind of like stack)
+    
+    -> Observer
+        -> Publish-subscribe model is based on this.
+    
+    -> State
+        -> Change the behaviour when the internal state changes
+        -> Finite State Machines are based on it.
+            -> Apache commons scxml2
+    
+    -> Strategy
+        -> 
+
+    -> Template
+        -> Defines a skeleton of the behaviour and let's subclasses decide the behaviour at runtime by @Override methods.
+
+
+
+Microservices
+    -> Circuit Breaker Pattern (For fault tolerance)
+        -> If some resources are being heavily used (or more like wasted) on one particular service, we can hold off sending request to that service for a while
+        -> Real life example:
+            -> When assignSchedule(HR-Scheduling-Service) call fails in OrientationService even for one candidate, we skip the further functionality and break the process.

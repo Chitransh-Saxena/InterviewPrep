@@ -1,0 +1,150 @@
+
+#######################################################
+
+*** NOSQL ***
+
+NoSql is a collection of data items represented by key-value store, document store or a graph database
+-> Data is denormalized and joins are done in application itself
+-> NoSQL lacks ACID properties.
+
+-> Just like distributed systems are based on CAP theorem, NoSQL DBs are based on BASE theorem
+
+BASE 
+	-> Basically Available - Guaranteed availability
+	-> Soft State - The state may change without any input
+	-> Eventual Consistency - System will become consistent over time if no input is present
+
+
+Keys are stored in a kind of Hash Table with some hash value associated to a key
+-> This improves the access time
+
+
+
+
+Graph Database
+-> Each node is record, and each edge is a relationship between those two records
+-> Graph databases are optimized to represent complex relationships with many foreign keys
+	-> They are good for multiple many to many relationships
+
+-> Offer high performance for data models with complex relationships such as a social network
+
+
+#######################################################
+
+What is Redis ?
+
+-> It is a popular key,value in memory stored, cache database
+-> We can also call this a message broker.
+-> This also considered one key database in cloud deployment
+-> It uses nosql approach
+
+-> So, on enterprise level PG, Sybase are good, but when it comes to cloud,
+Redis is the kind of DB that we want.
+
+
+
+Advantages of Redis
+
+-> It is in-memory database, that means it is a cache.
+-> But this does not mean that we should use it in database too, in database
+this will be fast, but it is not necessary.
+-> Because for a thing that is as complex as enterprise level database,
+caching will not be simple, and it will complicate things more than it is
+giving us profit. (Better to focus on optimizing the queries, reducing the
+indexing, paritioning the database ...etc)
+
+-> Redis is persistent - Even though it is in-memory and it should be
+volatile, but it is persistent. It kind of keeps snapshots of db
+asynchronously ... maybe ???. So, simply put, it is a key, value storage
+that is persistent.
+
+-> Message Broker - Publish and subscribe works properly.
+
+-> In short, Redis is a messaee-broker, a cache and a database.
+
+
+
+IN-MEMORY KEY VALUE STORE - 
+
+-> A regular database is a very structured system which follows a certain
+schema. We have to define keys, columns,the type of data we are going to enter
+in those fields, default values ...
+
+-> A regular DB is ACID compliant. It means to maintain it's integrity as a
+database, it has to follow certain ACID peroperties
+	A. -> Atomicity : A transcation is an atomic unit, instructions in a
+transaction will either execute totally, or not at all.
+	C. -> Consistency : A database should be consistent and should remain
+that way, if the value is succesfully updated, then it is fine, but if a
+transaction fails, the values should not be partially updated, they should
+roll back to last successful state.
+	I. -> Isolation : If multiple transactions are running concurrently,
+they should not affect each other. (We can talk about locks related to this)
+	D. -> Durability: Changes done should remain in the case of system
+failure.
+
+-> Redis does not follow ACID or schema. It is nosql, it is against sql.
+-> It is just a key value pair. It is very flexible for the type of data we
+can use for data. Key is mostly string ( or maybe always).
+-> So, apart from being a nosql database, it is IN-MEMORY.
+
+-> So, in-memory means it does not store in the disk, daatabases store in the
+disk, redis not does not. And since they are in-memory, being structurally
+closer to CPU gives them insane advantage in terms of reading overhead.
+-> When a disk is involved, I/O happens, which makes stuff slow, in-memory
+doesn't do that.
+-> But if it is in-memory, how does it maintains it's persistency? Because
+cache is volatile, as soon as power goes down, it loses it's data, why doesn't
+redis lose it's data? There is another thread that spins and writes to disk
+(if necessary).
+
+-> It is single threaded. How does it affect stuff?
+
+
+
+OPTIONAL DURABLITY
+
+-> Journaling, logging only to AOP. (Another thread that does this)
+-> Snapshotting - Logging each transaction to disk can cause delay. So, every
+'n' seconds, Redis takes snapshot of what is in-memory, serialize it to binary
+format and flushes it to disk.
+	-> There is no user intervention in this.
+
+-> Both of the processes happen asynchronously in the background
+
+
+
+TRANSFER PROTOCOL
+
+-> Uses TCP. (Why don't they use HTTP?)
+-> Request / Response model just like HTTP
+-> Redis has it's own message format. RESP (REdis Serialization Protocol)
+-> One can think why didn't they use any other messaging queue ? For example
+Protocol Buffer? Well, I think protocol buffer is highly schema based, and
+redis does't have one, it would have been very complicated to send messages
+correctly.
+
+
+PUB / SUB
+
+-> Redis supports publish subscribe model.
+-> So, once a client subscribe to a channel, and when server publishes
+something of that topic, client will recieve that message
+-> Switches to push model when required
+
+
+
+REPLICATION / CLUSTERING
+
+-> Replication - This kind of replicates the data. There is one leader /
+master node that we write everything to it, and all the followers pull data
+asynchronously and we can point clients to read from those follower nodes.
+This enables scaling.
+
+-> Clustering - Shard data across multiple nodes. We split our data into
+multiple nodes. So, when we have a large number of rows, we split our data and
+say okay, first 5k go to shard 1, second 5k to shard 2 ... and so on. This
+uses consistent hashing to distribute all this.
+
+-> Hybrid - So, there will be multiple leader nodes (Shard1, shard 2, shard 3
+...), which will replicate their data to follower nodes.

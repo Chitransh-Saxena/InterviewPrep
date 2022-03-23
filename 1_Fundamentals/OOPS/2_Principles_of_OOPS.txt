@@ -1,0 +1,128 @@
+Properties of OOPS
+
+Inheritence
+    -> Child inherits properties from parents.
+    -> Class Chilsd extends Parent {}
+    -> Inside the constructor of child class.
+        -> super(args) can be used to call the constructor of parent class.
+
+    -> Complex concept here
+        -> Parent obj = new Child(args);
+            -> Can this obj access parent class entities? YES   
+            -> Can this obj access child class entities? NO.
+            -> Why?
+                -> Because it is the type of reference variable that determines what members can be accessed.
+                -> In this case, obj is of type Parent.
+            -> Here, the object is of type "Parent" which is referencing to an object of type "Child"
+        -> Child obj = new Parent(args)
+            -> This will give error. Won't even execute.
+            -> Why?
+                -> In simple terms, an object gives access to members of that class.
+                -> Child class has x number of items and Parent has y number of items.
+                -> In above statement, we created an object of type "Child", so by default it has access to "Parent" items.
+                -> It also has access to it's own items because (Child c = new Child(args)) would obviously work.
+                -> Problem here is, 'new Parent(args)' is only intiializing the parent items and Child class items are still not initialized.
+                -> So, that's why, this statement in itself is throwing error.
+    -> "super" keyword
+        -> If I put this in any random class which does not have any parent class, it will not give error.
+        -> Because each class is derived from "Object" class.
+        -> super has 2 use cases
+            -> Super class constructor
+            -> Access keywords of the super class.
+    
+    -> Types of Inheritence
+        -> Single Inheritence - One class extends another.
+        -> Multi-level inheritence - one class extends another which extends another.
+        -> Multiple Inheritence
+            -> One class is extending from more than 1 class.
+            -> One class has more than 1 parent class.
+            -> Class Child extends Parent1, Parent2 {};
+                -> Now, for example, If Parent1 has an item x = 5 and Parent2 has an item x = 10; and we do this
+                    -> Child c = new Child();
+                -> 'c' has the items of Parents here, but which parent?
+                    -> x = 5 or x = 10?
+                -> THIS IS WHY JAVA DOES NOT SUPPORT MULTIPLE INHERITENCE.
+                -> THIS IS ALSO CALLED DIAMOND PROBLEM.
+    
+    -> "Final"
+        -> If a class is defined as final, it cannot be extended.
+
+Polymorphism
+    -> Many ways to represent a single entity
+    -> When does it occur?
+        -> It occurs in the case of inheritence.
+    -> Class Shapes {
+
+        public void area() {
+            SOP("Area - Shape");
+        }
+    }
+
+    Class Circle extends Shape {
+
+        public void area() {
+            SOP("Area - Circle");
+        }
+    }
+
+    Class Square extends Shape {
+
+        public void area() {
+            SOP("Area - Square");
+        }
+    }
+
+    -> Now, in main function
+        -> Shapes s = new Shape();
+        -> Circle c = new Circle();
+        -> Square sq = new Square();
+
+        -> If all of these print area, they will print their own respective areas (s.area(), c.area() and sq.area());
+    
+    -> But, 
+        -> Shape s = new Circle();
+        -> Here, the reference type is of Shape, but the actual object is of type Circle. So what will happen?
+            -> Since the actual object is of type Circle, s.area() will call the area() method in Class Circle.
+
+
+    -> Types of Polymorphism
+        -> Static Polymorphism / Compile Time Polymorphism
+            -> Achieved via method overloading
+            -> When a class has multiple methods with same names but either return type or paramters are different.
+        
+        -> Dynamic Polymorphism / Runtime Polymorphism
+            -> Achieved via method overriding
+            -> When a child class has a method with same name, return type and args as the parent class (Only the body is different)
+            -> Child c = new Parent();
+                -> Here, the reference type is of Child but the actual object we are getting is of type parent.
+                -> Reference type defines what is accessible and what is not.
+
+            -> One question here, there is a function with same name and body in parent class as well as in child class. How does java know which to run?
+                -> Dynamic Method dispatch. (late binding)
+                -> Call to an overridden method is resolved at runtime rather than compile time.
+                -> By default, it will run the most derived version (if possible)
+    
+    -> "Final"
+        -> If a method is defined as final, it cannot be overridden.
+    
+    -> "Static"
+        -> Can we override a static method. NO.
+        -> Why?
+            -> We can declare a method in the child class, but we cannot annotate it with @Override.
+            -> Static methods are not overridden because the static block belongs to class and not any object.
+                -> So, no matter what object, we can call the method.
+            -> Overriding depends on object, not class. Since static is independent of the object, hence it cannot be overridden.
+        -> Static methods can be inherited but not overridden.
+
+
+Encapsulation
+    -> Wrapping up implementations of data members inside a class.
+    -> This is to hide the data from the outside world.
+    -> Example: POJO
+        -> Main entities are hidden, but we provide a way to access them via getters and setters
+        -> This way, we can set some rules (conditions in getters and setters) so that they can be accessed based on our choices.
+
+Abstraction
+    -> Here, we hide the complex code (or unnecessary details) and just provide an interface (method) to use that complex code.
+    -> Example: We can use a camera by single click, but the complex image processing that is happening is hidden from us.
+

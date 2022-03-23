@@ -1,0 +1,18 @@
+* ArrayList
+    * When a ArrayList is created by default constructor (new ArrayList<>();), the list which is created is of capacity '10'
+    * When we exceed the capacity, a new memory is allocated of greater size, all the existing elements are copied and new element is inserted.
+    * New capacity is basically (current capacity * (3/2) + 1);
+    * Duplicates are allowed
+    * Insertion order is retained.
+    * null insertion is possible
+    * To a raw ArrayList, heterogenous insertions can be performed
+        * ArrayList li = new ArrayList();
+        li.add(1);
+        li.add("two");
+        li.add(11.22);
+    * If we have elements present at position 1,2,3,4 and we try to do something like this. list.add(1, 20).
+        * This will put item 20 to position 1. But it will not destroy the element at position 1, it will move it one position forward.
+        * And similarly all the elements after 1 will be moved 1 position ahead.
+    * Similar logic will go for delete operation too. 1 position will be retracted.
+    * Fetching an element (list.get(position)) is done in O(1) time.
+        * This happens because ArrayList class implements RandomAccess Interface which is a "MarkerInterface"

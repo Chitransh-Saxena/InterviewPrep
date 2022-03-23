@@ -1,0 +1,87 @@
+Intuit preparation
+
+-> Fundamentals
+	-> How java works internally and Internal working of data structures - Done
+	-> Core Java concepts (300 interview questions)
+	-> OOPS understanding using Java - Done
+    -> Comparators - Done
+	-> Time complexity analysis
+	-> Collection Framework - Done
+
+-> DSA Revision
+	-> Intuit Questions - GFG - Cancel
+	-> Striver DSA Sheet self github
+
+-> LLD Revision
+	-> Design Principles
+	-> Design Patterns
+	-> Design patterns used practically
+		-> Apache Finite State Machine - What pattern is this?
+			-> Uses, benefits
+		-> Builder patterns
+		-> Factory patterns.
+	-> 2 questions of LLD (Bookmyshow + Elevator design etc)
+    -> Recommendation System (elastic search etc)
+
+-> HLD
+	-> All the components
+	-> Understand aspects of scalability, logging etc.
+	-> 3 questions
+		-> Book my show
+		-> Dropbox
+		-> URL Shortener
+    -> Design Recommendation system
+
+-> Basic spring boot setup and working
+	-> DAO layer
+		-> Fetching on the bases of some non-primary key property (select name from table where age > 35)
+	-> Logging in application
+	-> Log4J problem that occured
+		-> Did it affect us?
+		-> What were the measures taken globally
+	-> Custom annotation
+		-> What is it's use.
+
+
+
+Thursday
+
+	-> DSA
+		-> Internal working of DS and how much time these things are taking in add, delete, get operation
+			-> Why that much time is taken? - Done
+			-> What DS is involved? - Done
+		-> Own repo, quick run through.
+
+	-> HLD
+		-> Components - Done
+		-> Question (Interview bit)
+
+	-> Java fundamentals revision - Done
+	-> Spring boot revision
+		-> ResponseEntity actual response
+	-> LLD (Questions)
+
+
+
+
+	-> LLD Questions
+	-> HLD Questions
+	-> Fitment Round Questions
+	-> What intuit does - Finanacial management softwares - TurboTax, QuickBooks, mint etc.
+		-> Quickbooks product
+			-> For businessnes
+				-> Manage sales, expenses, purchase etc.
+				-> Manage employee salaries and other stuff
+				-> Growable based on business.
+	-> Complete PPT
+
+	-> Fitment
+	-> Intro
+	-> What I love doing
+	-> Why want to leave early
+		-> Want to have knowledge of big picture, be part of planning (designing) and then contribute to development
+		-> This way, I am aware of the impact that my work is having
+		-> Not just implementing small methods here and there, want to be part of major developments from start to finish.
+	-> Inuit values
+	-> What intuit does?
+		-> Quickbooks product in detail

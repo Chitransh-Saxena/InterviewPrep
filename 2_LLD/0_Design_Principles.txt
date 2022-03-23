@@ -1,0 +1,46 @@
+SOLID
+
+    -> SRP - Single Responsibility Principle
+        -> One class should do only thing.
+            -> So, if you have a scheduler service, it should only do either kind of scheduling.
+    -> OCP - Open Closed Principles
+        -> Software should be Open for extension, but closed for modification
+        -> Example of Shapes class which has circle or square as a derived class. Any new class can be added, parent shape class need not be disturbed 
+    -> LSP - Liskov Substituion Principle
+        -> Inheritence should only be used when the super class is replacable with sub-class in all the possible methods
+    -> ISP - Interface Seggregation Principle
+        -> Instead of having one major interface, seggregate them into smaller ones, so that when you have to make some changes, you make the changes on the smaller interfaces.
+        -> When you make changes, change the interface should be forcing the changes only on necesary classes.
+        -> class abstract Animal {
+            
+            feed();     // you feed all the animals
+        }
+
+        class dog extends Animal {
+            feed(); // Okya
+        }
+
+        class Tiger extends Animal {
+            feed();
+        }
+
+        If there is a method such as groom(). It is only applicable to Dog, and not the tiger because we only groom domestic animmals.
+        So, if we add this method in class Animal, we need to add it in Tiger class as well to keep the compiler happy.
+
+        So, what is the better idea?
+            -> Have another interface, name it anything like domestic or Pettable ...
+            -> And add the methods which apply to domestic animals here.
+    -> DIP - Dependency Inversion Principle
+        -> Depend Upon the abstraction layer (interface or abstract class) and not the concrete class.
+        -> So, methods should be written in such a way, that we only make a minimal change to the interface or abstraction and get the desired output.
+
+
+DRY
+    -> Don't Repeat Yourself
+    -> The code should be written in a re-usable way.
+    -> Example, if you have some methods to re-used, put them in a custom and shared library, import whenever needed.
+
+KISS
+    -> Keep It Simple Stupid
+    -> The code, must be as simple as possible
+    -> A good developer writes code which runs well, a better developer writes good which runs well and is easily understood by others.

@@ -1,0 +1,18 @@
+What are async messaging systems
+
+-> An asynchronous system could be seen as a environment of multiple entities which do not rely on each other for processing
+-> They have well defined set of events, and basically follow a Event Driven Architecture
+    -> Components perform specified events based on the occurence of the events
+
+How does Message Queue Come in place?
+    -> How do these separate entities know about events?
+    -> There would be nodes which are always listening for new requests, which are basically in certain format, coming from the message queue
+    -> Sometimes immediate response is not expected
+
+    Models of MQ
+    -> Producer Consumer Model
+        -> BlockingQueue is used
+        -> Producer knows about what has to be consumed, from where it has to be consumed, how much has to be consumed
+    -> Publish - Subscribe Model
+        -> Subscribers subscribe to a topic
+        -> When a message is published to that topic, the subscribers actually process the request

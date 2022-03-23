@@ -1,0 +1,58 @@
+Caching in system design
+
+-> What is a cache?
+	-> For any kind of request, we have to fetch result from either some algorithm or some database or some file
+	-> So, for a system where a bunch of users could be requesting for same stuff again and again (maybe a search result of some sort), we can store the result in some sort of cache
+	-> This way, we can save time of reading from disk again and again (saves network calls)
+	
+	-> If we have a system which is hitting the database repeatedly, we can introduce some sort of cache before the database
+		-> This can REDUCE DB LOAD
+		
+	-> So, basically, caching is a storing mechanism which can speed up user responses
+	
+	-> We can NOT store everything in cache, because it is an expensive hardware
+	-> If we store a lot of data in cache, search time will increase and it will be basically similar to regular DB
+
+-> So, how will a typical DB and cache design look like?
+	-> Store almost all the information in the DB
+	-> Store the most relevant information in cache
+	-> Decisions need to be taken for loading and unloading (evicting) the cache. It is called policy
+	-> Example. LRU cache, LFU (Least Frequently Used), Sliding Window
+
+
+Problems in cache (if poorly designed)
+
+	-> If cache is not designed properly, it will be harmful because there will be a call to cache, no response, then a call to DB.
+		-> So, basically this would mean an extra call. Now if this happens a lot, cache is very poorly designed
+
+	-> Thrashing - If our algorithm is loading and unloading cache constantly, and the results are never used.
+		-> In this case, we are hitting cache, not finding result, load the result from DB, respond and load that into cache
+		-> Next time, something else is asked, and same thing happens.
+		-> This is thrashing
+	
+	-> Update queries to the DBs need to be updated in the cache too (Example credentials)
+		-> Basically Data consistency
+
+Where to place the cache?
+
+	-> Either close to DB or close to server itself
+	-> In case cache is closer to SERVER
+		-> Faster IO
+		-> Reduced network calls
+		-> PROBLEMS -
+			-> If the servers are not having shared storage, then in case of outage of one server, we will have cache misses
+			-> Caches of different servers must be either in sync, or the data that is stored must be something which can handle the way servers are designed
+
+
+##################################
+
+For Redis, refer 3_SQL_vs_NoSQL
+
+
+##################################
+
+Content Delivery Network
+
+-> Basically it is a side server, whose single job is to respond to heavy media based requests
+	
+	

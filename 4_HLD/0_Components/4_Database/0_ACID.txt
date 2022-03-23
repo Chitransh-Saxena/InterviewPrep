@@ -1,0 +1,10 @@
+-> A regular database is a very structured system which follows a certain schema. We have to define keys, columns,the type of data we are going to enter in those fields, default values ...
+
+-> A regular DB is ACID compliant. It means, to maintain it's integrity as a
+database, it has to follow certain ACID peroperties
+	A. -> Atomicity : A transcation is an atomic unit, instructions in a transaction will either execute totally, or not at all.
+
+	C. -> Consistency : A database should be consistent and should remain that way.
+        ->  If the value is succesfully updated, then it is fine, but if a transaction fails, the values should not be partially updated, they should roll back to last successful state.
+	I. -> Isolation : If multiple transactions are running concurrently, they should not affect each other. (We can talk about locks related to this)
+	D. -> Durability: Changes done should remain in the case of system failure.

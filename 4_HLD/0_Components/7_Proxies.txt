@@ -1,0 +1,55 @@
+Proxy = Forward Proxy
+
+Forward Proxy
+    -> It is located on the client's front
+    -> If one client is trying to make a connection request to internet, it has to go through a proxy
+    -> Based on the settings of the proxy, the request can be allowed or denied
+        -> Imagine how a hostel network blocks Porn
+    -> From the pov of the server which is responding to this request, there is no user, there is only this pproxy which is user
+    -> This just doesn't allow us to block unwanted stuff, it enforces security measures like authentications, SSLs etc.
+
+
+Reverse Proxy
+    -> This is the proxy placed on the server's side
+    -> Once we ask this reverse proxy to delegate the request based on certain criterias, we have made it as a load balancer too
+    -> Reverse proxy is the one face of the website whose address is shown to the public.
+        -> People access this, and from here it is delegated to the servers
+
+    Advantages of a reverse proxy
+        -> Increased security - Hide info about BE servers, blacklist IPs if needed
+        -> Increased scalability and flexibility - Client's only see the IP of reverse proxy.
+            -> So, you can scale in anyway you want and let the reverse proxy re-direct the client's requests to appropriate server
+
+        -> SSL Termination - Decrypt the requests and encrypt the responses so BE servers do not have to do it
+            -> But wouldn't this make the Reverse Proxy slower and more complex?
+        -> Caching - Can return the response of a cached request
+        -> Static content - Can serve the static content directly
+
+NGINX
+
+-> It is basically a gateway that allows port forwarding so that we do not have to expose the port numbers in the application
+-> It is present for the APIs and their respective war file
+-> nginx also does a load balancing. We can define variables like weight, failure_retries and all that.
+
+So, how does nginx actually work?
+
+-> nginx is a webserver, so it is like an application that is hosted on a certain port. (443 usually)
+-> So, if we have any request to any domain name, like https://myapiURL, since it has 'https' protocol, the request will go to nginx gateway.
+-> Now, the nginx will resolve the request and select which API is it for (there is a separate file with .conf extention which has rules and instructions and port forwarding for each API)
+-> So, now the port will be resolved, the server name is resolved via nginx, and the request will go to that server:port_number
+-> We can have a application hosted on that server:port or we may even be having a docker container running as a service, which is listening for an API request.
+
+-> Also, nginx is wrapped up in a docker container, sometimes.
+-> Since nginx is programmed to be always listening, nginx is always up and running.
+
+
+
+
+
+
+##################
+
+LOAD BALANCER VS REVERSE PROXY
+
+-> Load balancer is required when multiple servers are involved, but reverse proxy could be useful in case of even just 1 server
+-> Things like nginx support both

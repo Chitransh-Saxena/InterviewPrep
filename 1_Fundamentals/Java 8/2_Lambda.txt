@@ -1,0 +1,14 @@
+Lambdas
+    -> These are single line inline functions.
+    -> In previous text (1_ForEach), internal for loop is shown like this
+        -> list.forEach(i -> SOP(i));
+        -> Above was made possible using lambda expression
+        -> LHS of the '->' is parameter and RHS is expression
+    -> Example;
+        A obj;
+        obj = () -> SOP("hey");
+
+        OR
+
+        obj = (i) -> SOP(i);;
+    -> Lambda is implementation of consumer interface.

@@ -1,0 +1,10 @@
+Indexing is the way of examining the rows when searching for some certain data
+
+Could be performed in multiple ways
+    -> Like Sorting on the bases of primary key which is integer, so a basic binary search would do the job for us
+    -> There could be a way of storing the data in the form of Binary Tree
+
+    -> Hashing is another concept, when our key is a non-int type
+
+CREATE INDEX name_index ON Employee (Employee_Name)
+CREATE INDEX name_index ON Employee (Employee_Name, Employee_Age)

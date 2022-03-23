@@ -1,0 +1,461 @@
+Spring Boot interview questions
+-> Why to use?
+	-> Based on JVM
+	-> Connectivity
+	-> Open Source
+
+-> Spring vs Spring Boot
+	-> Spring - web app framwork based on Java || Spring - A module of spring
+	-> Spring - provides tools and applications to create customized web applications || Spring Boot - Create a spring application project
+	
+-> What is spring boot and what is the need for it?
+	-> Spring Boot is a spring module which aims to simplify use of spring framework for Java development
+	-> Creates stand alone applicatins which we can just run directly
+	
+	-> Spring boot comes with
+		-> Embedded HTTP server
+		-> Auto dependency resolution
+		-> auto configuration
+		-> Management endpoints
+		-> Spring Boot CLI
+	
+-> Features of Spring Boot
+	-> Spring CLI - Avoids boilerplate code
+	-> Starter dependency - SB aggregates common features together and eventually improves productivity
+	-> Spring Initializer - spring.io which creates the project structure for us
+	-> Auto-configuration - Helps in loading default configurations
+	-> Spring Actuator - expose information about running the application - health, metrics, info, dump etc. ...
+	-> Logging and Security
+
+-> How to create a Spring Project
+	-> Spring Intializer - Spring.io
+	-> spring boot project wizard
+	
+-> What are possible sources of external configuration
+	-> application.properties
+	-> Command line configuration parsing
+	-> command line args
+
+-> What happens in the background when you run the Spring Boot application as 'Run as Java Application'
+	-> Launches the internal tomcat server when it sees that a web application is there
+	
+-> What are springboot starters
+	-> Dependency providers which can be used in application to enable dependencies
+	-> Example - jpa, jdbc, web, starter test ...etc
+
+-> What is Spring Actuator
+	-> Tells us what is happening inside of a running application
+	-> Provides features like health check, CPU usage, idenitifying beans
+
+-> Steps to connect to JDBC using Spring
+	-> Download dependency (gradle or maven mention)
+	-> Mention port and details either in app.properties or in connection string in code
+	-> Connect bruh
+
+-> How to enable HTTP2 support ?
+	-> server.http2.enabled = true
+	
+-> What is @RequestMapping and @RestController
+	-> @RequestMapping(path = "api/v1/user")
+		-> Tells that any HTTP request mapped to this URL must be mapped to this method
+	-> @Controller marks the class as business layer
+		-> When the request is made, Spring IoC informs  the DispatherServelet to include controller class in scanning of methods mapped by @RequestMapping
+		-> What is DispatherServelet
+			-> Acts as Front Controller in the Spring MVC
+				-> Dispatches the request to the corresponding resource
+			-> What is Request Dispatcher?
+				-> Forwards the request to another resource that can be html, jsp or any other servelet
+				-> Methods used, forward() and include()
+					-> forward() - response of final servelet (forwarded request) is  sent back to client()
+					-> include() - response of servelet2 is appended to response of servlet1 and then sent back to client
+		
+	-> @RestController
+		-> Combination of Controller and ResponseBody
+		-> This annotation makes the current class serve as the Rest End Points
+		
+-> Difference between JPA and Hibernate
+	-> JPA is Data Access Abstraction (for DB basically), used to reduce the boilerplate code
+	-> Hibernate is an implementation of Java Persistance API, offers loose coupling
+
+-> How to create custom endpoint in springboot
+	-> @Endpoint
+	-> @WebEndpointer
+
+-> What is auto-configuration in springboot
+	-> Automatically configures the requried configurations based on the dependencies present in the class path
+	-> Example, if we have a data source bean present in class path template, it automatically configures the JDBC template
+	-> Ways to use
+		-> @Configuration - This tells the spring that the class has @Bean definiton method
+			-> This, in turn allows the spring to automatically create a template and thus generate Spring Beans from this class
+	-> @Bean
+		-> This tells the Spring Container that this class produces objects to be managed by the spring container
+		
+-> Spring Bean Vs Java Bean vs POJO
+	-> Spring Bean - These are basically the objects that are created, managed and configured by the SPring IoC
+		-> They are defined in Spring Configuration file @Configuration and then injected into our application
+	
+	-> Java Bean
+		-> Basically the java classes which adhere to certain standards like 
+			-> class should be public
+			-> Getters and setters must be present
+			-> private attributes
+			-> *Always serialized*
+	-> POJO
+		-> Simple object of any class
+		-> Does not require any framework to be used
+		
+
+-> Differences between @SpringBootApplication and @EnableAutoConfiguration
+	-> @SpringBootApplication - Used in main class or bootstrap class
+		-> It is combination of @Configuration, @ComponentScan and @EnableAutoConfiguration
+	-> @EnableAutoConfiguration - Used to enable auto-configuration and component scanning
+	
+-> What is @Component
+	-> The class will be detected during component scan and registered as Spring Bean
+	-> 
+
+-> Can you give example of ReadOnly as true in transactin management
+	-> When we only want to fetch details from the database and do not want to make any changes to the DB
+
+-> Difference between war file and embedded container
+	-> WAR is a whole packaging
+	-> embedded container is just a module used at the time of implementation
+
+-> Use of profiles
+	-> For dev, qa, prod and all that
+	-> activate a profile using -Dspring.profiles.active = prod
+	
+-> How do cookies work
+	-> It is text sent by the server to client and that is stored in the client's local machine
+	-> javax.http.servelet.cookies implements Serializable and clonable interfaces
+	-> Stored as key value pair in local
+
+-> What is JDBC connection interface
+	-> It maintains the session with the database
+	-> createStatement()
+	-> commit()
+	-> rollback()
+	-> close()
+
+-> What is setter injection and constructor injection
+
+	-> class Employe{
+	
+		String name;
+		int age;
+		Address a;
+		
+		Employee() {
+			name = "name";
+			age = 10;
+			a = new Address();
+		}
+	}
+	
+	main() {
+		
+		Employee e = new Employee();
+		
+		// Here there is a high coupling of Address and Employee
+		
+		// What we can do here is, have a constructor injection (constructor for address type in Employee) or setter injection( have a setter for address)
+	}
+	
+	class Employe{
+	
+		String name;
+		int age;
+		Address a;
+		
+		Employee() {
+			name = "name";
+			age = 10;
+		}
+		
+		Employee(Address a) {
+			this.a = a;
+		}
+		
+		void setAddress(Address a) {
+			this.a = a;
+		}
+	}
+
+-> What is autowiring ? @Autowired
+	-> Enabled to inject the beans automatically
+	-> We do not need to write explicit injection logic
+	-> https://stackoverflow.com/questions/19414734/understanding-spring-autowired-usage
+	
+-> What is Hibernate framework
+	-> Hibernate is java based ORM.
+	-> We just mention the java object, and forget about the database tables
+	-> Hibernate provides reference implementation of Java Persistance API
+		-> Provides loose coupling
+	-> Hibernate can be used via JPA annotations
+	
+	
+-> Hibernate Architecture
+	
+				Java Application
+				persistant object
+	
+	--------------------------------------------
+	Configuration	Session Factory		Session
+	Transaction		Query				Criteria
+	
+	---------------------------------------------
+	
+	JITA			JDBC				JNDI
+	
+	
+	-> COnfiguration reads the configuration file (xml)
+		-> This helps in creating the session factory
+			-> This helps in creating the session
+		
+	-> Session is one API which creates and maintains a connection with the database
+	-> Transaction - Use commit and rollback features
+	-> Query API - select and all those queries
+	
+	-> Criteria - APIs for criteria management like >,<=  (This part is not clear to me as such)
+	
+	So, in Spring, we just create a POJO, and mark it as a bean and give it to hibernate, it will do most of the jobs for us
+	
+-> Why hibernate over JDBC
+	-> Hibernate is for enterprise level heavy application
+	-> Code is reduced in case of hibernate
+	-> Configuration file is there to make easy changes
+	
+	
+	
+-> How does the Spring Bean part actually work?
+
+	-> Consider the use case where we need to fetch some property of some utility from our program
+	-> We could have set it manually somewhere and used getter to fetch that property, this is a good way, but not efficient in case of enterprise applications
+	-> Instead, what we could have done is
+		-> Mark the Class of that property as @Component
+		-> create a getter of that property and mark the property with @Value annotation to fetch that value from application.properties file
+		
+		-> Now, in main program, where we need to use this property, we can do something like this
+		
+			ApplicationContext represents the Spring IoC, it is an interface
+		
+			ApplicationContext context= SpringApplication.run(ClassName.class, args);
+			Property property = context.getBean(Property.class);		// This will give me bean of the property class along with the correct value set in it
+			
+			Now, I can use this property bean
+			SomeInternalClass.someInitFunction(property.getterOfThatProperty);
+			
+	-> Now, the life cycle of the bean will be managed by Spring IoC Container
+	
+-> What is Spring IoC
+	-> Creates the object
+	-> Holds the object in memory
+	-> Injects the value of one object into other when needed
+	
+	
+##################################################################
+
+-> What is classloader?
+	-> Part of JVM
+	-> Load the class to JVM when it is demanded to execute the class
+
+-> What are available memory allocations in Java?
+	-> Stack
+	-> Heap
+	-> Class
+	-> Native method stack memory - Contains all the native methods used in the application
+	-> Program Counter Memory - Keeps track of address that instruction that JVM is currently executign
+
+-> Will the program run if we write 'static public void main'
+	-> Yes, because there are no rules for the order of specifiers
+
+-> Default value in local variable
+	-> garbage value
+	-> But since the compiler complaints for uninitialized variables, it is not easily possible to use uninitialized variables
+
+-> Output of the code segment (Good One)
+
+	-> 
+		SOP(100 + 100 + "Hello");
+		SOP("Hello" + 100 + 100);
+		
+		Output :
+		
+		200Hello
+		Hello100100
+		
+	-> Why?
+		-> In Statement 1, JVM saw 100, an integer and added 100 to it, resuting in 200
+			-> Then it encountered a String, and concatenated it to 200
+		-> In statement 2, JVM enncoutered a string, and when saw '+' operator, it concatenated 100 to it, making Hello100
+			-> Then, it again saw + 100, and concatenated 100 to it's current String 'Hello100'
+			
+-> What is association?
+	-> When an object does not have any ownership over another
+	-> Example: One person has accounts in multiple banks, but no account has ownership over each other
+	-> Similarly, banks do not possess any ownership of the customer, just holds an account
+
+-> Copy Constructor in Java
+
+	-> Class something {
+	
+		public something(something some) {
+			
+			this.field1 = some.field1;
+			this.field2 = some.field2;
+		}
+	}
+	
+	-> Enables Deep copy
+	
+-> Copy Constructor vs Clone()
+	-> To use clone(), we need to import clonable, which might throw exceptions so we have to write complex code for exception handeling
+	-> We cannot assign the value if the fields are final, can do this in copy constructor
+	-> Object returned by clone() must be typecasted, no such requirement in copy constructor
+
+-> What is Marker Interface?
+	-> Empty interfaces are called marker interface
+	-> Serializable and clonnable
+	
+	-> It is basically a label or tag to JVM, so that it can add special behaviour to class implementing it
+	-> Like, in case of serialization, we just implement Serializable and thats all.
+		-> This tells JVM that this class has to be serialized
+
+-> What is Object Cloning
+	-> clone()
+	-> See Copy Constructor vs clone()
+	
+-> Why is Java not completely object oriented?
+	-> I think it still uses primitive data types
+
+-> Define wrapper classes
+	-> Wrapper classes converts primitve data types to objects or references
+
+-> Define Singleton class
+	-> Only 1 object
+	-> Why?
+		-> DB connection object, Logging object ...etc
+		
+-> Define Package in Java
+	-> Package is collective bundle of classes and interfaces with all the necessary libraries and JAR files.
+	-> Helps in code re-usability
+	-> Default access in Java is package-private - all the members are visible from within the package
+	
+-> Can we implement pointer in Java?
+	-> No.
+
+-> Instance vs Local variable
+	-> Instance variable is declared inside the class.
+		-> Limited scope
+	
+	-> Local variable can be anywhere.
+	
+-> What is exception?
+	-> Unexecpted event that can disrupt the flow of program
+
+-> What happens when main is not declared as static?
+	-> Program compiles
+	-> Throws runtime error "NoSuchMethodError"
+		-> Because if the variable is not public and static, JVM cannot directly access it via the class
+	
+-> What is JDK?
+	-> Java Development Kit
+		-> It is Software Development Environment provided by Java
+		-> It includes JRE, the loader(java), compiler (javac) and archiver (jar). Also includes document generator (javadoc)
+		
+	-> JRE
+		-> Java Runtime Environment
+		-> Provides minimum requirement for executing a Java Applicaiton
+		-> Consists of JVM, core classes and requried files
+	
+	In short
+	JDK = JRE + Development tools
+	JRE = JVM + Library classes
+	
+-> Can constructor return a value?
+	-> We cannot program it to return anything explicitely
+	-> But it does returns the new instance of class
+
+-> Can we overload a static method?
+	-> No
+	
+-> Life cycle of a thread?
+	-> New Born
+	-> Runnable
+	-> Running
+	-> Blocked / Waiting
+	-> Dead
+	
+-> Explain externalizable interface
+	-> Helps with the control over the process of serialization
+	-> Used to customize serialization mechanism
+	-> Serialization is done using writeExternal() and readExternal()
+	
+	-> While with regular serialization it was ObjectInputStream / ObjectOutputStream  or something like this
+	
+-> Enumeration in Java
+	-> Allows sequential access of elements stored in a collection
+	-> How is it different from iterator?
+		-> Enumeration only traverses, does not make any modifications. remvoe() is there in iterator
+		-> Enumeration is a legacy interface for traversing mostly legacy interfaces Vector, HashTable and Stack. 
+		-> Enumeration is fail-safe, iterator is fail-fast
+		-> Javadocs ask us to use iterator over enumerations because iterator has shorted method names, additional functionality
+		
+-> Can we execute any block of code before the main method?
+	-> Yes, if there is any code in static block {}. It is executed during loading of class, even before main() is hit
+	
+-> How many times the finalize() method is called?
+	-> Called for all the objects once
+	
+-> What is Just In Time compiler?
+    -> Used to speed up the compilation process
+    -> Compiles parts of bytecodes that have similar functionality at the same time.
+    
+-> Runtime polymorphism or dynamic dispath works only with non-static methods, it does not work with data members like variables
+    -> Methods can be overriden, data members cannot be overridden
+
+-> Exceptions
+	-> Checked Exceptions
+		-> Caught at compile time
+		-> IOException, SQLException
+	
+	-> Unchecked Exceptions
+		-> Runtime Excpetions
+			-> Arithmetic Exception, NullPointerException
+
+-> How to create a custom exception ?
+	-> Class someException extends RuntimeException
+
+-> Difference between try/catch, throw and throws
+	-> "throws RuntimeException" or something like this is usually used to supress the error.
+		-> This lets the compiler know that the developer is aware of the potential error.
+		-> This is not error / exception handeling.
+	
+	-> try/catch, on the other hand are the legit way to handle any exceptions.
+		-> We write the code in try block, and if any anticipated exception occurs, we can handle in the catch block
+
+		-> try {
+			int k = i/j;
+		}
+		catch (ArithmeticException e) {
+			logger.log("Divide by zero is not supported.)
+		}
+
+	-> throw: This is developer's way of forcing an exception or any other certain condition to be handled.
+		
+		-> -> try {
+			int k = i/j;
+
+			if(i > 100) {
+				throw new CallSomeCustomException();
+			}
+		}
+		catch (ArithmeticException e) {
+			logger.log("Divide by zero is not supported.)
+		}
+		catch(CallSomeCustomException e) {
+			logger.log("Value should not cross 100");
+		}
+
+
+

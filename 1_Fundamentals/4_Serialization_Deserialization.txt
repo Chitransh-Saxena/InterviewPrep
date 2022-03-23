@@ -1,0 +1,40 @@
+-> What is serialization?
+            -> Starting with the scenario that we have 2 Machines in 2 different locations
+                -> Now these 2, have their own JVM setup in these machines
+                -> JVM1 is executing some object, and that is to be executed in JVM2 as well
+                -> How do we do it?
+                    -> Transfer from JVM1 to JVM2
+                -> So, how does the transfer happen?
+                    -> SERIALIZATION
+            -> In the process of serialization
+                -> the objects are converted into a byte stream
+                -> They are saved either in DB, File or RAM (in-memory)
+                -> This bytestream is then transferred to JVM2
+                -> There, it will be deserialized, object will come back to it's original state, and re-used
+
+
+
+        -> Why do we need serialization?
+            -> Communication
+                -> Enables multiple computer system to share and execute objects simulataneously
+            -> Persistance
+                -> The state of any object can be stored in a DB by serializing it, and can be retrieved later, deserialized, and used
+                -> Only particular state of the object is stored here not the entire object
+            -> Deep Copy
+                -> An exact replica of the object is created by serializing it, and deserializing it
+            -> Caching
+                -> Time consumed in creating a new object is more than that of deserializing an object
+                -> Hence, time is reduced by caching the joint objects **************
+            -> Cross JVM Synchronization
+                -> Same code works across all the platforms
+
+        -> How do we serialize a Java Object?
+            -> An object is only serializable if and only if this class or it's parent class is implementing java.io.Serializable
+
+-> Transient - If we make any data member as 'transient', it will not be serialized.
+
+-> Externalizable
+    -> It is an interface which enables the writing the state of an object to a byte stream in a compressed format. It is not a marker interface
+    -> Unlike serializable, it has methods writeExternal() readExternal()
+    -> Provides more control over the way we are writing
+    -> Has better performance

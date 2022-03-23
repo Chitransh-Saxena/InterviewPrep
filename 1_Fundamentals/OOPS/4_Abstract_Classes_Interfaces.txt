@@ -1,0 +1,40 @@
+Abstract Classes
+    -> When to use?
+        -> When we are partially aware of the implementation
+    -> This is a class where the method's declaration is present but not the definition
+    -> Any class that extends to abstract class HAS to implement (override) the methods in parent class.
+
+    ->  public abstract class parent {
+
+            abstract void doSomething();
+        }
+    -> Why or when to use abstract class?
+        -> 
+    -> Abstract classes cannot be instantiated
+    -> Static methods in abstract class
+        -> Yes, they can be created
+    -> Static abstract methods
+        -> Not possible, because abstract methods need to get overridden and static does not allow overriding.
+    -> Abstract class can have non-abstract methods.
+    -> Can have a constructor.
+
+
+Inheritence
+    -> When to use interface
+        -> When we have requirements but we are not much clear on the implementation
+    -> What is an interface?
+        -> They simply contain the abstract functions. (methods are public and abstract by default)
+        -> Variables static and final by default.
+            -> Why?
+            -> Since we cannot instantiate this, what is something that is independent of object?
+                -> Static entity, therefore we variables are static and final by default.
+    -> Interface must always be public
+    -> Cannot contain constructors.
+    -> Multiple inheritence is allowed here
+        -> How is the problem solved here?
+    -> 100% Abstraction
+        -> all the methods are public and abstrct.
+        -> Therefore, we cannot declare these methods as private and protected.
+    -> Variables
+        -> public, static and final.
+        

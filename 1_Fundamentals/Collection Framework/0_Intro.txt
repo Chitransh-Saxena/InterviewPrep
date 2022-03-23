@@ -1,0 +1,33 @@
+Collection Interface in Collection Framework
+-> List (Interface)
+    -> Implements the following classes
+        -> ArrayList
+        -> LinkedList
+        -> Vector
+            -> Stack
+-> Queue (Interface)
+    -> Implements one Class
+        -> PriorityQueue
+    -> Extends to one more Interface
+        -> Deque (This also extends itself from LinkedList)
+            -> ArrayDeque
+-> Set (Interface)
+    -> Implements the following classes
+        -> HashSet
+        -> LinkedHashSet
+    -> Extends one Interface
+        -> SortedSet
+            -> This implements one class
+            -> TreeSet
+
+
+Map Heirarchy
+-> Map Interface
+    -> Implements the following classes
+        -> HashMap
+        -> LinkedHashMap
+        -> HashTable
+    -> Extends to one more interface
+        -> SortedMap
+            -> Implements to one more class
+                -> TreeMap

@@ -1,0 +1,54 @@
+
+-> Simply putting it in words based on work experience
+    -> A distributed system is something which processes 1 request on multiple servers (kind of) and compiles the output, and returns to user
+    -> For user, it did not matter if the output came from 1 system or 100s
+    -> So, how does a distributed system help us?
+        -> Based on various requirements from an organization, the architectural desgin of a distributed system can be leveraged
+        -> Example:
+            -> For a company like amazon, millions of requests are hitting their servers per second, can just 1 server handle it?
+                -> Now matter how good  the server is, it cannot
+            -> So, we use multiple servers, but they all are connected in some or the other way, either NAS storage, or some other networking media
+            -> This allows the requests of multiple users to be responded with from any server, but always correct data (Never forget CAP theoram)
+
+            -> Another example, could be of a non-internet system, but a very complex algorithm which is running on-prem maybe
+                -> So, we can have a master node (server), and some worker nodes (servers)
+                -> When a user, requests for this algo to be processed, instead of processing it in one server, it splits the contents, and runs on multiple servers
+                -> They are all interacting with Message Queues
+                -> And the request of user is fulfilled.
+                    -> What is the benefit? -> Speed, resilience
+
+
+
+This where internet's definitions start
+
+-> Collection of computers that work together to form a single request handler for the end user
+-> They are able to fail independelty, without breaking the entire architecture
+
+-> Benefits
+    -> Scalable
+    -> Fault tolerance (resilience)
+    -> Cost effective
+    -> Parallelism
+    -> Low Latency
+        -> Users can have node in different locations. Traffic will hit the node with mininum distance, thus lower time to hit the server
+
+
+CAP Theorem
+
+In a distributed system, you can only support two of the following guarantees
+
+-> Consistency - Clients get the most recent information upon a request
+
+    -> Imagine storing some data in some disk of some server
+    -> Now, when a customer requests for something, his request might go to a different server, and since that data is not there .... he did not receive the most recent write
+        -> He recieved a failure
+    
+    -> How to fix this?
+        -> This kind of information which could be requested back, should be stored in some shared storage or some DB
+
+-> Availability - The service should always be available to client no matter what
+    
+
+-> Partition Tolerance - The system continues to work, despite any partitioning due to network failures
+    -> Think partition as, how connected systems are not connected anymore in case of network failure
+    -> This creates a partition like scenario

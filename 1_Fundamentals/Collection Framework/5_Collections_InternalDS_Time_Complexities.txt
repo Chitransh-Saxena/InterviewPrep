@@ -1,0 +1,82 @@
+Collection Framework
+    -> Collection Interface
+    -> Map Interface
+    -> Iterator
+
+
+-> Collection Interface
+    -> List Interface
+        -> ArrayList - Detail in chapter (1_List_Interface.txt)
+        -> LinkedList
+        -> Stack
+    -> Set Interface
+        -> HashSet
+            -> Search, insert and delete take constant time (O(1))
+            -> It is faster than TreeSet.
+            -> This internally uses Hash Map.
+                -> They key of this hash map is the item itself which we are storing and the value is an Object called "PRESENT" (it is constant)
+        -> LinkedHashSet
+        -> TreeSet
+            -> This internally implements Self Balancing Binary Search Tree (Red-Black Tree)
+                -> Therefore the data is always sorted.
+            -> So, search, insert and delete take O(LogN)
+    -> Queue Interface
+        -> ArrayDeque
+        -> LinkedList
+        -> PriorityQueue
+            -> Get - O(1)
+            -> Add, remove = O(LogN)
+    
+
+
+-> Map Interface
+    -> HashMap
+        -> Works on the prinicple of hashing.
+        -> Hashing - An algorithm or function which maps an object to an integer value. (hashCode method)
+        -> So, hashmap internally implements Hash Table
+            -> It is nothing but an array of buckets.
+            -> So, this Hash Table is basically an array of Nodes.
+                -> Node[] hashTable = new Node[x];
+
+            -> And this Node looks something like this
+                -> class Node{
+                    K Key;
+                    V Value;
+                    int Hash;
+                    Node next;
+                }
+
+            -> So, if we have some key, we will calculate the Hash of that key and whatever number we get, we will go that index in Hash Table.
+                -> This Node will be stored there
+                -> Next pointer is there for chaining. In case there is more than 1 item that has same hash value, we store that in linked list form.
+        -> Insert, search, and delete happens in O(1) time in HashMap.
+    
+    -> TreeMap
+    -> LinkedHashMap
+    ... (More are there, but not necessary)
+
+
+-> Internal working of priority Queue
+    -> Priority Queue is an Abstract Data Type and Heap is a data structure.
+        -> Heap is an implementation of Priority Queue
+    -> Heap provides the lowest or largest item in O(1) time.
+        -> How does it do that?
+        -> It internally creates a tree and keeps the item at the top of the tree (root element)
+        -> So, this way, the first item is always the highest priority item.
+        -> A heap could be represented as an array
+            -> So, considering we are at some random item 'i', now this would be having it's left, right and parent in the tree. How to find it in array?
+                -> Left(i) = 2i + 1;
+                -> Right(i) = 2i - 1;
+                -> Parent(i) = floor((i-1)/2);
+
+    -> Time Complexities
+        -> Get - O(1)
+        -> Add
+            -> This is basically adding and item to the tree + heapify the tree
+                -> Heapify takes O(LogN)
+            -> So, O(LogN)
+        -> Remove
+            -> Same, heapify call
+            -> O(LogN)
+
+     

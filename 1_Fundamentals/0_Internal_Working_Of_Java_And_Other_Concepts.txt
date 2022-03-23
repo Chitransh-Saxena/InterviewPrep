@@ -1,0 +1,52 @@
+-> How Java code executes
+    -> source file (.java file)
+    -> .java converted -> .class file (byte code)
+    -> Bytecode is now made to run on JVM (Java Virtual Machine)
+        -> JVM is platform dependent
+    -> Once JVM runs the bytecode, it is converted to machine readable language
+
+-> Architecture of Java
+    -> JDK = Java Development Kit = JRE + Development Tools
+        -> JRE = Java Runtime Environment = JVM + Runtime Classes
+            -> JVM = Java Virtual Machine
+                -> JIT = Just In Time Compiler
+
+    -> JDK = Set of packages we can download from the web that provides the necessary tools and Environment
+        to develop and run a java program
+        -> Development Tools = Tools and environment required to develop
+        -> JRE = This helps in executing the program
+        -> javac (java compiler which converts .java file to .class file)
+        -> archiver (.jar and .war)
+        -> interpreter / loader
+    
+    -> JRE = Installation package that allows to run the program (only running, not developing)
+        -> User Interface Toolkits
+        -> Base libraries
+        -> JVM
+  
+    -> JVM (Runtime)
+        -> Once get the .class files (bytecode), class loader will load these files in memory and send them to bytecode verifier
+            -> Here the code is checked for runtime errors.
+        -> class loader -> byte code verifier -> Interpretor -> runtime -> hardware
+
+        -> Class Loader and byte code verifier (linking stage)
+            -> Verification of .class file
+            -> Checks for runtime errors
+            -> memory allocation for variables
+            -> replace references with actual values.
+            -> Inialization
+                -> all static variables are assigned with values.
+            
+        
+        -> Interpretor
+            -> Line by Line execution
+            -> Drawback - If one method is called again and again, it will be interpreted again and again
+        
+    
+    -> JIT
+        -> It solves the drawback of Interpretor
+        -> For those repeated methods, JIT provides direct machine code so that Interpretor does not have to execute again and again
+    
+-> Execution of Java Program
+    -> Java Source -> JDK (javac) -> ByteCode (.class) -> JVM (executable machine code) -> JRE
+    

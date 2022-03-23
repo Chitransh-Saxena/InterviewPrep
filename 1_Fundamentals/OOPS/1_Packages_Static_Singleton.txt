@@ -1,0 +1,57 @@
+Package
+    -> Allows compartmentalization / modularization of code.
+    -> It is just a folder
+    -> Good for better organization of code.
+
+Import
+    -> Used to run code of some other class from some other package.
+    -> Access modifiers are important here (private elements cannot be imported)
+
+Static
+    -> Properties which are part of all the objects, but are not related to objects but to the class
+        -> We declare such properties as static.
+    -> We can access the static variable using the class name as well as the object name.
+        -> Student.schoolName;
+        -> rahul.schoolName;
+    -> Static Methods
+        -> static means, using a method or property without creating object of that class.
+            -> So, static methods can be called directly from their class name.
+            -> Basically, when we want to call a method without instantiating an object.
+        -> Why can we call only static methods from a static method?
+            -> A static method can only access static data.
+                -> Because, the non-static data belongs to the instance and not the class.
+                -> So, in order to access that, we need to have an object.
+    -> "this" keyword is not allowed inside static block.
+        -> Because, "this" represents an object, we are in static block. And since static block is never going to be instantitiated, "this" will never refer to an object.
+            -> Thus, the error.
+    -> When a class is created, anything inside static block is executed first.
+        -> Class Student {
+
+            static {
+
+                sysout("This is someRandomPublicSchool);
+            }
+
+            public static void main(String[] args) {
+
+                // .... something
+            }
+        }
+
+        -> Here, the print statement will come first and foremost.
+
+    -> Inner Class
+        -> If we have a class inside a class.
+        -> Outiside classes can never be static. (becuase then it would never be instantitiated and hence never used.)
+            -> Only inner class can be static.
+            -> Why?
+                -> Because inner classes can be treated as a complex data type inside a Class.
+                -> And so far, we have studied about instantiating and using variables and methods.
+                -> So, inner class being just another data type, can or cannot be static.
+                -> In other words, inner class depends on some other class (outer class). So, if not static, it shall be used by an object of outer class.
+                    -> But, if inner class is made static
+
+Singleton Class.
+    -> Only 1 object of the class is allowed.
+    -> Make the constructor as private.
+    -> Create one instance from the singleton class, and return it using a public getter.

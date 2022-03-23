@@ -1,0 +1,103 @@
+-> REST stands for Representional State Transfer
+    -> It is an architecture style for designing loosely coupled applications over HTTP
+    -> These are majorly used in web-development
+    -> REST does not impose any rules. It just gives design guidelines
+
+Here are the few architectural constraints which REST wants to impose
+
+-> Uniform Interface
+    -> For all the APIs the interface should be similar, so that if a developer is familar to one, he can take similar approach for others
+    -> Could be a UI based or commandline based
+-> Client-server
+    -> Client and server applications should be loosely coupled, so that they can evolve independetly
+-> Stateless
+    -> The server shall not store any result or any state about the HTTP request that the client made
+    -> Caching is a different thing though
+
+-> Cachable
+    -> Resources must be cachable in order to provide faster results to the clients
+-> Layered System
+    -> It can be considered as a distributed system, but where the work is distributed as well
+    -> API could be deployed on server A, disk could be there on server B, and some other activities could be there on server C.
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+-> REST and RESTful webservices
+    -> REST is not HTTP
+    -> REST is not a protocol
+    -> It is simply a guideline
+        -> It says, if you follow these guidelines, you will be able to build a optimum and scalable system and web apps
+    -> Web services which follow these guidelines are called RESTful
+
+-> SOAP vs REST in terms of:
+    -> Network protocols
+    -> Security
+    -> Statelessness
+    -> Network Bandwidth
+    -> Messaging Data type  
+        -> SOAP: XML
+        -> REST = JSON, XML ... etc
+    -> 
+
+
+-> SOAP web-services (Simple Object Access Protocol)
+    -> It came into picture way before REST came.
+    
+    Purpose
+        -> Applications which are built on different platforms using different languages could communicate with each other.
+    
+    -> So, basically SOAP is a messaging protocol for exchanging structured information via web-services.
+
+    REST uses HTTP protocols like GET, POST, PUT etc to work with data.
+
+    -> SOAP protocol uses predifined rules and guidelines.
+        -> REST has guidelines but they are very loose.
+
+    -> SOAP is function driven - Data is as available as services.
+        -> REST is data driven - the data is available as a resource.
+    
+    -> Both are stateless but SOAP could be made stateful if necessary.
+
+    -> SOAP API calls cannot be cached, REST API calls can be cached.
+        -> SOAP uses HTTP POST as a transfer mechanism.
+            -> POST request is not idempotent, it means each POST request will not have same effect.
+            -> Example you create a user with POST request, so each time you pass a new name, it creates a new user....DIffernt effect as compared to GET and other requests.
+                -> Therefore, POST is idempotent.
+            
+            -> Since, POST is non-idempotent, it is not cached.
+
+        -> REST maye be cached, based on the fact that the request is GET, PUT or DELTE type.
+
+    -> SOAP offers a little more security
+        -> WS Security with SSL
+            -> SOAP has built in ACID compliance.
+            -> Therefore SOAP is very secure and better in terms of sensitive info.
+        -> REST offers HTTPS and SSL.
+
+    -> SOAP requires more computing power and bandwidth
+        -> Bandwidth is the amount of data transferred at a given amount of time.
+        -> REST requires very less resources.
+    
+    -> SOAP only works with XML.
+        -> REST works with JSON, plain text, html headers ...etc. (type = "applicaiton/json")
+        -> @PostMapping(value = "/someEndpoint", produced = MediaType.APPLICATION_JSON_VALUE)
+
+    -> Transfer protocols
+        -> SOAP works with HTTP, UDP, SMTP etc.
+        -> REST only works with HTTP.
+    
+    -> When to use SOAP
+        -> Need for asynchronous processing and subsequent invocation, guaranteed level of security
+        -> When communication between client and server are specified, SOAP imposes that on a better level.
+        -> Sensitive information.
+        -> Payment gateways, telecommunications enterprise applications
+    
+    -> When to use REST?
+        -> When netowrk bandwidth is a constraint.
+        -> When statelessness is fine.
+            -> But if we want to keep track of flow of requests, SOAP is better.
+        -> When GET requests need to be cached, REST could be used.
+
+        -> When we have public APIs for services like social network, mobile services etc.
+

@@ -1,0 +1,26 @@
+Set
+
+-> If we do not care about insertion order of the elements and we do not want duplicates, we can choose duplicates.
+-> It is child interface of Collection Framework
+-> Set Interface provides following implementation classes
+	-> HashSet and it's further child class, LinkedHashSet
+	-> SortedSet is another "interface" which is extended from Set framework
+		-> Objects are stored in some sorting order.
+		-> This has a child "interface" NavigableSet
+			-> This implements the class "TreeSet"
+		-> It defines multiple methods for navigation purpose.
+-> How is it different from List?
+	-> Duplicates are not allowed here
+	-> Insertion order is not preserved here
+
+-> LinkedHashSet
+    -> Insertion order is maintained here.
+
+-> TreeSet
+
+    Set<Integer> hs = new TreeSet<>();
+    -> Stores in sorted order because it is implementing binary search tree while hashset does not mantain any order as such
+    -> Treeset is slower because of sorted order, it implements Red-Black Tree while Hashset works with the concept of Hashtables.
+    -> Behind the scenes, Set is using equals() method to compare 2 elements for uniqueness and order
+        -> We need to override this method in case of set of custom objects
+        -> equals(Object o)

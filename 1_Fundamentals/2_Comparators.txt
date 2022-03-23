@@ -1,0 +1,90 @@
+Comparing custom objects
+
+-> Implementing Comparator interface
+    public class customComparator implements Comprator<myObject> {
+
+        public int compare(myObject o1, myObject o2) {
+            return Integer.compare(o1.val, o2.val);
+        }
+    }
+
+
+    Collections.sort(list, new customComparator())
+
+
+-> Comparators are used in order to compare custom objects (non-primitive complex data types)
+    -> There are 2 ways to acheive this.
+        1. MyClass Implement Comparable<MyClass>
+            -> And then override the compareTo(MyClass obj) function like this.
+
+            @Override
+            public int compareTo(MyClass obj) {
+                return this.entity - obj.entity;
+            }
+        2. Implements Comparator<MyClass>
+            -> Here, the catch is, MyClass cannot implement Comparator<>. This needs to be done by some other class.
+            -> MyClassComp implements Comparator<MyClass> {
+
+                public int compare(MyClass o1, MyClass o2) {
+
+                    return o1.entity - o2.entity;
+                }
+            }
+
+            -> Note that Type of Comparator is stil MyClass.
+            -> We are passing 2 params in compare function (no use of 'this' here)
+
+    Example Code (Working)
+
+    /*
+
+    import java.util.*;
+
+public class ComparatorTest {
+
+    public static void main(String[] args) {
+
+        List<Student> students= new ArrayList<Student>();
+
+        Student stud1 = new Student(1, "ABC", 99);
+        Student stud2 = new Student(2, "Random", 77);
+        Student stud3 = new Student(3, "bsjkfbkds", 89);
+
+        students.add(stud1);
+        students.add(stud2);
+        students.add(stud3);
+
+        Collections.sort(students);
+
+        for(Student s: students) {
+            System.out.println(s);
+        }
+
+    }
+}
+
+class Student implements Comparable<Student>{
+
+    private int rollNo;
+    private String name;
+    private int weight;
+
+    Student(int rollNo, String name, int weight) {
+        this.rollNo = rollNo;
+        this.name = name;
+        this.weight = weight;
+    }
+
+    @Override
+    public int compareTo(Student s) {
+        return this.weight - s.weight;
+    }
+
+    @Override
+    public String toString() {
+
+        return rollNo + " " + name + " " + weight;
+    }
+}
+
+*/

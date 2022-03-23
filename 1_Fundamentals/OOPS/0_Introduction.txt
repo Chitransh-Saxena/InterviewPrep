@@ -1,0 +1,108 @@
+Classes
+    -> It is a complex data type which can hold heterogenous data.
+    -> It is a template of attributes and functions. 
+        -> Example, we can have one parent class as "Car"
+            -> And there could be different types of cars which can build on top of this template
+            -> Race Car
+            -> Domestic Car
+            -> Cargo car ... etc.
+
+Object
+    -> When the Class is used to create / store some actual data, that entity is called object.
+    -> Object is instance of class.
+    -> The template (Class) is used to create real entity (object).
+    -> Class helps in defining an object.
+    -> Objects stored in heap memory
+        -> The reference variables are covered in stack memory
+
+    -> variables inside the class are called instance variables.
+        -> obj.name  => We can access instance variables using '.' (dot operator)
+            -> If only it is accessible
+            -> Else, we can use getters and setters.
+    -> Objects are created using the 'new' keyword.
+        -> 'new' operator will return an object of the class.
+    -> Student student;
+        -> Here we have only declared the variable.
+        -> It is lying empty in the stack memory (holding null)
+    -> student = new Student();
+        -> Dynamically, memory is allocated for the object and the reference to that memory is stored in 'student' object.
+
+Constructors
+    -> It is a method with same name as Class.
+    -> Way to assign values to an object's attributes at the time of declaration
+    -> Parameterized and non-parameterized (default constructor).
+
+
+"this" keyword
+    -> It allows us to refer to current instance of class.
+        -> Usually used inside the class (inside constructor or some methods.)
+        -> Class Student {
+
+            int rollNo;
+            String name;
+
+            Student(int rollNo, String name) {
+
+                this.rollNo = rollNo;  
+                // LHS is Student's attribute rollNo and RHS is the parameter of constructor.
+                // Using "this" we are referring to current object during constructor call.
+
+                this.name = name;
+            }
+
+        }
+    -> It is one way to replace reference variable when we want to refer to current instance of class.
+    -> What if we do not use "this"?
+        -> If the name of class attributes is same as parameter, it will cause conflict and set values to null;
+    -> Can be used to call one constructor from another constructor
+        -> Class Student {
+
+            int rollNo;
+            String name;
+
+            Student(int rollNo, String name) {
+
+                this.rollNo = rollNo;  
+                // LHS is Student's attribute rollNo and RHS is the parameter of constructor.
+                // Using "this" we are referring to current object during constructor call.
+
+                this.name = name;
+            }
+
+            Student() {
+
+                this.Student(10, "someRandomName");
+            }
+        }
+
+Reference variables
+    -> Student stud = new Student();
+    -> Student stud2 = stud;
+
+    -> So now, both stud and stud2 are pointing to same memory in heap.
+        -> Making a change in stud will reflect in stud2.
+
+Wrapper Classes
+    -> int is a primitive data type.
+        -> It is used to represent some integer value, but it does not come with any methods.
+    -> Integer is a wrapper class.
+        -> It is used to store integer values
+        -> It contains several methods to play with integer values.
+
+    -> When we pass "int" to a function, it is pass by value, but when we pass "Integer" to a function, it is pass by reference.
+        -> But that does not mean we would be able to swap values using it.
+        -> Because internally it is using 'final' keyword, so once the value is assigned, it can't be changed without destroying the object.
+
+"final" keyword
+    -> Value of such variables cannot be modified
+    -> They need to be initialized, because they cannot be modified later.
+    -> If final is used with primitive data type
+        -> It's value cannot be changed.
+    -> But if it is used with some object.
+        -> Example
+        -> final Student student = new Student(10, "Chitransh");
+        -> Here, student.name = "notChitransh" is possible
+        -> But, student = student2; is not possible
+
+Garbage Collection
+    -> 

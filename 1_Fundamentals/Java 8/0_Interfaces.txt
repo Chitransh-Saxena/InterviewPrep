@@ -1,0 +1,18 @@
+Interface
+    -> Interface can have non-abstract methods.
+        -> Body is allowed.
+        -> This is only allowed with default keyword (use the keyword 'default')
+        -> Advantage?
+    -> Multiple inheritence (not fixed though)
+        -> In previous version (before Java 8)
+            -> If a class is implementing two interfaces and both have some common entity or attribute
+                -> Then it was compulsary to implement that method in this current class
+        -> From Java 8
+            -> If we implement two interfaces which have defined (with body) some method
+                -> Diamond problem will arise
+                -> Only way to fix that is by using our own definition of the method.
+    -> If there is an interface with some method show() with body and a class Parent with the same method and some body
+        -> And now we create a class which extends Parent and implements Inteface
+            -> Which show() method will be called?
+                -> The one which Parent class has, class has more power as compared to interface in this case.
+    -> You cannot override methods which are already present in the object class.
