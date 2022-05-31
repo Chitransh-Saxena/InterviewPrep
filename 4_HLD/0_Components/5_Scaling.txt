@@ -69,6 +69,10 @@ Hybrid is mostly horizontally scaled.
 
  
  
+ Performance Vs Scalability
+ * A system is considered scalable if by adding more physical resources, the application is performing better
+ * So, if you have a performance issue, the application is going to be slow for even a single user. But if you have a scalability issue, the application will be fast for a single user, but slow for higher number of users.
+ 
  
  
  
