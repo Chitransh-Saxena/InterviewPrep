@@ -1,0 +1,43 @@
+CAP Theoram in detail
+
+* Consistency - Every read recieves most recent write or an error
+  * This means, if we are trying to read some data from some server or DB, we should get the most recent (correct) value for it.
+* Availability - Each request recieves a response (now if this is the case, we cannot guarantee if the response is going to be consistent or not)
+  * This means, we still have access to server (or the cluster), no matter what.
+* Partition Tolerance - Due to network or some connection issue, our system still continues to serve the requests.
+  * Imagine, one node broke off in some cluster. Our system should still work.
+
+We can have at max 2 of the 3 things at one point of time. How? We will talk about this in a bit. But there is one more important point.
+Out of C.A.P, we always need to support P. Because if the system itself breaks, no request would be served at all. So, our system should always be Partition Tolerant.
+
+Since this is a standard norm, we are left with few choices.
+
+CP
+AP
+
+This is basically a trade off between the data that we are responding with. (Considering we are doing some read operation, not some complex algo)
+
+* CP - Consistency and Partition Tolerance
+  * Choose this when responding with accurate data is absolutely necessary and business need.
+  * We can either respond with error, or wait for the accurate response (this could potentially return some timeout error)
+  
+ * AP - Availability and Partiiton Tolerance
+  * Choose this when you care about responding more, than you care about responding correctly.
+  
+Consistency usually comes in multiple levels (CONSISTENCY PATTERNS)
+
+* Weak Consistency
+  * After a write, a read may or may not see it.
+  * During a call, if there is a connection loss, we do not hear what was spoken, but when call resumes, we hear the current words.
+    * In recent softwares likes zoom calls or teams, I notice that I hear all of the words suddenly at top speed after a network loss of few seconds.
+
+* Eventual Consistency
+  * After write, the data would be seen eventaully (within milliseconds or something)
+  * Data is written asynchornously (Understand what is synchronous and asynchronous processes)
+  * We usually see this in DNS.
+  * Best appraoch for 'AP' systems (Avaiable and Partition Tolerance)
+  
+* Stong Consistency
+  * After write, data is seen immediately
+  * RDBMS systems
+  * Data is replicated synchronously.
