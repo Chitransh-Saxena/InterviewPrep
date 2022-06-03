@@ -1,0 +1,49 @@
+Before Java 8, an interface could only hold the definition of the method, and not any implementation.
+
+So, a basic interface would look like this
+
+public interface Car {
+
+
+  // Some methods with definition
+  void start();
+  void stop();
+}
+
+
+
+Now, there would be some class that needs to implement this
+
+public class MyCar implements Car {
+
+    // We would implement the above methods (necessary)
+    public void start() {
+      ...
+    }
+    
+    
+    public void stop() {
+      
+      ...
+    
+    }
+}
+
+At this point, we know that any method that is declared inside an interface has to be implemented by the implementing class.
+With that being said, if we modify the interface (add or remove some method), we need to do this in all the implementing classes too. (That is the whole point of interface)
+
+But, if we want to keep it partial, i.e., implement only at the places where we want, in that case, DEFAULT keyword comes into play.
+
+With default keyword, we can do something like this
+
+interface Car {
+
+  // Other methods ...
+  ...
+  
+  default void doSomething() {
+    ...
+  }
+}
+
+So, now if some class wants to implement this in their own way, they can do that. But if some class decides to not implement this method at all, that too is fine, no error would be thrown.
