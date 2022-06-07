@@ -1,3 +1,9 @@
+OOPS is a design methodology
+It allows us to divide the problem in smaller chunks, using methods and provides accessiility via objects.
+So, functions or methods, in general are built around the objects only.
+
+
+
 Classes
     -> It is a complex data type which can hold heterogenous data.
     -> It is a template of attributes and functions. 
