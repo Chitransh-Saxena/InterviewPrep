@@ -1,0 +1,26 @@
+Singleton Class
+
+* The class will have only instance, and a global access would be provided for it.
+* It is Just in Time initialization or initialize on first use.
+
+
+The class could be made in many ways.
+
+Method 1:
+
+class Singleton {
+  
+  private Singleton();
+  
+  private static class SingletonHolder {
+    
+    private Singleton INSTANCE = new Singleton();
+  }
+  
+  public static Singleton getSingleton() {
+    
+    return SingletonHolder.INSTANCE;
+  }
+
+
+}
