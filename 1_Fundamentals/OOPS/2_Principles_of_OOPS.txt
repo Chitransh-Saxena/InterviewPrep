@@ -2,7 +2,7 @@ Properties of OOPS
 
 Inheritence
     -> Child inherits properties from parents.
-    -> Class Chilsd extends Parent {}
+    -> Class Child extends Parent {}
     -> Inside the constructor of child class.
         -> super(args) can be used to call the constructor of parent class.
 
@@ -46,6 +46,11 @@ Inheritence
     
     -> "Final"
         -> If a class is defined as final, it cannot be extended.
+    -> It is based on Open Closed Principle from SOLID
+        -> Open to extention, close to modification.
+            -> This in iteself is an extension to Single Responsibility Principe.
+            -> So, basically, a class should have only one responsibility, and for anything new, we should be open to extension but close to modification to current Class. (OCP)
+        -> This means, we should be able to extend the behaviour of anything (Inheritence in class), without modifying the actual one.
 
 Polymorphism
     -> Many ways to represent a single entity
@@ -113,6 +118,13 @@ Polymorphism
                 -> So, no matter what object, we can call the method.
             -> Overriding depends on object, not class. Since static is independent of the object, hence it cannot be overridden.
         -> Static methods can be inherited but not overridden.
+        
+    -> It is on the basis of LSP (Liskov's Substitution Principle)
+        -> Derived class must be substitutible by their base classes.
+        -> If there is a parent class P, and a child class C.
+            -> Then, each object of class P, should be replacably by C, and program should still function desirably.
+            -> This is true, because a child class has access to all the properties of parent, so accessbility and functionality wont be an issue.
+        -> Parent obj = new Child();
 
 
 Encapsulation
@@ -125,4 +137,13 @@ Encapsulation
 Abstraction
     -> Here, we hide the complex code (or unnecessary details) and just provide an interface (method) to use that complex code.
     -> Example: We can use a camera by single click, but the complex image processing that is happening is hidden from us.
+    -> It is based on Dependency Inversion Principle from SOLID
+        -> High level modules should not depend on low level modules.
+        -> Both should be only talking to abstractions.
+    -> So, in simple terms, we should only provide the method that is needed to be used, without any botheration about the implementation of it and direct interaction of high level code with it,
+        -> They both should be interacting via the abstraction (methods) only.
+    -> Abstraction is different from encapsulation like this
+        -> Abstraction talks about hiding the unnecessary information from the user or high level code.
+        -> Encapsulation makes it happen using access modifiers.
+            -> Basically, encapsulation makes abstraction happen.
 
