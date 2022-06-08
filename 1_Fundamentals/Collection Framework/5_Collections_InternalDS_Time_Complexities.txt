@@ -6,7 +6,12 @@ Collection Framework
 
 -> Collection Interface
     -> List Interface
-        -> ArrayList - Detail in chapter (1_List_Interface.txt)
+        -> ArrayList:
+            -> add(item) -> Just have to add at the end of the list, so O(1)
+            -> add(index, item) -> Have to move all the elements to some certain distance, so O(N)
+            -> get(index) -> O(1) {standard array thing}
+            -> remove(item) -> this is traversal for search + removal, so O(N)
+            -> 
         -> LinkedList
         -> Stack
     -> Set Interface
