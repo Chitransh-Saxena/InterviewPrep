@@ -1,0 +1,81 @@
+High Level Design - Amazon / Flipkart like e-commerce system
+
+* Before each HLD, there should be a clear understanding of the requirements
+* Requirements
+  * Have an inventory of products
+  * This inventory should be displayed to the user
+  * User should be able to add single / multiple items to a cart
+  * They should be able to checkout and make payment
+  * User should be able to add or remove item from the cart
+    * Quantity of the item should be flexible too (increase or decrease the count)
+
+
+* One more concept that I learnt here is, we need to pick up the most suitable user stories and not the complete product. Because this way, we can roll out a minimal viable product for the user as soon as possible
+
+* Would it be monolith or microservice?
+  * This decision has to be taken on the basis of scale and indivisual functionality of the components that we have decided
+  * Because, for example, listing an item in itself could be an entire in service, which might be consumed by other service
+  * So, for now we can start with monolith, and as the solution grows, we can split things into separate services
+  * But this does not mean that we are not scalable, we should be able to scale when required without making major architectural changes
+
+
+* Components used here for High Level Design of Amazon
+  * Inventory
+    * Search from the list of inventory
+    * Add items to the inventory (Don't take care of this in current question)
+      * Expect that an inventory system is already in place, we are only doing the search from that inventory
+    * How can we search from the inventory?
+      * Assume we have a website, where the user enters what he wants to search. This entry is basically a string for us.
+      * So, we recieve this query in our server. Now, how do we search from the inventory?
+        * Since, inventory could be a database, we can do a simple select query
+        * SELECT  * FROM INVENTORY WHERE NAME = "%search_text%"
+          * We put the where clause in a wild card, to get all the products that are like this.
+        * Now, this method is a very basic and naiive one, because there might be something about the product in the product description too and the name could be totally different
+        * So, we might need to extend the search to product description too.
+          * Not just product description, product tags, metadata ... etc
+      * PROS AND CONS OF DB Query for search
+        * Performance would be okay okay
+        * But if some person is adding item to the inventory from the backend and at the same time that is being searched by the user, we are not sure about the consistency factor here then
+        * Also, on a large scale, it might not be a good idea, because a DB call, for every search will have some level of I/O
+        * Elastic search could also be used here
+        * DB search could be optimized by adding indexing for the search factor, but if we have 2 factors for search like item_name and item_description, then it will be tough
+      * Finally, it is better to use Elastic Search
+        * It is a fast text search engine
+        * It is a NoSql datastore, which has keys of products
+          productId, {"product_details_as_json_blob"}
+        * So, searching happens in "product_details_as_json_blob"
+          * Internally, it tokenizes the strings, and then uses some search algorithm
+        * One questionable point here is, are the people who are selling items, directly going to add data to Elastic Search Store?
+          * Ideally, it is better to add data dump to some RDBMS, but it totally depends upon usecase
+          * To answer this, we need to have more clarity on the properties of RDBMS and Elastic Search
+          * But one major answer that personally I want to use is, a NoSQL should be never be used as a primary database. (Hussein Nasser Redis Lesson)
+    * Montoring and Debugging the system
+      * Logging should be done on pretty good level, userId's, methods, errors etc.
+      * Payments could fail too, so we monitor for status of payment and take actions accordingly
+      * If our systems are good enough, we can create a JIRA ticket for such incidents then and there.
+      * In order to have a clear pathway of the request going from one service to another and then tracking where it went wrong, could be hectic
+        * In such places, Kafka can come in place. How?
+          * All services are pushing their logs to Kafka, and then Kafka is sending it to a consolidated metric service
+          * So, for a single order id or user id, all the pathways of the service request could be tracked easily
+    * What if the system scaled, and we are starting to see a miss in the response from Elastic Search?
+      * First, we need to have a metrics system.
+        * This can tell, how many search queries were responded properly
+      * For some misses in elastic search, we can go and do some DB queries
+    * Users who are selling products usually have images and video content too about the product, how are we going to store that data?
+      * S3 could be used.
+      * It is a Blob Store for images
+      * Cost effective
+      * When image is needed, the link is shared by S3, we can click on that link, go and download the image.
+      * If a product is deleted from RDBMS, it has to be deleted from image store too
+      * So, we can add a column for image link in RDBMS or wherever the UI is fetching image from.
+        * Image link from S3 could be fetched alongside product and used.
+        * We could do some normalization here, and create another table for the image as one product could have multiple images
+        * So, we map all the images related to one productID into a separate table, and use that one ProductID as identifier
+        
+        
+    * Cart system is left right now. Will do it later.
+      
+      
+      
+      
+      
