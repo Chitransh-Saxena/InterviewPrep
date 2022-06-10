@@ -14,6 +14,11 @@ Collection Framework
             -> 
         -> LinkedList
         -> Stack
+            -> Follows LIFO
+            -> Good for backtracking
+            -> push(item) -> Just adding on top, O(1)
+            -> pop() -> removing last item, O(1)
+            -> top() -> O(1)
     -> Set Interface
         -> HashSet
             -> Search, insert and delete take constant time (O(1))
@@ -28,6 +33,10 @@ Collection Framework
     -> Queue Interface
         -> ArrayDeque
         -> LinkedList
+            -> Priorotize something over another
+            -> A resource is shared among other devices
+            -> Push(item) -> O(1)
+            -> pop() -> O(1);
         -> PriorityQueue
             -> Get - O(1)
             -> Add, remove = O(LogN)
