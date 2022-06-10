@@ -1,0 +1,86 @@
+Design a URL Shortner
+
+* A URL shortener creates shorter aliases for long URLs. Example, Tinyurl.
+* There are more use cases, not just shorter aliases. It can be used to track the traffic too.
+* Analysis of the traffic, measure ad performance
+
+Requirement
+
+Functional Requirements
+* Given a URL, generate a short and unique alias of it.
+  * Strategy to make it unique would be interesting to think about
+* Using the short link, they should be redirected to the original link
+* Links will expire after a certain time span, users should be able to define that.
+
+Non-Functional Requirements
+* System should be highly available, because if the system is down, all the redirections would start failing, eventually breaking other services
+* URL re-direction should happen in real time with minimal latency
+  * Latency is the time taken by a data packet to go from one designated point to another
+  
+  
+Capacity Estimation
+* System is going to be read heavy.
+  * If we think practically, new URLs would be generated lesser as compared to redirection using shortened URLs
+  * Read is to New URL Generation Ratio could be approximately - 100:1
+* Assuming we have deployed this service, and it is used by 50 different services, where each service caters to around 10000 unique customers per day (For redirection)
+  * That means, redirection is happening around 50 * 10,000 per day = 5,00,000 times per day
+  * Based on the ratio that we defined, that means new URL generation rate would be approximately 5,00,000 / 100 = 500 URL generations per day
+  * Above are rough numbers, these could easily scale up based on how the number of services we are serving
+* Storage Esitmation
+  * What exactly do we need to store, that is the first thing to understand
+  * Rough idea
+    * The original URL
+    * The shortened URL
+    * Time of expiry
+  * So, for one entity (shortened url, original URL and time of expire), if we take roughly as 500 Bytes, and we are storing the data for approx 1 year let's say
+    * Then, 500 new URLs per day * 500 Bytes * 1 year
+    * Above will be our storage esitmate for 1 year
+  * A thought could also be given to caching
+    * How many hot requests are there that are frequently used
+    * We can estimate the storage for them
+
+Design
+
+* Once we have the requirements and the estimates clear, we can move forward to the design part
+* So, the main requirement is to create the URL
+  * We can have a REST API exposed which will execute our functionality
+  * How is this going to work, we will discuss in some time
+* Database Design
+  * We only need 2 tables so far
+    * One for the URL details
+    * One for the user details
+  * Do we need some relational mapping among these tables?
+  * Since our data is not much relational, we can opt for NoSQL DB in this case, would be easier to scale.
+
+* How would we encode an actual URL?
+  * We need some sort of Hashing mechanism.
+  * If we try to write our own hash mechanism, we need to figure out on what scale are we anticipating collisions.
+  * What if we scale up, are we gonna see collisions then?
+  * But, the hash is not displayed directly.
+    * We need to encode it using some strategy and then display the link
+    * base36 [a-z, 0-9] or base62[A-Z, a-z, 0-9] could be used
+    * We need to think, how many unique strings could be generated using above (base36 and base62)
+      * What more modifications can we do for further scaling
+* One more good idea is to generate the few keys already, and when a new URL generation request comes, we do not have to do the process then, we can pick from the Key DB itself
+  * This needs to be very isolated in DB, so that one key is not used for more than 1 URL
+* Since this is going to be a very heavy DB related task, it is better to optimize the DB too
+  * Range Based Partitioning of the DB
+    * Parition on the basis of the URL's keys (A, B ... Z)
+    * This way, when necessary, we can do a binary search kind of thing for faster lookup
+    * Problem here could be, balance. More keys with letter A, and fewer with Z.
+  * Hash Based Partition
+    * Pick the hash of the object that we are storing
+    * Calculate which partition to use based upon that Hash
+    * So basically, we want the hashing function to come up with a number between the range [1, max_num_of_DB_paritions], and consistently distribute among them
+    * Above's improved version is consistent hashing
+* Few points to think about now would be
+  * What is our Caching mechanism and where are we placing the cache?
+    * In such cases, LRU cache is a good design to think of.
+    * Things like memcached could be used here (Store the shortened URL and the original link to it)
+    
+
+  
+
+
+    
+
