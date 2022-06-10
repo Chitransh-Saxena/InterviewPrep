@@ -1,0 +1,42 @@
+When we are given some data to represent the graph, it would be basically about the edges.
+
+So, in case of non-weighted, undirected graph, we might have somthing liek this
+  * 2-3
+  * 3-4
+  * 4-5
+  * 5-2
+  
+Above is basically representing that there is edge between 2 and 3, then edge between 3 and 4 ... so on.
+
+One way to represent such graph is ADJACENCY MATRIX
+It is simple, we basically pick all the items, and represent in the matrix.
+
+Here is the psuecode for that
+
+* Check the max item in the graph (unless it is given), let us say it is n
+* Create a square matrix of n x n (considering the indexing starts from 0, if indexing starts from 1, create matrix of n+1 X n+1)
+* Init this whole to 0
+* If there is a edge between 2 and 3, mark matrix[2][3] = 1.
+* If it is undirected graph, then this also means there is a edge between 3 and 2, then matrix[3][2] = 1.
+
+It's limitation is space. If the length of maximum item is beyond 10^5, then creating a matrix of size 10^5 * 10^5 would create space issue
+  * 10^5 is just a hypothetically large number, practically memory could exceed in any condition (maybe given in question itself)
+
+
+Next way of representing a graph is ADJACANCY LIST
+* Considering our old set of edges in undirected graph
+  * 2-3
+  * 3-4
+  * 4-5
+  * 5-2
+* Here max item is 5, but indexing 1 based (I am assuming), so I will create a List<ArrayList<Item>> of size 5 + 1 (1 based indexing)
+* Now, since there is an edge between 2 and 3, I will go to List.get(2) and add 3 to that list.
+  * List<Integer> li = new List<Integer>(3);
+  * List<ArrayList<Integer>> adjacencyList = new ArrayList<List<Integer>>();
+  * adjacencyList.add(li)
+* Similarly, since it is undirected graph, there is also a connection between 3 and 2. So we will fetch the list at 3rd index, add 2 to it.
+  
+  
+  
+  
+
