@@ -1,0 +1,6 @@
+When we are given a graph, it is not always necessary that the nodes are connected via some edges.
+Such graphs are called disconnected graphs.
+
+So, whenever are given such graphs, we can't say that there are more than 1 graphs. We will say that these are disconnected components of the graph.
+
+Check out image disconnected_graph.jpeg
