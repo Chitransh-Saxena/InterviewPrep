@@ -1,0 +1,55 @@
+What are graphs and what are different types of graphs that we have
+
+* Graph is a data structure where multiples nodes are connected to each other.
+* Each node could be represented as a unit of data which contains some main information and information about it's connections
+* So, a typical graph has 2 components
+  * A Node (or a vertex)
+  * An edge (This is a connection between 2 nodes)
+  
+Types of Graphs
+
+* Undirected graph
+  * The edges do not have any sense of direction
+  * They only represent a connection between nodes
+  * So, for example, if we have 2 nodes u and v. The edge between them could be represented as uv as well as vu
+* Directed Graph
+  * In directed graph, the direction of traversal matters.
+  * So, if we have 2 nodes, u and v, and the directional edge is from u to v, then the edge could only be represented as uv and not vu
+    * This means, we can only go from u to v, and not come back
+
+
+Degrees of a graph
+  * Number of edges that are incoming or outgoing in a graph
+    * If the graph is undirected, we count all the edges that are connected to it
+  * We have a mathematical property here too
+    * The total degree in a undirected graph = 2 * total number of edges (not nodes or vertices)
+    
+Path in a graph
+  * Sequence of nodes in a graph such that none of them are repeated when traversed.
+    * This goes for both directed and undirected graph
+
+Cyclic Undirected Graph
+  * If we can reach the same node from which we started, then there is a cycle in the graph
+
+Acyclic Undirected graph?
+  * It is a tree (think and visualize)
+  
+Cyclic Directed Graph
+  * Same logic, if we are able to reach the start node again, then there is a cycle in the graph
+    * This should be applicable to all the nodes (we should be able to start from each node and reach that node again)
+
+Directed Acyclic Graph
+  * Also majorly known as DAG
+    * Remember good old days of Airflow?
+  * Directed graph, without any cycle.
+  
+
+Weighted Graph
+  * The edge between nodes have some sort of weight or some number associated with them indicating some or the other factor
+  * These could be undirected as well as directed too.
+  
+  
+  
+  
+  
+  
