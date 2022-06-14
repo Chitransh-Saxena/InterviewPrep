@@ -13,7 +13,7 @@
     -> Behavioural Pattern
         -> Take care of effective communication and assignment of responsibilities among differnt objects
 
--> Creational Pattern
+-> Creational Pattern (Abstract Factory, Builder, Singleton)
     -> Factory - Based on the input, we instantiate the necessary object and laod those functionalities
         -> Use this when we do not know in advance the type of request that might be coming
         -> Uses SIP and OCP principle of SOLID.
@@ -44,7 +44,7 @@
             -> Need to take care in multi-threaded environment.
 
 
--> Structural Design Pattern
+-> Structural Design Pattern (Adaptor, Composite (Tree - subtree), Flyweight(cache), Proxy(Substitute for another object))
     -> Adaptor
         -> Allows objects with incompatible interfaces to collaberate
         -> Example - You fetch data in XML format, but you use a library which uses json for the works
