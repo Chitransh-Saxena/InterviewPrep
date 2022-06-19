@@ -1,0 +1,163 @@
+-> Static keyword is a non-access modifier keyword
+  -> It does not modify the access of the class.
+    -> Why?
+
+->  It can be used with Class Level Variable.
+  -> It is not to be used with local variables.
+-> We can have static methods
+-> We can have static blocks
+-> We can have static inner classes.
+-> Static variables and blocks are resolved during compile time
+  -> Because objects are created at runtime, and we do not need objects for Static items, therefore it is resolved during compile time.
+
+-> Static keyword CANNOT be used with outer class.
+  -> Why?
+  
+  
+-> Static Variables
+  -> When a member is static, it can be accessed without any object being created.
+  -> It can be accessed directly via the class name.
+    -> It can be accessed via object name too, but it is a good practise to access it via class name.
+    -> It works like this, compiler checks if the defintion of the variable is present in object, it is not. It will check in class level, yes it is present there
+      -> And thus that value is picked up and used.
+  -> Why is "main" declared as static method?
+    -> Because it needs to be accessed from the main class by the JVM, and JVM cannot instantiate it. So, it is used as a static member, via the class name itself.
+ -> Non-static method or variable canot be accessed from static method.
+  -> Why?
+    -> Because, a non-static item belongs to an instance, and not to the class.
+    -> So, in order to use the item, an object needs to be instantiated
+    -> Basically, unless we specify the object, we cannot use the non-static fields.
+    -> Now, you would be able to call static blocks from a class itself, without instantiating any object.
+      -> But since the inner method is not-static, it cannot be called, and thus the error.
+
+-> Static item inside non-static block?
+  -> This will work fine, because object inherently knows all items about the class.
+
+-> This keyword inside static block
+  -> It cannot be used inside a static block because, this represents current object and since static is not dependant on any object
+    -> If it is called, there is no object to reference the items inside static block, which will throw error.
+
+-> Static block
+  -> Any code inside static block is executed before running the main method.
+  -> This means, as soon as the class is loaded, all the static elements are loaded, in sequence.
+  -> It is run only once, when the first object is created / class is loaded for the first time.
+
+-> public class InnerClass {
+  
+      class Test {
+      }
+
+}
+
+-> Outside class cannot be static. Why?
+  -> It is not dependant on any other class.
+  -> A static block is dependant on class (not objects)
+    -> Since outer class is not dependant on any other class, therefore it cannot static
+
+-> public class InnerClass {
+  
+      class Test {
+      }
+      
+      psmv() {
+      
+        Test a = new Test();
+        // Above line will give error. It will say cannot reference non-static method from static method.
+        // This makes sense, because the inner class is actually dependant on outer class. Now, if it is not static, every instance of InnerClass will have it's own Test class
+        // So, in this case we basically need an object of InnerClass to access it.
+      }
+
+  }
+
+
+-> class Test {
+
+  }
+
+  public class InnerClass {
+
+
+    psvm() {
+      
+      Test a = new Test();
+    }
+    
+    // Above will work fine, because now Test does not depend on any other object. That is the original Class Template, and it can be instantiated.
+    
+  }
+  
+  
+-> public class InnerClass {
+
+    static class Test {
+    
+      // Some consutructor
+    
+    }
+    
+    psvm() {
+    
+      Test a = new Test();
+      // In this case, Test is basically a part of the class now.
+      // It does not have to be dependant on instance of InnerClass, therefore it can be referenced directly like this inside InnerClass
+    }
+    
+  }
+  
+  
+
+-> Singleton class
+  -> Only one object of this class should be there
+  -> How can we achieve this?
+    -> Create one object, return it.
+    -> Private the constructor so that no new object is created.
+  
+  
+  
+  -------------------- Singleton.java
+  
+  public class Singleton {
+  
+    
+    // private the constructor first
+    private Singleton() {}
+    
+    // Declare the instance that we are going to return
+    private Singleton instance;
+    
+    
+    // Create a public method with which this can be accessed.
+    // After follow up, we have to make it static
+    // Because if constructor is private, the class cannot be instantiated and thus no object can call this method
+    // Thus, in order to be called from class, we need to make it static
+    public static Singleton getInstance() {
+    
+      if(instance != null)  return instance;
+      else {
+        instance = new Singleton();
+      }
+      
+    }
+  
+  }
+  
+  
+  
+  
+  ------------------ Main,java
+  
+  public class Main {
+  
+    psvm() {
+      
+      Singleton obj1 = new Singleton(); // Compilation error
+      Singleton obj2 = Singleton.getInstance();   // Now, if we cannot create objects, we cannot use the getInstance() method, therefore we need to make it static so that it can be accessed via Class Name.
+      
+    
+    }
+  }
+  
+  
+  
+  
+  
