@@ -24,3 +24,59 @@ class Singleton {
 
 
 }
+
+
+For more details on Singleton And Static, refer this - https://github.com/Chitransh-Saxena/InterviewPrep/blob/master/1_Fundamentals/5_Static
+
+Once gone through above file, let's talk about challanges we can face while using the above technique
+
+-> What happens in a multithreaded environment?
+  -> Consider there are two threads which are trying to reach Singleton class and create a new object.
+  -> Now, if by chance they reach the code if (object == null) at the same time, they both will create objects.
+  -> This will basically break Singeleton rule
+  -> How to fix this?
+    -> We use Synchronized keyword
+      -> public static synchronized getInstance() {}
+    -> Synchronized allows only one thread to enter the block at a time
+    -> But synchronized is kind of resource intensive, so if some other heavy and important operation has to happen, those will be sort of slowed down for the time being
+      -> So, the code can be improved even further
+      -> public static Singleton getInstance() {
+        
+        if(instance == null) {
+          
+          synchronized(this.class) {
+            // do return object operation
+          }
+        }
+      }
+      
+      -> By using above way, we are using synchronized when we are sure that object is not there and it is needed now itself.
+      -> We might havet to declare isntance object as 'volatile'.
+        -> When we make changes to this item in one thread, we want to make it visible to other threads too.
+    
+    
+
+-> What if we serialize the class.
+  -> Singleton implements Serializable {}
+  -> If we serialize and deserialize the class, then while deserializing, it will not even look at the constructor and it will create another object.
+    -> This happens because we use serialable() method to create the object, which does not depend on constructor.
+    -> Thus, the rule of Singleton breaks
+  -> How to resolve this?
+    -> Override the readResolve method, and return our object
+    -> This way, when serialable() method calls for object, it runs our overridden code and gives us our object.
+
+-> What if we clone the class?
+  -> It will provide some methods that we need to implement
+  -> Those will allow us to create the instance of class.
+  -> How to resolve this?
+    -> protected Object clone() throws CloneNotSupportedException {
+      
+      throw new CloneNotSupportedException;
+    }
+  -> This way, we stop cloning from happening.
+
+-> What if we use Reflection
+  -> We set value of object in reflection.
+  -> This also helps in creating object
+  -> NOT CLEAR IN THIS
+
