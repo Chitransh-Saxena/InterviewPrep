@@ -1,0 +1,61 @@
+LLD - Design a Logging System
+
+-> Requirements
+  -> Should be able to log in more than one place
+    -> Console, files, etc.
+  -> Should be able to log multiple levels of logging (debug, error, fatal, etc.)
+    -> Design should be in such a way, that in future if we want to add a new category, it should not require any changes in any of the existing loggers
+  -> Category and place of logger should be configurable
+
+->  Components Involved (Classes, on a higher level that we will require)
+  -> Logger Class
+    -> This will be exposed to classes, will be used for logging etc.
+  -> LoggingLevel
+    -> Error, Info, Debug etc.
+  -> Sink
+    -> DB
+    -> File
+    -> Console
+
+-> Design should be in such a way that they should follow major Design Principles and the design should be based on some sort of design pattern.
+  -> Why?
+    -> Because these patterns and principles are time tested, and therefore they avoid many errors and issues by default.
+
+-> How do we decide which desing pattern to use.
+  -> So, on various levels of development, various patterns come into play.
+  -> While creating objects or writing classes, we have to think about Creational Design Patterns.
+    -> Logger - This class has to be a singleton, because we don't want the logs to go into mulitple files.
+    -> Logging Level - This can be made as an enum for now, if the requirements says that it has to have some innate functionality, then we can make them as classes
+      -> In that case, we can use Abstract Factory Pattern there.
+      -> Do a lazy initialization of the object, i.e., while using, select which logger want, create the object at that time, then use it.
+      -> This can be implemented using a basic switch case
+    -> Sink
+      -> Again, sink has same logic as Logger, but the difference is, sink cannot be enum. We know that it has to have some innate functionality
+      -> Therefore, Abstract Factory Pattern
+  
+  ->  Structural Design Pattern
+    -> In general, structural design pattern is used when there has to be some interaction between 2 classes, in that case we use patterns like bridge, adaptor etc.
+    -> But, in our use case, I don't see any use for that as such.
+    -> Therefore, for now the decision is to not to involve any structural design pattern
+  
+  -> Behavioural Design Pattern
+    -> Behaviour vise, only 2 things are there. Sinks and LoggingLevels
+    -> In LoggingLevels
+      -> Debug is more alterive than Error, which is more alertive than Info.
+      -> So, here we observe some sort of chain kind of behaviour.
+      -> We can use Chain Of Responsibility Pattern
+    -> I, personally do not feel like it is COR Pattern. I think it can be simply achieved by Factory Pattern, but above was just another POV.
+    
+    ->  As for the Sink
+      -> Well, the categories are not interrelated.
+      -> And, they are just basically depending on the basis of the LoggingLevels
+        -> Basically, we decide the logs, the logging levels. And the Sinks are just observing and waiting to be notified which of them have to be used.
+      -> Therefore, this kind of follows the Observer Pattern
+    
+  -> Code incoming later
+  
+  
+  
+  
+  
+  
