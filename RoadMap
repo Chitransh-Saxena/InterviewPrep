@@ -1,0 +1,53 @@
+-> Java Fundamentals
+  -> Kunal Kushwaha Java basic videos.
+  -> Javatpoint top interview questions - https://www.javatpoint.com/corejava-interview-questions
+  -> Educative.io Java intervie questions - https://www.educative.io/courses/java-interview-handbook
+  
+-> Collection Framework
+  -> Understand the class and interface structure
+  -> Internal working of each class
+  -> Time complexities involved and why so
+  -> This can be practised easily, whatever dsa question I am solving in daily, just analyse the time complexity and space complexity then and there.
+  
+-> DSA
+  -> Striver Graph playlist
+  -> DSA from educative apart from Graph, Trees, Tries etc.
+  -> Once educative is done, start from InterviewBit
+  -> For some change sometimes, can use cses.fi too
+  -> Top Google Interview Questions - AwesomeGithub something
+  -> Along with google interview questions, need to start participating in leetcode weekly and codeforces.
+  -> Try to reach Expert / Candidate Master in codeforces.
+ 
+-> LLD
+  -> TechGranth
+  -> Time and practise with Grokking the OOAD questions
+  -> Top interview LLD questions
+    -> Udit Agrawal Playlist
+  
+-> HLD
+  -> Playlist of TechGranth first
+    -> Also lectures on microservices
+  -> Grokkingg the system design interview course
+  -> system-design-primer questions
+  -> Implementing Graph in system design
+  
+-> Multithreading
+  -> https://www.educative.io/courses/java-multithreading-for-senior-engineering-interviews
+
+-> Spring Boot
+  -> Cover fundamentals like why Spring boot, what was Spring, how is Spring Boot better, limitations of spring boot.
+    -> What is the meaning of annotations
+    -> Custom annotations
+  -> Primary and Secondary Database
+  -> What is HTTP, what happens when a rest call is performed.
+  -> At what point can hackers attack?
+    -> How do we prevent hacking and data leak
+    -> How can we maintain a good authentication at each point of time.
+  -> https://www.youtube.com/watch?v=z-9lNgN2QV4&list=PLbtI3_MArDOlnBkBS-O04_YNIaZG4yetn
+  -> Security and Authentication
+  -> JUnit
+  -> Soap Vs REST
+  -> Hibernate or JPA
+  
+-> Kafka Architecture
+  -> Practical Implementation in Local
