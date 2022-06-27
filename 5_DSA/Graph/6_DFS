@@ -1,0 +1,52 @@
+DFS of a Tree
+
+-> We start from first node
+	-> We visit its adjacent nodes
+		-> Then we apply DFS for these adjacent nodes
+		-> So recursively, we are doing  DFS for each node, therefore travelling in depth
+
+-> This might look like level order traversal of a tree, but here there are few changes
+	-> Cycles are present
+	-> Weights could also be present
+
+
+// Code for DFS
+
+public void DFS(ArrayList<List<Integer>> adj, int V, int s) {
+	
+	boolean visited[] = new boolean[V+1];
+	DFSRec(adj, s, visited)
+}
+
+public void DFSRec(ArrayList<List<Integer>> adj, int s, boolean[] visited) {
+
+	visited[s] = true;
+	sout(s + " ");
+	
+	for(int u: adj.get(s)) {
+		
+		if(visited[u] == false) {
+			
+			// We will not mark here as visited, that is being done at the start of this recursive function
+			DFSRec(adj, u, visited);
+		}
+	}
+}
+
+
+
+Now what if the graph has disconnected components
+
+primary function will change in the following way (Just like BFS)
+
+public void DFS(ArrayList<List<Integer>> adj, int V, int s) {
+	
+	boolean visited[] = new boolean[V+1];
+	for(int i = 0; i<adj.size(); i++) {
+		
+		if(visited[i] == false) {
+			
+			DFSRec(adj, i, visited);
+		}
+	}
+}
