@@ -6,8 +6,9 @@ Collection Interface in Collection Framework
         -> Vector
             -> Stack
 -> Queue (Interface)
-    -> Implements one Class
+    -> Implements two Classes
         -> PriorityQueue
+        -> LinkedList
     -> Extends to one more Interface
         -> Deque (This also extends itself from LinkedList)
             -> ArrayDeque
