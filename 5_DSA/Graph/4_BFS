@@ -1,0 +1,56 @@
+BFS in a Graph
+
+
+-> BFS in graph is following
+	-> We would given a start node
+	-> Traverse that node
+		-> Now traverse all the nodes edged by this node
+	-> Now do this for it's edged nodes.
+-> It is similar to Level Order Traversal in Trees
+-> Here, if we are given an adjacency list for a graph, then we basically traverse each node for it's list.
+-> We also have to mantain a visited array or a map, in order to ensure we are not stuck in cycles.
+	-> Graph has cycles, trees do not.
+	-> Basically tree is a graph without cycles.
+
+
+public void graphBfs(List<List<Integer>> adjList, Integer start, int v) {
+
+	boolean visited[] = new boolean[v+1];
+	Queue<Integer> queue = new Queue<>();
+	visited[s] = true;
+	queue.add(s);
+	
+	while(!queue.isEmpty()) {
+		
+		// Fetch the item from queue for processing it's adjacency
+		int u = queue.poll();
+		SOP("U - ");
+		
+		for(int v: adjList.get(u)) {
+			
+			if(!boolean[v]) {
+				
+				boolean[v] = true;
+				queue.add(v);
+			}
+		}
+	}
+}
+
+Time Complexity
+	-> Since it is iteration within iteration, it should be O(N^2), but that is not the case here.
+	-> Because, actually what we are doing, we are doing a traversal of vertices for all their edges.
+	-> So, if we are  traversing adjacency list of first item, then second item .. and so on.
+	-> So, if know the sum of lengths of all adjacency lists, then that is the time complexity of BFS
+	-> This, we already have through a formula for this (sum of lengths of all adjacency lists)
+		-> 2*Edges in an undirected graph
+		-> number of edges in a directed graph
+
+
+How to do BFS when it is a disconnected graph and no source is given?
+-> In this case we can do a basic list traversal which also mantains a visited array.
+-> We start from first node of the list
+	-> For this node, we treat it as starting node, and run the above bfs algorithm for this.
+
+
+	
