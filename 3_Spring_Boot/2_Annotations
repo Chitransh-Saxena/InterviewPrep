@@ -1,0 +1,24 @@
+Annotations
+-> These are kind of metadata, that provide info / data about the program
+-> They provide supplemental information about the program
+
+@RestController vs @Controller
+-> @Controller
+  -> It is a specialization of @Component annotation
+  -> It denotes that the current class serves as a controller.
+  -> It is usually combined with @RequestMapping annotation
+  -> The annotation basically indicates the role of the class
+    -> The dispatcher scans such annotated classesa for mapped methods and detects any @RequestMapping
+      -> These are nothing but get, post requests code.
+
+-> @RestController
+  -> Helps in creating restful webservices.
+  -> This is used at class level, and allows the class to handle client's requests
+  -> It allows us to handle REST APIs such as GET, POST and all that
+  
+-> Differences
+  -> @RestController is a special @Controller used in RESTful web-services
+    -> It is combination of @ReponseBody and @Controller
+  -> @Controller is specialized version of @Component, whereas @RestController is specialized version of @Controller
+  -> @Controller, we can return a view in MVC, we cannot do that with @RestController
+  -> 
