@@ -53,4 +53,11 @@ How to do BFS when it is a disconnected graph and no source is given?
 	-> For this node, we treat it as starting node, and run the above bfs algorithm for this.
 
 
+
+Application of BFS
+-> Shortest path algorithm: Disjkstra's algorithm
+-> GPS navigation
+-> Finding path
+-> P2P networking
+-> Finding nodes with connected componenets
 	
