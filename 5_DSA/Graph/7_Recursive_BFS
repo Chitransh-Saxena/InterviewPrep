@@ -1,0 +1,39 @@
+Recursive BFS in a graph
+
+-> Since we know the basic BFS, it should be fairly easy to derive a recursive solution out of this.
+-> In iterative solution, we do the following
+  -> Enque first item
+  -> Traverse it's adjacency list
+    -> If the items of this list are not visited, add them to queue and mark visited
+    -> In next iteration, queue has adjacency list of first node.
+      -> Again it will traverse each item from queue, and check their adjancency list
+      
+  -> What can be done here is, the part where we check if the node is visited and them add them to queue, this could be made recursive
+  
+  
+  Queue<Integer> queue = new LinkedList<>();
+  visited[] = new boolean[size + 1];
+  
+  
+  queue.add(s);
+  visited[s] = true;
+  recursiveBFS(graph, queue, visited);
+  
+  recursiveBFS(Graph graph, Queue<Integer> queue, boolean[] visited) {
+  
+      if(queue.isEmpty())   return;
+      
+      int u = queue.poll();
+      
+      for(int v: graph.get(u)) {
+        
+        if(visited[v] != true) {
+        
+          queue.add(v);
+          visited[v] = true;
+        }
+      }
+      
+      recursiveBFS(graph, queue, visited);
+    
+  }
