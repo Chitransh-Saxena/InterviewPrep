@@ -1,0 +1,34 @@
+
+
+class Solution {
+    /*
+        Approach
+            -> So, we can take a BFS or a DFS approach
+                -> Because, in order to check for cycle, we need to traverse the graph
+                -> And these are the two ways to traverse the graph
+            -> Now, we need to check if there are cycles, in a DS like linked list, we just check if element is already visited or not
+                -> But since that is something we already in graph, we need to add another logic to it
+            -> What we can do is, we can mantain the same visited array, but with additional condition as follows
+                -> If the item is visited, but it was previous or parent element, we ignore
+                    -> But, if item is visited, and it is not previous node, we say it is a cycle
+                    -> Because this means, someone already visited this item before current item
+            -> So, the modification that we can do to basic DFS is as follows
+                -> Along with current node, we also send the previous node
+    */
+    public boolean DFSRec(ArrayList<ArrayList<Integer>> adj, int curr, int parent, boolean[] visited) {
+
+	visited[curr] = true;
+	
+	for(int u: adj.get(curr)) {
+		
+		if(visited[u] == false) {
+			
+			// We will not mark here as visited, that is being done at the start of this recursive function
+			if(DFSRec(adj, u, curr, visited))   return true;
+		}
+		else if(u != parent){
+		    return true;
+		}
+	}
+	return false;
+}
