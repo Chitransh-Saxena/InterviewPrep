@@ -1,0 +1,99 @@
+-> Rat in a maze
+		-> Given a maze, displayed as a matrix, a rat starts from 0,0 and has to reach at n-1, n-1
+		-> He can travel when 1 is there, and not when 0 is there in matrix.
+		-> Rat can move in left, right, down and upward direction
+		-> Each cell has to be visited only once.
+		-> Approach
+			-> This is a matrix traversal problem, with a constraint, so this can be solved using backtracking
+			-> We start from source (0, 0) and start our traversal in each direction.
+				-> The catch here is, if at all we are not able to move forward (hit a wall) or cannot reach the end and have hit the boundaries first, then also we backtrack.
+	
+	-> Code
+	
+	class Solution {
+    
+    /*
+        -> So, we are given a matrix. A rat starts from 0,0 and has to reach N-1, N-1
+        -> A cell marked as 1 can be visited, and cell marked as 0 cannot be visited
+        -> No cell can be visited twice
+    
+        Approach
+            -> This could be solved via a greedy and backtracking approach
+            -> We start from source, and traverse the matrix recursively
+                -> At each step, we either select the valid next step or not
+                    -> We achieve this via backtracking
+                -> Base case would be when we reach the end.
+                
+        Important points related to question.
+            -> It wants answer in lexicographical order, so directions in that order are
+                -> down, left, right, up
+                -> So, we will try the answer in this order only
+                    -> In backtracking
+            
+    */
+    
+    public static void move(int i, int j, int n, int[][] m, ArrayList<String> ans, String movement, int[][] visited) {
+        
+        if(i == n-1 && j == n-1) {
+            ans.add(movement);
+            return;
+        }
+        
+        // Downward movement first
+        if(i+1 < n && visited[i+1][j] == 0 && m[i+1][j] == 1) {
+            
+            // mark current as visited
+            visited[i][j] = 1;
+            move(i+1, j, n, m, ans, movement + 'D', visited);
+            
+            // backtrack
+            visited[i][j] = 0;
+        }
+        
+        // left
+        if(j-1 >= 0 && visited[i][j-1] == 0 && m[i][j-1] == 1) {
+            
+            visited[i][j] = 1;
+            move(i, j-1, n, m, ans, movement + 'L', visited);
+            visited[i][j] = 0;
+        }
+        
+        // right
+        if(j+1 < n && visited[i][j+1] == 0 && m[i][j+1] == 1) {
+            visited[i][j] = 1;
+            move(i, j+1, n, m, ans, movement + 'R', visited);
+            visited[i][j] = 0;
+        }
+        
+        // Up
+        if(i-1 >= 0 && visited[i-1][j] == 0 && m[i-1][j] == 1) {
+            visited[i][j] = 1;
+            move(i-1, j, n, m, ans, movement + 'U', visited);
+            visited[i][j] = 0;
+        }
+    }
+    
+    
+    public static ArrayList<String> findPath(int[][] m, int n) {
+        
+        
+        int[][] visited = new int[n][n];
+        // Arrays.fill(visited, 0);
+        
+        for(int i = 0; i<n; i++) {
+            for(int j = 0; j<n; j++) {
+                visited[i][j] = 0;
+            }
+        }
+        
+        ArrayList<String> ans = new ArrayList<>();
+        
+        if(m[0][0] == 1) {
+            
+            move(0, 0, n, m, ans, "", visited);
+        }
+        
+        return ans;
+        
+    }
+}
