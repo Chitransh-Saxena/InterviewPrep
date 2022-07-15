@@ -1,0 +1,85 @@
+Find wether path exists
+
+-> Pre-requisite
+	Rat in a maze
+	
+	
+-> We are given some source and we need to tell if we can reach the end or not.
+	-> This has nothing to do with BFS or DFS
+		-> But the approach would be sort of DFS.
+	
+	-> In rat in a maze question, we had to reach the end, while traversing each cell only once.
+	-> But in this question, there is no such condition, we only need to tell if we can reach the end or not.
+		-> So, we can avoid any backtracking of any sort.
+		-> We can just call a recursive function for all the directions (up, down, right, left)
+			-> And see if we reach the end or not.
+
+
+Code
+
+class Solution
+{
+    /*
+        Approach
+            -> In order to find if a path exists, a good way is to do a DFS
+            -> 
+    */
+    
+    public void solve(int[][] vis, int[][] grid, int i, int j) {
+        
+        int n = grid.length;
+        if(i < 0 || i >= n || j < 0 || j >= n || vis[i][j] == 1 || grid[i][j] == 0) {
+            return;
+        }
+        
+        vis[i][j] = 1;
+        
+        // We just want to check if we reach the end by any path
+        // We don't need to backtrack and check each case
+        // So, what we can do is, start by recursively traversing in each of the directions
+        
+        solve(vis, grid, i+1, j);
+        solve(vis, grid, i-1, j);
+        solve(vis, grid, i, j+1);
+        solve(vis, grid, i, j-1);
+    }
+    
+    
+    public boolean is_Possible(int[][] grid) {
+        
+        int n = grid.length;
+        int[][] vis = new int[n+1][n+1];
+        
+        for(int i = 0; i<n; i++) {
+            for(int j = 0; j<n; j++) {
+                vis[i][j] = 0;
+            }
+        }
+        
+        // Find source and destination indices
+        int si = 0, sj = 0, di = 0, dj = 0;
+        
+        for(int i = 0; i<n; i++) {
+            for(int j = 0; j<n; j++) {
+                if(grid[i][j] == 1) {
+                    si = i;
+                    sj = j;
+                }
+                
+                if(grid[i][j] == 2) {
+                    di = i;
+                    dj = j;
+                }
+            }
+        }
+        
+        // If we are able to mark vis[di][dj] as 1 (we can visit destination indices from source)
+        // Then we can say it is possible to visit
+        
+        // Do a standard traversal
+        solve(vis, grid, si, sj);
+        return vis[di][dj] == 1 ? true : false;
+        
+        
+    }
+}
