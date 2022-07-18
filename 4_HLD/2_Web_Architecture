@@ -1,0 +1,52 @@
+Walkthrough of Web Architecture
+
+-> Different tiers in Software Architecture
+	-> 1 tier
+		-> All the UI, the code and the DB lies in the same machine.
+		-> Example: Very old apps and games. That's why software update was a big deal that time, and software had to be thoroughly tested in order to work.
+	-> 2 tier
+		-> All the UI and business logic lies in the client's machine and the DB is in some other backend server
+			-> Here the software provider has control over backend server.
+			-> Even the UI could be made secure, but these days it is easy to reverse engineer stuff. So it is still a risky move.
+	-> 3 tier
+		-> In these applications, UI, Backend Logic and DB are 3 separate components.
+		-> These are pretty secure, and are also able to function better as indivisual units.
+	
+	-> n-tier
+		-> Here, each component is separate, like DB, MQ, Backend services, Cache etc.
+		-> This provides a loosely coupled environment, which lowers the risk of entire service falling down.
+		-> Since components are loosely coupled, they could be re-used for some other purposes too.
+		-> Scaling is easier, identifying and resolving issues is easier.
+		
+-> Web Architecture
+	-> Web architecture includes multiple components like DB, BE service, MQ, UI ... all of them running in conjunction in order to provide a seamless online service.
+	-> There are multiple architectures. We start with Client Server.
+	
+		-> Client Server Architecture
+			-> It has a client and a sever.
+			-> Client is the user's machine, which is typically hosting UI or at times UI + Business Logic.
+			-> Server is the backend service providing the business logic (if not in UI) and the database.
+			
+			-> Client
+				-> Client's are of two categories.
+				-> Thin and Thick.
+					-> Thin Clients
+						-> These only have the UI hosted in their machine, no business logic is stored.
+						-> This is ideal, because it improves security of business logic.
+					-> Thick clients
+						-> These hold the UI as well as the business logic.
+			-> Server
+				-> Primary task of web sever is to recieve requests from clients and perform the operations.
+					-> These could be GET, POST etc. (Will be discussed later)
+				-> Servers running applicantion's backend are commonly called application servers.
+				-> We can also have proxy server, mail server, file server, blob server etc.
+			
+			-> How do clients and servers talk to each other.
+				-> The communication between them happen over the www via the HTTP protocol.
+					-> HTTP is the protocol for data exchange.
+					-> HTTP is a request-response protocol that defines how the information has to be transmitted over the web.
+					
+				-> REST API and API Endpoints.
+					-> The backend service has a REST API implemented.
+					-> So, whoever hits the backend service has to hit the REST endpoint.
+					-> REST would be explained in more details later.
