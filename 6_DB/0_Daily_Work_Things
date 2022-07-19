@@ -1,0 +1,6 @@
+-> Why are some queries used with 'with ur' appended to them
+	-> This means, read from uncommitted reads too.
+	-> Example: If we have some insert query running onto some table in our DB via some service which calls a @Transactional DAO method.
+	-> Now here, if the method is not completed, @Transactional will not commit the changes in DB, so ideally, due to ACID properties, we would not be able to read that data.
+	-> But in case, if we do need that data, which is there in DB but is not committed yet, we use our select queries appended with 'with ur'
+	-> Example: SELECT * FROM USER WHER USER_ID = ? WITH UR;
