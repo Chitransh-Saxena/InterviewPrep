@@ -50,3 +50,277 @@ Walkthrough of Web Architecture
 					-> The backend service has a REST API implemented.
 					-> So, whoever hits the backend service has to hit the REST endpoint.
 					-> REST would be explained in more details later.
+			-> REST API
+				-> Representational State Transfer
+				-> It is a Software Architecture Style, on which web services are built.
+					-> Services built based on REST are called RESTful services.
+				-> These are API implementations which follow REST rules.
+				-> The client and server have to talk using HTTP.
+				-> A REST API acts as an interface, and leverages HTTP to establish communication between client and server.
+				-> Communication between client and server is a stateless process.
+					-> No request would be saved on server.
+					-> So, each request could be treated as a separate and brand new request.
+					-> Since each time the client has to send a request, each request has to be authenticated
+						-> This enables backend to figure out if client is authenticated or not.
+				-> REST Endpoints
+					-> URL of the service which can be hit to interact with service in some given way.
+			
+			-> HTTP Push and Pull
+				-> HTTP communication that happens over the web happens in either of the given two ways.
+					-> HTTP Pull
+						-> This is the ideal client server architecture communication. Client requests, and server responds.
+						-> Here, there is one con.
+							-> When client keeps hitting for same data, but there is no update from server side, for every communication hit, there is some money involved.
+							-> And these resources are being wasted while doing such network calls. 
+							-> These could be avoided.
+					-> HTTP Push
+						-> In this type of communication, client only hits the server once for the request.
+						-> Once there are updates available for the request, the server keeps pushing those changes to the client.
+						-> This is also known as a callback.
+						-> This kind of technology involves these technologies for it's implementation
+							-> Ajax Long Polling
+							-> Web Sockets.
+							-> Message Queues
+							-> Streaming over HTTP.
+							
+							
+						-> Ajax Long Polling
+							-> In order to perform a HTTP GET request, we either have to request again and again by triggering an event OR, we could dynamically pull data using Ajax
+							-> AJAX is Asynchronough Javascript and XML
+								-> As the name suggests, it is used to add asynchronous behaviour to a web page.
+							-> Basically UI, via Ajax, polls the server automatically after every x-unit of time.
+								-> Upon recieving the updates, a particular section of the web page is updated dynamically by the callback method.
+								-> This is how news and sports websites are updated.
+							-> AJAX uses XMLHttpRequests object to send the request to the server.
+							-> AJAX Polling and Ajax Long Polling are different.
+						
+						
+						-> HTTP Push-Based Technologies
+							-> Web Sockets
+								-> A Web Socket connection is preferred when we need a bi-directional connection between client and server on a low latency
+								-> Real time use cases involves streaming, chat application, browser based multi-player games.
+								-> Using web sockets, we can keep the client server connections open for as long as we want.
+								-> Web sockets don't work over HTTP, the mechanism they use is TCP
+								-> Web Sockets facilitate bi-directional communication between the client and the server which is typically required in an online game.
+							
+							-> Ajax Long Polling
+							-> Streaming over HTTP
+								-> This needs to be done when we need to stream data by dividing it into smaller chunks
+								-> Done with the help of HTML5 and Javascript Stream API.
+								-> We can differentiate this from regular HTTP connection like this.
+									-> In regular HTTP connection, a REST API is involved, and for each request, a response is sent.
+									-> But here, when the client requests for something, in first attempt, a Request Persistent Connection is Established.
+										-> And server keeps on pushing updates to this request whenever necessary.
+				
+				
+-> Scalability
+	
+	-> Applications ability to withstand the increase in workload without degrading the performance.
+	-> Latency
+		-> Time to transfer a data packet.
+		-> It is expected to be as minimum as possible.
+		-> Ideally algorithms with O(1) complexity are ideal.
+			-> Load is not a factor here
+			-> But an algorithm with some expnonential complexity which gets worse with load, is not ideal.
+		-> Latency is also made up of two categories
+			-> Network Latency
+				-> Time to send a data packet from location A to B.
+				-> Network should be effecient enough.
+				-> Usually CDNs are used, in order to improve on latency.
+			-> Appliction Latency
+				-> Time taken by application from taking in request to producing response.
+				-> Load and Stress testing can be done to identify bottlenecks and improvise those areas of code
+		
+		-> Types of Scalability
+			-> Vertical and Horizontal Scaling
+				-> Vertical - Add more power to the server
+				-> Horizontal - Increase the number of servers.
+			-> Cloud Elasticity
+				-> These days cloud services are increasing because clouds have the ability to scale automatically with increase and decrease of load.
+				-> This also helps in optimizing cost
+				-> The process of adding and removing servers based on usage, is called cloud elasticity
+		
+		-> Primary Bottlenecks in scaling
+			-> Database
+				-> If the DB is not as nicely scaled as application, no matter how fast application is, DB requests would take time and thus end response would be late
+			-> Application Design
+				-> Use of asynchronous and synchronous methods should be carefully thought of.
+			-> Caching
+				-> Sometimes the caching is not used properly
+				-> Sometimes cache eviction policy is trash, a lot of thrashing is performed.
+				-> When a lot of static data is involved, caching could be very useful.
+			-> Load Balancers
+				-> Wrong setup (wrong number of gateways, wrong load balancing strategy)
+			-> Tightly Coupled
+				-> For Example, a stored procedure is used. That is nothing but DB + Business Logic in the same place.
+					-> This can cause issue while scaling and is also not a good practise because they are tightly coupled.
+			-> Code Level
+				-> Code should be optimized and should use as less resources as possible.
+				-> A good coding practise should follow DENTTAL Pattern
+					-> Documentation
+					-> Exception Handling
+					-> Null Pointer checks
+					-> Time Complexity
+					-> Test Coverage
+					-> Analysis of Code
+					-> Logging
+			
+			
+			
+		-> How to improve scalability and test it
+			-> Profiling
+				-> Just like valgrind is used to profile C++ apps, Java also uses profilers.
+			-> Caching
+				-> Cache properly, and also as much as possible.
+				-> Reduce DB call as much as possible
+				-> Increase the use of singletons when compared to DB.
+			-> CDN
+				-> This could be used to improve network latency
+			-> Data Compression
+				-> Binary Serialization could be performed when data has to be serialized in order to improve data processing.
+			
+			-> Testing the scalability
+				-> Load Testing
+				-> Load Testing can be performed on various levels
+					-> CPU Usage (increase and decrease the CPU usage)
+					-> Network Bandwidth
+					-> Load of user requests
+					-> Load of DB calls
+					-> Lod of RAM (in-memory use of program)
+
+-> Availability
+	-> It is the ability of the system to stay online and perform client requests even after having some internal failures here and there.
+	-> These days cloud providers have a major USP of High Availability
+	-> To include High Availability in their design, softwares are usually made Fault Tolerant and Redundant
+	-> In order to increase availability, a system needs to identify as many points of failures as possible
+		-> Software Crash
+		-> Hardware Crash
+		-> Network issues
+		-> Planned Downtime
+	-> Achieving High Availability
+		-> Fault Tolerance
+			-> If some server goes down, we prepare for backup
+			-> If out of n servers, few go down, we should be still be good to go.
+			-> Therefore, horizontal scaling along with proper load balancing and faulty server identification policy should be good.
+			-> Same goes for Load Balancers too.
+				-> A Load Balancer is also a single point of failure, thus we should include more than 1 LBs in order to avoid that issue.
+			-> So, the application as well as the deployment, everything should avoid having single point of failure.
+			-> So, in application level, we design the application in such a way, that fault tolerance is enabled at each level.
+				-> First, we decouple the application and create separate service for each of the roles and jobs (Monolith -> Microservice)
+				-> This provides us with each indivisual service, which we could choose to host in n-number of instances of servers.
+					-> Although is part of Redundancy, and not Fault Tolerance.
+				-> These would be reachable to us via some sort of API Gateway (nginx, some other LB etc.)
+				-> Similarly, we should also do scaling in DB
+					-> We can talk about Sharding and Indexing here.
+		-> Redundancy
+			-> Creating copy of servers running same service but on a different physically reachable server.
+				-> These copies are reached out in case of some other failed servers.
+				-> These configurations are programmed in the API Gateway or load balancer.
+				-> If the redundant server is dedicately used only as backup server, so it would be triggered only in case of primary server failure and not increased load.
+			-> We eliminate single point of failure by creating redundant nodes of each component and use them in case of primary node failure.
+			-> We could always idenitfy bottlenecks here and there.
+		
+		-> Replication
+			-> In this case, unlike Redundancy, there are no standby or passive servers.
+			-> Always parallel instances of a service would be running.
+			-> When a single or more nodes go down, the remaining take the load.
+			-> Load could also be distributed geographically
+				-> Just in case, if the physical location of the servers is affected, an entire replica of the same system is physically present as backup.
+	-> High Availability Clustering
+		-> It is a cluster(group) of servers running similar instances.
+			-> One of which goes down, other instances can serve the request.
+		-> The nodes in these clusters are connected by a private network, that is called a heartbeat network. The purpose of this network is to check for unhealthy instances.
+			-> And then do the needful for them
+				-> Automatic restart
+				-> Notification via slack.
+		-> A single state, shared by all the nodes in the cluster is achieved by distributed shared memory.
+			-> This is all coordinated by an orchestration service like Zookeeper
+		-> RAID is implemented on DISK level to achieve replication and redundancy on DISK level.
+		
+-> Load Balancers
+	-> A Load Balancer's task is to distribute the load of the incomming traffic properly among the servers which are available to serve those requests.
+	-> This could be done based on various factors
+		-> Some specific factor based scheduling (Server RAM, Disk usage etc.)
+		-> Standard Round Robin.
+		-> Or any custom policy
+	-> They act as a single point of contact to perform any request-response operation.
+		-> That's why it is better to Replicate LBs too.
+	-> Usually LBs are performed at various levels in an Application.
+		-> For Example, in one of my previous projects, an internal cache was mantained to store metrics of each server(Redis was storing CPU, RAM and Disk)
+		-> Now, once it was decided which of the sever the request should go, from here the request would go to nginx trying to reach that server, else the backup server.
+	-> These days, the load balancers have an internal health check, which checks for the availability of each of the instances present inside.
+
+	
+	-> Understanding DNS
+		-> Every machine that is connected to internet, must have an IP.
+			-> This IP enables this machine to connect to other machines via world wide web
+		-> IP
+			-> It is a protocol that delivers data packets from one machine to another
+		-> So, if we need to connect to a machine, we need an IP address.
+			-> But even if we have IP address, it is not viable to type IP address every time.
+			-> This is the place where domain names come in place.
+			-> We type google.com and not some IP of google in order to reach it.
+		-> Domain Name System
+			-> It maps the domain to the IP address.
+		-> How does a DNS work?
+			-> When a user enters a domain name in browser, and press enters, this is called DNS Querying
+				-> 4 key components compose of a DNS
+					-> DNS Resolver (DNS Recursive Nameserver)
+					-> Root nameserver
+					-> Top-Level Domain nameserver
+					-> Authoritative nameserver
+					
+			-> When we fire a query to search for some domain name in browser (Say, we type google.com in browser and press enter)
+			-> Then, the DNS Resolver will take this in, and query for the Root Nameserver
+				-> For google.com, root nameserver will return ".com"
+				-> This is also the top-level domain nameserver for google.com
+				-> So, we can say, that Root Nameserver maps => {domainName, top-level domain nameserver}
+			-> Now, we go to top-level domain namesever, and provide it with google.com and .com
+				-> .com will have it's own nameserver
+				-> .org will have it's own.
+			-> Now, top-level domain nameserver will return the IP of the amazon.com domain nameserver, but that is not it.
+				-> This is the last sever that we need to query on.
+				-> This is the server maintained by google, and they own the domain name.
+				-> This is also called Authoritative Nameserver
+				-> DNS Resolver fires a query to this Authoritative Server, and fetches the IP address to be mapped to google.com
+			-> This IP is often cached into our browser and even file system.
+				-> These cached IPs do come with a TTL
+	
+	-> DNS Load Balancing
+		-> Need of DNS Load Balancing
+			-> Organisations as big as google or amazon, they have a huge number of requests to serve, and therefore won't be using just 1 API Gateway (just 1 IP)
+			-> They would need to have several IPs for API Gateways in several geographical location (CDNs and etc)
+			-> How do we setup such load balancing?
+		
+		-> Setting up load balancing in DNS
+			-> Authoritative can contain a list of IP addresses.
+			-> These lists are provided to the client (browser)
+				-> And from this list, an IP is chosen, it is tried to reach out, if it doesn't respond, some other IP from the recieved list is chosen
+			-> With DNS Load Balancing, Authoritative Server responds with a re-ordered list each time it is requested for a list.
+				-> It might be rotating in round-robin fashion.
+			-> As I mentioned above, these IPs might not even be of actual server, they might IP of some other internal Load Balancer, which is leading to servers.
+		-> Limitations
+			-> Since the requests are cached into client's machine, there is a chance to reach out to a outdated machine.
+			-> The distribution does not take into account of any factors. Be it content they hold, CPU usage, number of request already processing.
+				-> This point is still not much clear.
+				-> Can't we provide the list in already curated manner?
+	
+	-> Different types of Load Balancing
+		-> DNS Load Balancing
+			-> Already discussed above
+		-> Hardware Load Balancing
+			-> A physical machine sits serving as a load balancer, connecting to other server.
+			-> It is hard to mantain such thing, need an in-house team to always keep an eye on it.
+			-> Scaling is tough, but performance is pretty good.
+		-> Software Load Balancing
+			-> These are advanced softwares that are able to take in several factors like System Metrics, server performance or any custom thing into consideration
+			-> Example, NginX, HAProxy
+
+
+
+How does HTTPS work?
+-> HTTPS is a protocol via which modern internet communications happen.
+-> It is nothing but HTTP with a added layer of security from TLS (Transport Layer Security)
+-> The SSL certificate (Secure Socket Layer) of the website is transmitted to any client requesting to access the website (or any endpoint)
+-> The client and server then go through a TLS/SSL Handshake
+
