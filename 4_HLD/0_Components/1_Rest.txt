@@ -100,4 +100,16 @@ Here are the few architectural constraints which REST wants to impose
         -> When GET requests need to be cached, REST could be used.
 
         -> When we have public APIs for services like social network, mobile services etc.
+        
+SOAP VS REST
+
+-> SOAP is a protocol while REST is just an architectural pattern
+-> SOAP only uses XML
+	-> Whereas REST uses XML, JSON, Plain Text etc.
+-> SOAP supports WS-Security and SSL
+	-> REST supports SSL and HTTPS
+-> SOAP consumes more bandwidth because it has to send an envelope, which contains the body, which contains the actual data to be sent
+	-> Whereas in REST, a simple JSON with just the data is enough
+-> SOAP cannot be cached (because SOAP only sends POST request, no GET, PUT, PATCH is supported, even for GET SOAP uses POST call)
+	-> Since REST uses GET calls for getting, the response of which can be cached if needed.
 
