@@ -1,0 +1,87 @@
+Java Interview Questions
+-> What is JVM
+	-> It is Java Virtual Machine
+	-> The bytecode (.class) file is provided to JVM which converts it into native code and runs the application
+-> If we launch two java programs, how many instances of JVM would be created?
+	-> 2
+	-> One runtime instance of JVM runs only one java application.
+-> What is execution engine
+	-> It runs the bytecode.
+	-> It contains
+		-> Interpretor
+			-> It is a translator that converts the bytecode into the native machine code
+			-> It is part of JVM
+			-> For each hardware architecture, different Interpretor is needed
+		-> Just In Time Compiler
+			-> It runs after the program has started and compiles the code into a form that is usually faster (typically into host CPUs instruction set)
+			-> It has access to dynamic runtime information, and can make better optimizations like inlining function etc. (This can't be done by standard compiler)
+			-> So, in short, it improves the performance by converting bytecode into the native machine code at runtime.
+		-> Garbage Collector
+	
+-> What is Java SE?
+	-> Standard Edition
+	-> It is a specific set of standards for the Java Platform (not the Java Language)
+
+-> What is openJDK
+	-> It is a open source implementation of Java platform
+	-> It is official reference implementation of Java SE7
+
+-> What is Java EE?
+	-> It is also a specification described to support Enterprise Level Java Development
+
+-> What is .class file or what is bytecode
+	-> Java compiler converts .java file into .class file.
+	-> It is called the bytecode.
+	-> Bytecode is then run by JVM
+
+-> What is .jar file?
+	-> It is necessary classes and metadata that is needed by an application to run.
+	-> It is built upon the .zip format.
+
+-> What is fat jar or uber jar?
+	-> It contains all the project libraries and files on which the project depends.
+
+-> What is .hprof file?
+	-> Tool built into JDK for profiling CPU and heap usage.
+	-> Kind of like memgrind in C++.
+
+-> Variable Argument Passing
+	-> How can we pass variable number of arguments in each method invocation?
+		-> Use varargs feature
+			-> public void childrenNames(String... names) {
+			}
+		-> The parameter would be treated like a dynamic array.
+		
+-> In Java, only primitive data types can perform pass by value.
+
+-> What is the difference between Interface and Abstract Class?
+	-> Abstract class can have final, static and class members
+		-> Interface variables are final and static by default
+	-> Abstract class can have static, abstract and non-abstract methods.
+		-> Interface can only have abstract, default or static methods
+	-> In Abstract class, members can have private or public visibility.
+		-> In interface, it is always public
+	-> A child class can implement it's function with same or restrictive visibility.
+		-> But a class implementing an interface has to follow same visibility
+	-> From a design standpoint
+		-> Abstract classes are used when we want to provide a blueprint with some flexibility on the object creation.
+		-> Interfaces are more of an abstract rule with implementation of each rule.
+			-> So, this has more use case when writing some service layer, where each method that has to be used is written in an interface and implemented in some other class.
+		
+		-> Function of abstract class is to avoud duplication while enabeling development
+			-> Whereas in Interface, it is a promise to provide some state and functionality
+			-> Interface is mostly used, when un-related classes are going to be implementing interface.
+	
+-> Default methods
+	-> These are methods that we can implement in interface, which the implementing class doesn't have to necessarily override.
+	
+	
+-> List<Integer> list;
+	-> Here list is an object of class ArrayList, that implements the Interface List.
+	-> Thus, list is able to access methods.
+		-> Because list object is instantiated via a class.
+		
+-> String vs StringBuilder vs StringBuffer
+	-> String is immutable, every modification destroys the object and creates a new string
+	-> StringBuilder is mutable, but not thread safe, therefore, is a little fast
+	-> StringBuffer is mutable, but thread safe, and thus is a little slow.
