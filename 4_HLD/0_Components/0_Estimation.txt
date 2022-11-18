@@ -1,0 +1,61 @@
+Why do we use Back of the envelope estimation
+    -> Distributed System has compute nodes connected via a network
+    -> Estimation helps us in focussing on more important aspects like severs etc.
+
+    -> Example:
+        -> Number of concurrent TCP connections a server can support
+        -> Number of Request Per Second a web server, DB server or cache can handle
+        -> Storage Estimation of a service
+
+-> Types of Data Center Servers
+    -> Data Centers have various types of servers
+        -> Web Server
+            -> These are first point of contact after load balancer
+            -> These handle the API calls from the clients (These are not application servers though)
+                -> Kept decoupled to improve scalability
+            -> These still require good computational resource
+                -> 32 GB RAM and 500 GB storage space (For Enterprise Level)
+        -> Application Servers
+            -> These run the core application and the business logic
+            -> Application Servers provide the dynamic content, while the web servers provide the static content
+                -> This is not always true, but more or less, this is the use case
+            -> These servers need extensive computational resources
+                -> 256 GB RAM and 2-4 TB storage (Enterprise Level)
+                -> 36 Cores or 72 threads (Again, enterprise level server requirement)
+        -> Storage Server
+            -> Various storages can come into this category
+            -> RDBMS
+            -> Blob Storage
+            -> Big Tables
+            -> Temporary Queue Storage
+
+-> Requests Estimation (Requests Per Second)
+    -> We are going to discuss how many requests a server can handle per second
+    -> There are two types of requests
+        -> CPU Bound Requests : In these requests, the limiting factor is the CPU
+        -> Memory-Bound Requests: Limiting Factor is amount of memory machine has
+
+    -> Approximation of each type of request
+        -> Assumptions
+            -> We have around 32 GB of RAM, where 16 GB has been consumed by OS and other auxiliary processes.
+            -> Each worker consumed 300 MB of ram to complete one request
+            -> Each CPU Bound Request will take around 200 ms to complete and Memory-Bound request will take 50 ms to complete
+                -> Rough Estimation
+                -> We might have to do profiling of our application in order to get exact numbers
+
+        -> RPS (CPU Bound)
+            -> Number of CPU Threads (hardware threads) * 1 / Time taken by each task to complete
+            -> RPS = 72 * (1/200) = 360 RPS
+        -> RPS (Memory Bound)
+            -> (RAM Size / Memory consumed by 1 worker) * (1 / Time taken by each task to complete)
+            -> 256 GB / 300 MB * 1/50
+            -> Do the math
+            -> 16,000 RPS
+        -> Average?
+            -> A server recieves both CPU and Memory Bound Requests
+                -> 360 / 2 + 16000/2
+                -> ~8000 RPS
+                -> So, an enterprise level CPU can handle 8000 Requests Per Second
+
+-> Number of Servers Required
+    -> Number of Daily Active Users / RPS of the servers
