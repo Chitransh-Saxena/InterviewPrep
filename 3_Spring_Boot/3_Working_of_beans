@@ -1,0 +1,18 @@
+Beans that Spring creates are managed by IoC (Application Context).
+We can get info about the bean from ApplicationContext.
+
+If we want some bean and use it for some reason, apart from doing Autowired stuff, we can do this as well.
+
+
+psvm(String[] args) {
+
+    ApplicationContext context = SpringApplication.run(MyApplicationName.class, args);
+    SomeClassWhoseBeanINeed obj = context.getBean(SomeClassWhoseBeanINeed.class);
+
+    SomeExpectedReturnType result = obj.someMethod(someArgs);
+
+}
+
+-> SpringApplication.run returns the ApplicationContext object.
+-> ApplicationContext object can be used to ask for Bean of the provided class in arguments.
+-> Bean (just an object btw), can be used in a regular way to call methods and work with them.

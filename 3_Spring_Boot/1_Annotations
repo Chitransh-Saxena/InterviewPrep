@@ -1,0 +1,54 @@
+@Autowired
+    -> @Autowired annotation tells Spring to find and inject a collaborating bean into the current object (bean)
+        -> If more than one bean of same type is available, Spring will throw an error
+        -> In such situation, we can do the following
+            -> Use @Primary
+            -> Use @Qualifier
+                -> Check recommenderImpl to see how it is used.
+                    -> Declare qualifier in the using class as well as the used class.
+            -> declare by name (can choose of any of the two implementations from below way)
+                -> Filter contentBasedFilter
+                -> Filter collaborativeFilter.
+    -> @Primary
+        -> If we have an interface, and two implementation classes, while defining bean, we will encounter some error.
+            -> Because two classes that can be instantiated, but not specified which
+        -> This annotation on one of the implementation class will make it the default option of instantiation.
+
+
+@Component -
+
+
+@Configuration
+    -> Declares the class as source of bean definition
+
+@EnableAutoConfiguration
+    -> Allows application to add beans to classpath definitions.
+
+@ComponentScan
+    -> Developer needs to provide information about where to get beans from.
+    -> We use above annotation to  tell about packages (root, subpackage etc) to scan in order to get beans
+        -> Any class which is not being scanned, even if @Component annotation is present, won't be getting it's beans created
+
+
+Because of @SpringBootApplication annotation, we do not need to use @ComponentScan annotation in our code.
+
+
+@PostConstruct
+    -> Once the dependency injection is done, and before calling the main functionality, if we want to do something
+        -> We can create a method, annotate it with @PostContruct.
+    -> Once this method is executed, then only the bean of current object will be created.
+
+@PreDestroy
+    -> Methods annotated with this are called before a bean is about to get destroyed.
+
+@RestController
+    -> Informs Spring that this is a controller class
+    -> Controller is a java class that maps URI to a method.
+    -> This is specialized form of @Controller which only handles REST request and response.
+        -> Automatically handles conversion to JSON.
+
+
+@RequestMapping(method=RequestMethod.GET, value="/movies") or @GetMapping("/movies")
+    -> Once a controller is in place, URI is specified, we need to inform Spring what to do when an HTTP request is recieved.
+    -> HTTP requests like GET, POST, PUT, DELETE.
+    -> So basically, method annotated with this will be available through the given URI, and response will be converted to JSON and returned.

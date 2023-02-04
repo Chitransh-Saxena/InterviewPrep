@@ -1,0 +1,38 @@
+Spring Framework
+    -> Open source java application framework
+    -> Based on Dependency Injection and Inversion of Control
+    -> Autowires the dependency at runtime
+        -> This helps in writing  loosely coupled application
+    -> Metadata is stored in form of XML
+    -> A web app has major three layers: Web, Business Logic, Database layer
+        -> These can be called as dependencies.
+
+    -> Beans
+        -> Objects of classes managed by Spring
+        -> Spring creates the object after injecting a necessary dependency
+        -> @Component is one of the common methods to declare that a class would be used as a bean and thus managed by Spring Framework
+
+    -> Autowiring
+        -> Process of identifying a dependency, looking for a match, and then populating the dependency is called autowiring
+        -> @Autowired annotation tells Spring to find and inject a collaborating bean into the current object (bean)
+            -> If more than one bean of same type is available, Spring will throw an error
+            -> In such situation we use qualifiers to clarify
+
+    -> Dependency Injection
+        -> The process of looking up for a bean, injecting into another bean is called dependency injection
+            -> Achieved via constructor or setters.
+
+    -> Inversion of Control (IoC)
+        -> Pretty much same as dependency injection
+        -> Usually, whenever we need an object we go ahead and do Class obj = new Class();
+            -> This would create the object for us (developer)
+        -> With Spring, the control moves to Spring framework.
+            -> Framework takes responsibility of finding out dependencies of a component, ensuring availability of required resources (other beans etc), and injects them into component
+            -> This process is called Inversion of Control.
+
+    -> IoC Container
+        -> This is another framework that provides IoC functionalities.
+        -> This container manages the beans.
+        -> Spring offers two implementations of IoC
+            -> Application Context (More commonly used)
+            -> Bean Factory

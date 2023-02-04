@@ -1,0 +1,23 @@
+Provides following features and more:
+    -> Embedded Server
+    -> Metrics
+    -> Health check
+
+Spring Boot Autoconfiguration
+    -> While creating a project, we need to specify various things.
+    -> When we create a Spring Boot project, we can specify the things during project creation (after creation too)
+        -> Spring Boot will automatically download the compatible versions of the required items and make it collaborative
+        -> Example: We select spring start web while project creation
+            -> Spring boot automatically configures the right version of dispatcher servlet, Spring Core, logging, security etc.
+
+Starter Test
+    -> Starter dependency for testing Spring Boot Applications
+    -> Junit, Mockito etc. are libraries of this.
+
+Starter JPA
+    -> JPA is interface for Hibernate framework.
+
+Actuator
+    -> Monitoring feature during development and post deployment
+    -> Provides info about Beans configured, how autoconfiguration has worked, how many times a service is called etc.
+    -> URL to launch actuator is https://...../actuator

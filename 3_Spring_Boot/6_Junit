@@ -1,0 +1,74 @@
+Junit
+    -> Unit testing framework
+    -> If a change is there in functionality of a code, unit test written in Junit will catch it.
+        -> Correctness is decided by the developer
+    -> To enable Junit, we setup junit.jupiter dependency or spring-boot-starter-test (this comes by default in POM)
+        -> assertJ for assertion
+        -> mockito for false / mock data.
+
+    -> <exclude> to exclude certain packages from testing scope
+    -> @Test annotation tells that the method is a unit test.
+    -> Junit5 = Junit Platform + Junit Jupiter + Junit Vintage
+        -> Junit Platform
+            -> Launches the testing framework on JVM
+            -> Provides console launcher
+        -> Junit Jupiter
+            -> For running Jupiter based tests on platform
+        -> Junit Vintage
+            -> Provides test engine for running Junit  3 and Junit 4
+
+Methods involved
+    -> assertEquals
+        -> Check the equality of expected vs tested method.
+    -> assertTrue
+        -> Check for boolean equality
+    -> fail
+        -> This fails the method, no matter what
+        -> Can be marked for an unfinished test, so that developer finishes it later.
+    -> assertThrows
+        -> Throws required exception
+    -> assertAll
+
+Junit Lifecycle annotations
+    -> @BeforeAll
+        -> Runs before all the methods are executed.
+        -> Setup method, has to be STATIC
+        -> Runs before even the instance of class to be tested is created.
+    -> Instance of Test class is created
+    -> @BeforeEach
+        -> Runs before each method is executed
+        -> Can initialize method or establish DB connections here.
+    -> Execute Test
+    -> @AfterEach
+        -> Same as beforeEach, but after the test
+    -> @AfterAll
+        -> Same beforeAll, but after all the tests are run.
+
+
+Stubbing and Mocking
+    -> Each test should run independently of any dependency
+    -> But since our applications are coupled with dependencies these days, we need to mock the application layer objects etc.
+        -> This mocking can be done using Mockito, PowerMock etc.
+    -> mock(MyClass.class) from mockito will create a mock object of the class.
+        -> thenReturn()
+            -> When mock object is used to call some method, then what?
+            -> We can decide with this method.
+        -> when()
+            -> It is used in conjunction with thenReturn or thenThrow
+
+        -> Example: when(someDaoMock.someMethod()).thenReturn(some object);
+    -> We can replicate the mock() method with @Mock annotation
+        @Mock
+        SomeDao someDaoMock;
+    -> @InjectMocks
+        -> injects the mocks into the required service or any other object
+            -> Example: Usually, any DAO object will be part of some service dependency
+            -> Now, first we create our mocks with @Mock
+            -> Then, while creating the service object, we can do this
+                @InjectMocks
+                SomeServiceClass mockServiceObj;
+
+
+@SpringBootTest
+    -> Annotate the unit test class with this annotation to load the ApplicationContext, and thus all the beans will be loaded.
+    ->

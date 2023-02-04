@@ -1,0 +1,20 @@
+JPA (Java Persistence API)
+
+-> Eases the task of writing queries
+-> Creates entities that are Java Objects and maps them back to a row in DB.
+-> Hibernate is the ORM framework that created JPA standards.
+-> JPA is an interface that defines set of annotations for creating the ORM.
+    -> Hibernate is an implementation of JPA.
+    -> Hibernate is most popular implementation of JPA, lightweight and easy to integrate.
+
+
+Usage
+-> Add the dependency to POM, reload the project, we should have the libraries to import
+    -> Hibernate implementation is automatically configured (jar seen in maven dependencies folder)
+
+
+-> How DBs work in Walmart?
+    -> How is both Azure and DB2 connected?
+    -> How is data configuration done?
+    -> Where is DB hosted?
+        -> Cloud or some own on-prem
