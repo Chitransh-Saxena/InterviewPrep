@@ -1,0 +1,42 @@
+Background of OOPS
+
+-> Programming is used to solve real world problems. So, if there some way to map real world objects to programming language, that would make it easier to solve the problem
+  -> Answer to this is Object Oriented Language
+  -> OOPs models the real world items to objects in programming language.
+    -> This way, we can give desired state and behaviour to our objects, and mimic the real time behaviour as much as possible
+    -> This helps in solving the problems in much more cleaner state, also gives us a lot of controls over these objects, hence simplifying the process of development
+
+-> So, each entity in our program will have the following properties
+  -> Attributres
+    -> Variables which represent the state of the object
+  -> Methods
+    -> Functions which represent the behaviour of the object
+  -> Classes
+    -> It is the blueprint of any real world item or any item we are planning to design
+      -> We provide it with some state and bhevaiour
+      -> Example: Car, Employee, User etc.
+  -> Objects
+    -> If Employee is a class, all the employees created from this class would be objects of class Employee
+      -> So, if we consider a class an idea, then object is basically an implementation of that idea.
+      
+      
+-> Principles of OOP
+
+  -> Encapsulation
+    -> Data Hiding is an essential concept of OOPs
+    -> Consider, we create a class which has some certain state.
+      -> We do not want to provide easy access to other classes to modify this state
+      -> Best way to do it is, declare these fields as private and provide methods to get and set the values (getter and setter)
+        -> This way, the access has been restricted and the variable can only be accessed in the way defined by the method
+    -> Essentially, this is Encapsulation
+      -> Simply stating, declaring fields as private and providing getters and setters is Encapsulation
+
+
+  -> Abstraction
+    -> Abstraction is basically hiding the complex functionality of a program from the user or other entities within the program itself, is called Abstraction
+    -> It might seem similar to Encapsulation, but encapsulation is basically hiding the state via access modifier and providing getter and setter for it
+      -> Whereas, in Abstraction, the hiding is at design level. Consider there is a user using volume up button in a remate.
+        -> Underlying circuit and how it controls the volume is not something that user knows. He is just using the volume up button
+        -> Now consider, there is a remote class which has volume as a state, and it is set to private.
+          -> And volume up and down methods are given, which set boundary to 0 - 10
+          -> This is Encapsulation
