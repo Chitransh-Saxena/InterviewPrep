@@ -40,3 +40,44 @@ Background of OOPS
         -> Now consider, there is a remote class which has volume as a state, and it is set to private.
           -> And volume up and down methods are given, which set boundary to 0 - 10
           -> This is Encapsulation
+  
+  -> Inheritence
+    -> It is a way to create a new specialized class from an existing class
+      -> New class contains all the non-private variables and methods of the parent class
+      -> It can contain further new fields and methods of its own
+    -> Inheritence represents a "IS-a" relationship
+      -> A car IS-a vehicle
+      -> A panda IS a animal
+      -> So, we can derive that car is inheritence of vehicle
+    
+    -> Types of Inheritence
+      -> Single Inheritence (Is a)
+        -> A fuel car Is A Vehicle
+      -> Multiple Inheritence
+        -> A Hybrid car IS a fuel car
+        -> A Hybrid car IS a electric car
+      -> Multilevel Inheritence
+        -> A fuel car IS a vehicle
+        -> A petrol car IS a Fuel Car
+  
+  
+  -> Polymorphism
+    -> Polymorphism means meany forms
+    -> Example, there is a Animal class which represents the entire Animal Kingdom
+      -> There is a makeNoise() function, which represents sound that each animal makes
+      -> Since, each animal makes it's own unique sound, makeNoise() should behave differently under different conditions
+        -> Essentially, the implementation needs to be unique for Lion, Deer, Monkey etc.
+    -> Types of Polymorphism
+      -> Dynamic (Runtime Polymorphism)
+        -> Method overriding
+          -> Methods with same name, parameters are there, and based on the object created at runtime, which implementation to use is decided.
+      -> Static (Compile Time Polymorphism)
+        -> Method Overloading
+          -> Methods have same name, but either number of parameters or type of parameters differ (Return type is not considered)
+            -> In this case, which method to use can be decided at compile time
+        -> Operator Overloading
+          -> Operators can be programmed to behaviour in certain user specific ways
+            -> 2 objects, say People can be added like people1 + people2
+              -> But since, + is reserved for int types and so, this will give error. Operator overloading provides a way to define how + would behave in above condition
+            -> Java and Javascript do not support operator overloading
+    
