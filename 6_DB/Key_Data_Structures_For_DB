@@ -1,0 +1,55 @@
+
+Skiplist
+  -> Data structure that is used to implement Sorted Set
+  -> Alternative to a balanced tree
+    -> Allows faster insertion, deletion operations
+  -> Redis used skiplist to implemented sorted set (ordered data structure)
+    -> Can skip elements based on requirement
+    -> Range based queries can be performed optimally
+
+
+HashIndex or HashTable
+  -> Effeciently map keys to values while generatingg hash value for each key
+  -> Hash index is basically index in an array where the nodes are stored
+    -> Thus the time to reach a node is basically calculating hash index and reaching there {takes O(1)} time
+    -> Faster searches, insertions and deletions
+  -> Used in Redis, MySql etc.
+
+SSTable and LSM Tree
+-> SSTable
+  -> Sorted String Table
+  -> Store data on disk in sorted order
+    -> File based data strucuture to store large amounts of data in highly effecient data format
+  -> SSTable is a core component of LSM Tree, apart from Memtable
+
+-> Memtable
+  -> In-memory data structure that stores reads and writes
+
+-> SSTable and Memtable work hand in hand to operate on high volumes of read and writes
+  -> LSM Tree is basically the secret sauce behind the NoSQL databases.
+-> LSM Tree
+  -> Backbone of NoSQL DBs like cassandra, RocksDB, levelDB
+  
+
+BTree
+  -> B tree is a balanced tree where each node can have multiple children and keep data sorted
+  -> B+ Tree is a special type of tree where all data is stored in the leaf nodes, and other nodes only store the keys which lead to data.
+    -> Used in MySQL, PGSQL, Oracle to handle the large amount of on-disk data
+  
+Inverted Index
+  -> Search and retrieve data from large collection of text documents
+  -> Creates a mapping of words to documents in which they appear
+    -> Index is inverted because it maps words to document, and not the other way round
+  -> Used in document search engines like ElasticSearch
+
+
+Suffix Tree
+  -> High Speed Text Searches
+    -> Like Trie and stuff
+
+R-Tree
+  -> Spatial index data structure
+    -> Organises data based on their geometric boundaries
+  -> Used to effeciently store and retreive spatial data in a database
+    -> Faster spatial queries
+    -> Mostly used in spatial DBs like postGIS, MongoDB, ElasticSearch
