@@ -1,0 +1,91 @@
+https://github.com/Chitransh-Saxena/java-interview-questions/blob/master/java8-questions.md#
+
+
+-> Can you declare an interface method static?
+    -> Java 8 changes include support of static methods and default methods in interface
+    -> What does this really mean?
+        -> Instances on application level where this is useful?
+
+-> What is lambda?
+    -> Lambda is an expression which can hold a piece of code or some set of instructions and can be called repeatedly
+    -> These are basically functions wrapped in a form of expression
+
+    -> To understand a lambda expression, following things are to be kept in mind
+        -> Lambda operator is the basis of it ( -> )
+            -> Above operator divides the lambda expression in two parts
+                -> Left is list of expression parameters
+                -> Right is the set of instructions
+        -> Lambda expression does not execute by itself
+            -> It rather forms the implementation of the method written in the functional interface
+            -> It is important that functional interface contains only one method without any implementation
+
+    interface Operable {
+
+        int calculate(int x, int y);
+    }
+
+    psvm() {
+
+        Operable operable = (x,y) -> x + y;
+        int res = operable.calculate(3, 4);
+    }
+
+
+    -> Parameters of lambda expression should correspond to parameters defined in functional interface
+
+    -> Lambda expression can be passed as function parameter as well
+
+    public int getSum(int[] arr, Operable operable);        // From wherever this method is called, pass lambda in the calling parameter
+
+-> Sort a list of items using Lambda
+    -> public List<String> sort(List<String> list) {
+
+        Collections.sort(list, (a, b) -> a.compareTo(b));
+        return list;
+    }
+
+-> What is a method reference?
+    -> If a method already existing in class already does everything that is necessary, we can pass the reference to this method in function's parameter
+    -> This is more efficient than lambda. How?
+        -> They provide the compiler with better information about the type, and few other reasons
+
+    private interface Measurable {
+        public int length(String s);
+    }
+
+    psmv() {
+
+        Measurable m = String::length;
+        System.out.println(m.length("Hello World"));
+    }
+
+-> What is functional interface?
+    -> It is an interface which defines only one abstract method.
+    -> We can annotate such interfaces with @FunctionalInterface too. (Good for clarity and design)
+    -> An interface can have as many default methods as necessary, as long as it has one abstract method, it will be functional interface.
+        -> This is because, default methods are not abstract.
+
+-> What is StringJoiner?
+    -> It is used to create a sequence of strings separated by a given separator, and we can provide stuff to append and prepend too.
+
+-> What are default methods in interface?
+    -> Java 8 allows us to add non-abstract method implementations to an interface, using the keyword default.
+
+    interface Example {
+
+        int process(int a, int b);
+        default void show(String s) {
+            System.out.println("Printing - " + s);
+        }
+    }
+
+    -> If a class implements an interface, then it can override the default method, although it does not necessarily have to
+        -> If the class does not override, it will have default implementation of the method from the interface
+
+    -> If a class implements several interfaces which come with their own definition of some contradicting default method, class must override the method itself.
+    -> One benefit would be, we can avoid creating utility classes
+        -> An interface can hold the methods in default form for the purpose of utility.
+
+-> What is static interface method?
+    ->
+

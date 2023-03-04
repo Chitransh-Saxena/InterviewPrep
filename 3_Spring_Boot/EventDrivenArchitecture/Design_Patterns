@@ -1,0 +1,83 @@
+Event Driven Architecture
+
+* CQRS Design Pattern
+* SAGA Design Pattern
+
+
+
+CQRS Design Pattern
+	-> Command and Query Responsibility Seggregation
+
+	-> Usual Architecture
+		-> REST Calls (GET/POST/PUT/PATCH .. etc) -> Controller -> Service -> Database
+
+	-> CQRS Architecture
+
+
+
+
+				|-> Command API (POST, PUT, PATCH, DELETE) {Command -> Command Handler -> Events Handler} |-> Write DB
+																										  |-> Events Store
+		API -----
+				|-> Query API (GET) {Query -> Query Handler -> Events Handler} -> READ ONLY FROM DB
+
+
+
+
+		-> So, basically in this architecture, the read query is seggregated from other write and update related commands
+			-> How does this work?
+				-> We provide command or the query that we want to execute
+				-> Command and Query Handler to handle the command or query
+					-> Command Handler is called the Aggregate
+					-> Query Handler is called Projections
+
+				-> With each command or query that we handle, we will be creating the events. So, based on those events other operations of the system can be performed
+					-> This is the beauty of the Event Driven Architecture
+
+			-> In case of Command API, we have Write DB and in case of Query API, we have Read DB
+				-> These could be 2 different DBs
+					-> So, if the interaction has to be in sync and  consistent, they have to be linked somehow
+					-> These DBs would be linked by Events
+						-> We can create Events based on how we want to connect or link the DBs via methods.
+
+
+Tech Stack Used Now
+	-> Spring Boot
+	-> Axon Server
+		-> Provides ability within Spring Boot application to handle all the events.
+		-> Stores relevant Event Data in Event Store.
+	-> Axon Framework.
+
+
+CQRS Command API Flow:
+-> What we are trying to execute
+	-> Let's say there is a save API for a list of products or something like that.
+	-> For save, we usually use POST, so this is how the flow would look in the CQRS Architecture.
+
+-> Process
+	-> From some UI or somewhere, we get a POST request, this goes to the controller
+	-> Controller parsed the request, takes it to the right method and then sends the appropriate command to the command gateway
+	-> Command Handler or the Aggregate will recieve the request, and handle it in whatever way it needs to be done
+		-> Once this is successfully done, it will create a event, say "ProductCreatedEvent"
+		-> This event will be stored / published in the Event Store
+
+	-> Parallely there would be a different Event Handler, it will listen to the Event Store
+		-> If some event comes where some action needs to be taken like to store the data in some DB or some other action, that can be configured here.
+
+
+-> Understand the Event Store
+	-> Any Event created from the Aggregate or Command Handler, it will be stored in a Event Data Store
+	-> So, whatever events happen, they will be stored in some sort of storage, in a certain form
+		-> Event Sourcing
+			-> In a traditional way of storing the data, we would take some sort of NoSQL database and store the snapshot of the events there.
+				-> Redis does something like this internally
+				-> This is how Redis is able to mantain it's last saved state when it is rebooted.
+			-> Event Sourcing allows to state the sequence of events (history of chronology), and each current state is constructed on the states in the history, in that same sequence
+				-> This thing can be implemented in tradition noSql databases by adding a model to save history, it will be an added complexity, and is sort of out of scope of those DBs
+			-> Useful where a full audit log of the events is required.
+			-> Current state is called Materialized State.
+
+		-> Event Store
+			-> Events need to be stored in a sequence, so the storage is optimized for appends, and not other modifications.
+			-> Axon Server provided by Axon is one Enterprise Level Event Store.
+			-> Alternatively, Axon Framework provides support for other SQL or NoSQL DBs.

@@ -33,7 +33,7 @@ Collection Framework
     -> Queue Interface
         -> ArrayDeque
         -> LinkedList
-            -> Priorotize something over another
+            -> Prioritize something over another
             -> A resource is shared among other devices
             -> Push(item) -> O(1)
             -> pop() -> O(1);
@@ -45,7 +45,7 @@ Collection Framework
 
 -> Map Interface
     -> HashMap
-        -> Works on the prinicple of hashing.
+        -> Works on the principle of hashing.
         -> Hashing - An algorithm or function which maps an object to an integer value. (hashCode method)
         -> So, hashmap internally implements Hash Table
             -> It is nothing but an array of buckets.

@@ -1,0 +1,55 @@
+-> Requirement
+    -> Notification Service should be decoupled from the main application service
+    -> Should support multiple types of notifications
+        -> Text Message
+        -> QR code
+    -> Within types of service, there should be multiple ways of sending the notifications
+        -> Text and QR, both should support the following
+            -> Email
+            -> SMS
+            -> Whatsapp etc.
+
+
+-> Design Principles User here
+    -> We will decouple the application
+        -> ISP
+        -> This will improve the maintenance and readability, reduce the errors
+        -> In future, if we want to add telegram or add another type of notification, that can also be done.
+    -> Each type and service will be on it's own
+        -> SRP
+
+-> Design
+
+    Some Application --> Queue --> Message Processor
+
+-> Design Pattern
+    -> Primary design pattern that we will use here would be bridge design pattern
+    -> Why?
+        -> It decouples abstraction from it's abstraction
+            -> Doesn't facade also do the same?
+                -> No, facade just adds a layer of facade class with which the client can interact and get the same work done
+            -> Bridge is more about writing and designing the classes in such a way that they are decouples
+        -> Bridge is useful, when the various implementations of the class are gonna vary in terms of what they do
+            -> Example:
+                -> Abstraction: NotificationType
+                -> Implementation: Text, QR
+                    -> Implementation will further vary like
+                        -> Email
+                        -> SMS
+                        -> Whatsapp
+                -> So, in such variety including implementations, bridge design pattern optimizes the usage.
+            -> Bridge design pattern will create a bridge between the abstraction and implementation.
+        -> Why choose bridge design pattern in such case and why not any other?
+            -> Since the service supports multiple types of implementation for an abstraction, and each implementation can also vary
+                -> In such cases, bridge is a good design pattern choice.
+
+            -> We have two abstractions of notificationType
+                -> Text and QR
+                -> Lets' say, we have N abstractions
+            -> For each of N abstractions, we have M implementations
+                -> Whatsapp
+                -> Email
+                -> SMS
+            -> So, we will need to create N * M classes with primitive ways.
+            -> But, if we use bridge design pattern, we will be just using N + M classes.
+                -> So, as the complexity increases (N or M increases), this design pattern just seems like a better choice.

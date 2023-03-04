@@ -1,0 +1,74 @@
+Kubernetes Notes (Once again)
+
+-> Traditional Application Deployment
+	-> A physical server would be there, on which a OS will be present
+	-> On top of that OS, the applications will be deployed
+	-> Now, if multiple applications are deployed, then sometimes resource allocation to multiple services is not done properly
+		-> So, at times, when a service needs certain amount of resources, it did not get them and thus, failure occured
+
+-> Virtualisation
+	-> We have same physical server, on top of that, we have our OS.
+	-> Now, we have a hypervisor, on which we can have multiple Virtual Machines
+	-> Each virtual machine will have it's own OS (different flavors of Linux etc), and on top of that our application will be hosted
+	-> So, each virtual machine will be created with it's own set of resources which won't be shared with other VMs
+
+-> But since each VM has it's own OS, some resources go into that too. In order to save that, we have to eliminate the layer of OS, but if not OS, how do we interact with hardware?
+
+-> Containerisation
+	-> Almost same concept, but these share the same OS, so they are light weight
+	-> Hardware -> OS -> Container Runtime -> Multiple Containers are hosted
+	-> Each container will have basic system libraries and the application which is needed to run
+
+-> In production, we need to manage each container, handle the configs, make sure there is no downtime, alert if something is down etc.
+
+-> Kubernetes
+	-> It is a container orchestration tool developed by google
+	-> Manages containerised applications
+	-> High Availability, High Scalability
+		-> If a container goes down, Kubernetes automatically creates the new container (keeps snapshot)
+		-> Upscaling and all is also easy config
+
+-> Kubernetes Architecture and Components in Ipad.
+
+
+-> What is Base 64 encoding?
+	-> Benefits?
+	-> Can we change this to something better or worse in K8?
+
+
+
+-> Typically, Kubernetes works in a cluster
+	-> Within a cluster, there is master nodes and worker nodes.
+	-> In prods, there could be multiple master and worker nodes within a K8 cluster.
+	-> In local dev environment, we we need not do such tedious setup
+		-> We can use minikube
+		-> Allows us to create a single node cluster in our local environment.
+			-> Kubectl comes along with it.
+
+-> Kubectl
+	-> It is a command line tool that allows interaction with K8 clusters.
+
+-> Both kubectl and minikube need to be installed.
+	-> Done using choclatey in local.
+
+
+-> Installation Guide
+	-> Google "chocolatey install"
+		-> Install using cli command in admin mode terminal
+	-> choco install kubernetes-cli
+	-> choco install minikube
+		-> To create cluster in local.
+	-> Make sure virtualization is enabled in the motherboard.
+
+-> To start a minikube, we need to provide a virtual environment
+	-> If we have docker, default environment will be docker
+	-> There are other tools as well like hyperV in Windows, vmware, etc.
+	-> I installed docker, update wsl and used docker
+
+	-> minikube start --driver=docker / hyperv
+	-> minikube dashboard to enable k8 dashboard.
+
+	-> minikube stop
+	-> minikube check status
+	-> minikube delete.
+

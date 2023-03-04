@@ -1,0 +1,32 @@
+HashSet
+StringBuffer
+	-> Intering
+	-> Internal working
+	-> How does it store a string
+	-> How is it different from regular String
+		-> Advantages and disadvantages
+
+In HashSet, I am adding a String, and getting size of set. I get a certain number (correct according to leetcode)
+In same hashSet, if I add StringBuffer, do some operations, and then I get size of HashSet, I get different answer.
+
+Is there a reason for this to happen? In first scenario, new StringBuffer variable is created, operations are done and toString() method is used to store in set.
+	-> Two StringBuffer objects are different objects despite having the same arguments. Therefore HashSet just adds the StringBuffers instead of ignoring duplicates.
+
+TreeMap, under what conditions is it better than HashMap
+LinkedHashMap
+Basically both Maps and Sets.
+HashMap vs HashTable usage.
+
+
+HashMap
+	-> putIfAbsent
+		-> Working and time complexity
+
+	-> computeIfAbsent()
+
+
+TreeSet
+
+What is time complexity of using iterators?
+	-> How do iterators internally work?
+

@@ -1,0 +1,100 @@
+Kubernetes
+
+-> Open source container orchestration tool
+	-> Developed by google
+	-> It manages the containers.
+
+-> Helps in managing multiple containers, and thus the containerized applications.
+
+-> Features of Kubernetes
+	-> High Availability or no downtime
+	-> Scalability
+		-> Scale fast when more load is there
+		-> Scale it down when the load goes down.
+	-> Disaster Recovery
+		-> When some problem is there, it can take backup and restore
+
+
+-> Basic Architecture
+	-> One Master node
+		-> Connected to it, we have couple of worker nodes.
+		-> Each node has a kubelet process is running on it.
+			-> Kubelet lets the clusters talk to each other.
+		-> Each worker node has containers of different applications running on it.
+			-> This is where the applications are running.
+		-> Master Node runs several Kubernetes processes and an API server.
+			-> API Server is the entry point of the Kubernetes cluster.
+			-> Controller Manager
+				-> Keeps track of clusters.
+				-> If something bad happens or something like that.
+			-> Scheduler
+				-> Tells, on which Node a new pod should be scheduled.
+			-> etcd
+				-> k,v storage
+				-> Status data of each node.
+					-> Backup is created from this file only.
+
+		-> Since worker nodes are actually doing a lot of work, they have more resources to perform the job.
+
+
+
+Kubernetes Components
+	-> In a worker node
+		-> Node: A server (Physical server or virtual machine)
+		-> Pod: An abstraction over a container
+			-> It creates a layer on top of container
+			-> It gets more control over the container.
+			-> Pods can be replaced
+			-> We do not have to work with Docker directly.
+			-> Usually 1 application per pod.
+				-> Multiple is possible, but not suggested ideally.
+			-> Each Pod gets its own IP address, not the container, but POD
+				-> This allows the pods to communicate to each other via the Virtual Network within Kubernetes
+			-> If the application dies or something like that, Pod dies.
+				-> New one gets created in its place, gets new IP address.
+		-> Service
+			-> A static IP address that can be attached to each POD.
+			-> Lifecycle of pod and service are not connected.
+				-> Even if the pod dies, the IP address will stay.
+				-> Thus, we need not change endpoint anymore.
+			-> It is also a LB, which will distribute the request based on load.
+		-> External-Service
+			-> opens application to be accessed from external-service
+				-> Browser etc.
+			-> You can specify what type of service will be accessible (we do not want DB to be accessible via browser etc.)
+		-> Ingress
+			-> Instead of directly going to service (ip address and port), request goes through ingress (some domain name)
+				-> Re-directs request to correct pod.
+		-> Config Map
+			-> Configuration data like URL of DBs.
+			-> Otherwise we will have to update the application properties file, push it to repo and pull the new image to the container.
+				-> The second one is a long process.
+			-> Although, it should not have confidential data.
+		-> Secret
+			-> Secret data - Like passwords and everything should be stored here
+			-> They are encrypted.
+		-> Volume
+			-> If there is a DB Pod, which has some data.
+			-> If pod gets restarted, the DB would be gone.
+			-> It attaches a physical storage to the pod
+				-> Either local or something else on the network or cloud or something.
+			-> Kubernetes does not provide persistent storage in itself.
+
+		-> Now in case, some pod dies or something happens, we do not want our application to become unreachable
+			-> For this, we do horizontal scaling
+			-> So, Nodes would be replicated.
+			-> Service has the static IP for each pod, so the IP would be same for pod having same applications.
+			-> DB CANNOT BE REPLICATED because it has it's state (data)
+				-> Statefulset
+					-> stateful applications pods should be created using this and not deployment
+					-> It takes care of replication of pods as well as that reads and writes are in sync.
+					-> It is not that easy though.
+					-> For this reason, DBs are hosted outside Kubernetes.
+
+
+Kubernetes Configuration
+	-> Can be done using the following
+		-> UI - Kubernetes Dashboard
+		-> Kubectl
+	-> Above both talk to the API server and the configurations can be done
+	-> Done in YML or JSON format.

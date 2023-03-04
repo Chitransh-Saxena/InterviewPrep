@@ -1,0 +1,20 @@
+
+Abstract Class: Notification
+    -> TextMessage
+    -> QRMessage
+
+Implementations of above
+    -> SMS
+    -> Email
+    -> Whatsapp
+
+NotificationSender
+    -> This will be a separate interface used to actually send the notification
+    -> Since this is an interface, it will require some imlementation
+        -> The implementations will be
+            -> SMS
+            -> Email
+            -> Whatsapp
+
+We pass the NotificationSender to Notification abstraction
+    -> Upon time of initialization, it will be decided which implementation is required.
