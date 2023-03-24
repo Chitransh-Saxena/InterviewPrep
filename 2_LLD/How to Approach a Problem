@@ -1,0 +1,28 @@
+Once the question is recieved
+
+-> Understand the requirement at every level and every detail
+  -> Run those scenarios in head slowly and try to come up with clarity questions
+-> Understand all the actors or models required in this system
+  -> Start with a use-case understanding
+    -> Need not make a diagram everytime, but having the clarity of use case will enable us in better Modelling
+
+-> Once the classes are identified, we can estabelish relationships between them
+  -> Class, interface, inheritence, association, aggregation etc.
+  -> Example: While designing a Parking Lot, Vehicle, ParkingFloor, Bill etc could be potential classes and we have to identify or create relationships
+
+-> Above part was only about identifying relationships and modelling the class in a neat way
+  -> Now, we have to estabelish behaviour within these classes to create the application which will follow our requirement
+  -> Try to apply different design patterns of different stages of development
+    -> Creational
+      -> While object creations and instantitation
+      -> Not everytime we need some pattern, but if needed, we should know
+    -> Structural
+      -> How the classes are modelled and everything
+    -> Behavioural
+      -> How these classes are interacting with each other.
+      
+-> While writing code
+  -> Focus on writing Abstract classes and Interfaces first
+    -> Think about the problem in terms of SOLID and think if anything is required
+      -> Having this clarity at the beginning or during requirement discussion is good, rather than thinking about it later during the code
+        -> Still, better late than never.
