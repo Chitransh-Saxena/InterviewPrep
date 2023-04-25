@@ -1,0 +1,15 @@
+HTTPS is HTTP protocol with an encryption
+
+S stands for secure
+
+How is this security implemented?
+-> SSL/TLS
+
+-> SSL
+    -> Secure Socket Layer
+    -> This protocol came in 1995 from Netscape
+    -> It had versions 1, 2 and 3
+
+-> TLS
+    -> In 1999, Netscape gave control of SSL to IETF (Internet Engineering Task Force)
+    -> That year, TLS 1.0 was released (which was essentially SSL 3.1)

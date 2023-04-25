@@ -1,0 +1,26 @@
+A data store needs to provide following features
+    -> Availability (Under some faulty condition, system should be available to serve requests)
+    -> Scalability (With increases reads and writes)
+    -> Performance (Low latency, high throughput)
+
+Data Replication
+    -> Having multiple copies of data in different physical servers to support high availability in case of some parition
+    -> Few questions arise here
+        -> How do we keep these copies consistent with primary data?
+            -> Consistency Models
+                -> Strong consistency
+                    -> Synchronous write happens to slave nodes once the write has happened to any primary node
+                    -> This model is good when we our system has to support CP from CAP theorem
+                -> Eventual Consistency
+                    -> Asynchronous writes happen to slave nodes
+                        -> This model is good when our system needs to support AP.
+                -> Weak Consistency
+                    -> In some cases like video calls, if some data is lost, it is lost. It won't be retrieved back
+        -> How do we deal with failed nodes?
+            -> Replication and once the nodes are back up, take snapshot of unknown transactions from fellow replicated nodes.
+        -> How to handle concurrent writes?
+            -> Isolation models in Concurrency Controls
+                -> Read Uncommitted
+                -> Read Committed
+                -> Read Repeated
+                -> Serializable

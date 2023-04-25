@@ -1,8 +1,8 @@
-CAP Theoram in detail
+CAP Theorem in detail
 
-* Consistency - Every read recieves most recent write or an error
+* Consistency - Every read receives most recent write or an error
   * This means, if we are trying to read some data from some server or DB, we should get the most recent (correct) value for it.
-* Availability - Each request recieves a response (now if this is the case, we cannot guarantee if the response is going to be consistent or not)
+* Availability - Each request receives a response (now if this is the case, we cannot guarantee if the response is going to be consistent or not)
   * This means, we still have access to server (or the cluster), no matter what.
 * Partition Tolerance - Due to network or some connection issue, our system still continues to serve the requests.
   * Imagine, one node broke off in some cluster. Our system should still work.
@@ -20,9 +20,11 @@ This is basically a trade off between the data that we are responding with. (Con
 * CP - Consistency and Partition Tolerance
   * Choose this when responding with accurate data is absolutely necessary and business need.
   * We can either respond with error, or wait for the accurate response (this could potentially return some timeout error)
+  * Trade Systems need a very strong consistency
   
- * AP - Availability and Partiiton Tolerance
+ * AP - Availability and Partition Tolerance
   * Choose this when you care about responding more, than you care about responding correctly.
+  * E-commerce can afford visibility of few products for some time.
   
 Consistency usually comes in multiple levels (CONSISTENCY PATTERNS)
 

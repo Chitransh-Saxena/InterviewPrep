@@ -17,11 +17,17 @@
     -> Factory - Based on the input, we instantiate the necessary object and laod those functionalities
         -> Use this when we do not know in advance the type of request that might be coming
         -> Uses SIP and OCP principle of SOLID.
+        -> switch(someCase): case 1: return new Class(); case 2: return new SomeOtherClass();
     -> Abstract Factory
         -> Lets us create related objects without specifying their concrete class
         -> Create the interface for the basic family
             -> Then create various variants of the objects by implementing the base_family properties.
         -> Implements SIP and OCP principle
+
+
+        It implements a Factory of Factories
+            -> Code of factory pattern within another switch case
+            -> Interfaces are used a lot here
     
     -> Builder Pattern
         -> Create complex immutable objects from another complex object.
@@ -41,7 +47,7 @@
         -> Database connections, logging object ....we only need 1.
         -> Create the object in the getter, mark the constructor as private and return the obejct via getter each time.(if exists, return object else create one and return)
         -> Violates SIP - Pattern does 2 things at a time.
-            -> Need to take care in multi-threaded environment.
+            -> Need to take care in multithreaded environment.
 
 
 -> Structural Design Pattern (Adaptor, Composite (Tree - subtree), Flyweight(cache), Proxy(Substitute for another object))
@@ -56,8 +62,8 @@
         -> Say we have a parent class Shape and children classes circle and square.
             -> We want to incorporate color to them.
             -> So, one way is to have another color interface, but this will increase complexity like redCircle, blueCircle, redSquare ...etc.
-            -> What we could do, add a Proprty of Color in the Shape itself.
-                 -> Shape 'owns a' color. (Composition) {Aggregation is a 'has a' association, like Department has a student)
+            -> What we could do, add a Property of Color in the Shape itself.
+                 -> Shape 'owns a' color. (Composition) {Aggregation is a 'has a' association, like Department has a student}
         -> Based on SRP and OCP.
     
     -> Composite
@@ -65,6 +71,7 @@
         -> Use only when the core model of the application can be represented as a tree or heirarchial structure.
             -> And once we have a tree like structure, for anything we like, we can do a tree traversal.
         -> Based on OCP principle.
+            -> Prefix trees like tries used in auto-suggest
 
     -> Decorator
         -> Attach new behaviour into an object by wrapping this object into another special object.

@@ -1,0 +1,6 @@
+Relational DBMS
+    -> Adhere to schemas
+        -> Schemas are logical grouping of tables in a DBMS software
+    -> Organises data with relations
+    -> SQL is used to query upon the data
+    -> Follows ACID

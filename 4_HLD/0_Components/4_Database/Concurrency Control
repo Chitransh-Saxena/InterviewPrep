@@ -1,0 +1,30 @@
+When multiple transactions are reading and writing on the same row or set of rows, concurrency issues occur
+How to solve such issues?
+
+DBMS software comes up with few techniques
+    -> Optimistic Concurrency Control
+        -> Assumes that concurrent writes rarely happen
+        -> Starts transaction -> Validates if anything else modified -> Commit
+        -> This model supports high concurrency
+    -> Pessimistic Concurrency Control
+        -> Assumes concurrent reads and writes happen a lot
+        -> Validates before starting transaction -> Takes lock over the rows -> Commits
+    -> Multi Version Concurrency Control
+        -> Each transaction sees a snapshot of the row
+        -> New transaction won't be able to see updates by some other transactions until something is committed
+        -> This avoid non-repeatable reads (read skew)
+
+
+Locking Strategies
+
+-> Two Phase Locking
+    -> Shared Lock
+        -> Allows concurrent reading by multiple transactions
+    -> Exclusive Lock
+        -> Locks the row for future reads and writes
+
+-> Predicate Locking
+    -> Above, but instead of locking one row, it locks all the rows that match similar conditions
+
+-> Index Based Locking
+    -> Above, but instead of matching conditions, it is applied to queries that fall in similar index space

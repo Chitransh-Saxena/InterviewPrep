@@ -1,0 +1,39 @@
+Spring Provides Two stacks
+
+-> Spring MVC - Servlet Stack
+-> Spring WebFlux - Reactive Stack
+
+
+
+Differences
+    -> Request Model
+        -> Servlet Stack - One request per thread
+            -> Whenever a request comes, a thread is assigned, and this thread is blocked until the request is complete
+        -> Reactive Stack - Event Loop Model
+            -> Whenever a request comes, it is assigned to any thread which is currently capable of serving requests
+            -> When response is available, any worker thread can pick up the response and send it back to the client
+
+    -> I/O Model
+        -> Servlet Stack
+            -> It blocks I/O and makes the whole process synchronous
+        -> Reactive Stack
+            -> It is non-blocking and asynchronous (Because of Event Loop Model)
+
+    -> Communication between microservices
+        -> Servlet Stack
+            -> Uses RestTemplate - We make a request, and wait for response to come.
+        -> Reactive Stack
+            -> Uses Webclient - Asynchronous. Makes a request, and does not wait for the response
+                -> Is it something like Axios? (It returns a promise instead of a response)
+                    -> A promise to complete the request with whatever status that comes
+                    -> Once we have the response, the page is rendered again
+            -> These WebClients calls are asynchronous because they return a "reactive type", like flux and mono
+                -> Whenever a response is available, we get flux or mono object
+                -> In Java8, we get a future object.
+
+    -> Scaling
+        -> Servlet Stack
+            -> To scale, we need to provide more resources (threads)
+        -> Reactive Stack
+            -> It can be scaled with less resources
+            -> Event loop is used to delegate the request, hence resource allocation is much more optimised, and thus it can scale with less resources.

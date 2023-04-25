@@ -55,4 +55,18 @@ Content Delivery Network
 
 -> Basically it is a side server, whose single job is to respond to heavy media based requests
 	
-	
+################################################################
+
+Caching by Hussein Nasser
+
+-> Basics of caching remain the same, obviously
+-> Introduce a lightweight system to respond with our requests
+
+->3 types of caching are here
+    -> Spatial cache
+        -> This is something which CPU does
+        -> Pre-fetches a block of memory in advance, based on predictions of items needed
+    -> Temporal cache
+        -> LRU and LFU
+    -> Distributed Cache
+        -> 

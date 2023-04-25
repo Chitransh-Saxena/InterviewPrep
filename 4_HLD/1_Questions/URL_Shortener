@@ -1,0 +1,35 @@
+Hashing Algorithm
+
+
+Base 62 Encoding
+    -> Understand what all characters we can put in our URL
+        -> Generally, following are allowed
+        -> (a-z), (A-Z), (0-9)
+        -> This gives us 26 + 26 + 10 = 62 unique characters to form our unique string
+
+    -> What is the length of our shortened URL
+        -> Let's say, we want the length to be 8
+        -> Considering above options, we can generate 62 ^ 8 unique URLs
+            -> This count will go in billions, so yes, our algorithm can support this.
+
+MD5 Algorithm
+    -> This also uses Base62, but it generates 128-bit unique Hash
+        -> This has to be converted to Lesser bits, to handle just 8 unique URLs
+    -> Base62 -> base8 encoding is a better option
+
+
+
+Do we use SQL or NoSQL for storage of this?
+    -> RDBMS provides a good approach
+        -> Relations
+        -> Storing
+        -> Concurrency Control
+            -> But this becomes expensive when multiple writes are happening for a lot of things
+
+    -> NoSQL can become a good approach here
+        -> Only problem is concurrent writes in multiple servers for same URL from different users
+        -> In this case, we can program our code to go to same server for same URL
+            -> This is called sticky session.
+        -> What if the node goes down?
+            -> Replication is supported in this case.
+

@@ -1,0 +1,50 @@
+Multi tenancy Architecture
+
+-> Multiple clients or tenants that share some resource
+	-> Resource could be storage area, network stack etc.
+
+-> Goal here is to maximise profit and reduce cost.
+	-> Think of decisions in terms of cost, extensibility, scalability
+
+-> Tenants must be completely isolated of each other
+	-> Data should not be shared
+	-> They should not be aware of each other
+	-> Also, in case something goes wrong with one client, it should not affect others.
+
+-> Security is a major consideration aspect.
+
+-> Database Multi tenancy
+	-> Oracle started this, and now there are other software (software is plural form of software) that support this too.
+	-> So basically, the software gives us ability to create something called "Container Database"
+		-> Here, we can create as many child databases as much we want. (These are called "pluggable databases")
+	-> In regular database software too we can create multiple databases, but in the above case, it is completely configurable.
+		-> How much resources we want to provide to one database.
+	-> This is what cloud does precisely
+		-> Sells us IaaS (Infrastructure as a Service)
+
+
+-> Network Multi tenancy
+	-> Not very clear
+	-> SDNs are used (Software Defined Networking)
+
+-> VMs and Containers Multi Tenancy
+    -> EC2 (Amazon's vmware basically)
+        -> I can spin up some VM and some other person can too
+            -> These VMs might go into the same physical server
+            -> And yet we get a proper IP and everything
+        -> It is amazon's job to build EC2 in such a way, that no two clients are aware of each other
+        -> And if there is some process that took down my vm, it should not affect some other vm.
+
+    -> Exact above fact applies to containers too
+        -> Containers are basically multi tenancy at Operating System level
+
+-> Application Multi Tenancy
+    -> Multiple clients are accessing the application, they have their own data, own cpu etc.
+    -> Shopify is an example
+        -> Anyone can go and start their business on Shopify
+
+    -> The main idea remains the same
+        -> Clients should be isolated
+        -> If client makes some condition of resource starvation (first, add Rate Limiter so this does not happen)
+            -> If it does, this should not affect other clients
+        -> Multiple clients should not be aware of other clients if they are on same physical machine, network, DB etc.

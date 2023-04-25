@@ -1,4 +1,4 @@
-package com.DSA.InterviewQuestions;
+package com.DSA.InterviewQuestions.Amazon;
 
 public class Amazon {
 

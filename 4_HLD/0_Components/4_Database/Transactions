@@ -1,0 +1,52 @@
+Transaction
+    -> A logical unit of work on a database.
+    -> Either single or multiple operations, are treated as a single unit of work.
+    -> When the database executes all the operations successfully in a transaction, it is called a "commit"
+        -> In case DB decides to roll back, it called an "abort"
+
+
+Properties of a Database Transaction
+    -> ACID
+        -> Atomicity
+            -> commits or rolls back a transaction
+            -> Single unit of operation
+        -> Consistent
+            -> Different consistency models can be created based on user control
+                -> Strong
+                -> Weak
+                -> Eventual
+        -> Isolation
+            -> Concurrent transactions should not block or race with each other
+            -> Deadlocks, race conditions, everything has to be handled here
+            -> Usually DB software provide a good isolation
+                -> For SQL as well as NoSQL
+                -> MongoDB is popular NoSQL document store which provides a good concurrency model
+            -> Isolation comes in many levels
+                -> Read uncommitted
+                    -> Allows to read uncommitted reads in the presence of concurrent writes
+                -> Read committed
+                    -> If a write is happening, and during this if some read is happening on the same row, the DB will show the last committed value, not the new value
+                -> Repeated Reads
+                    -> If a DB reads a row multiple times and get different results, this is called "read skew or non-repeatable reads"
+                    -> Above issue is solved via "Snapshot Isolation"
+                -> Serializable
+                    -> This prevents all above issues as well as Phantom Reads
+                        -> Phantom reads is when each time a query is executed, we get different number of row.s
+                    -> This basically serializes all the transactions and make them act as if they are in a sequence
+
+        -> Durability
+            -> Disk Mirroring (RAID0, RAID1 etc.)
+
+    -> BASE
+        -> Basically Available
+            -> High Availability is preferred over strong consistency (trade offs from CAP theorem)
+        -> Soft State
+            -> Since the replicated data has to be replicated to several multiple nodes
+            -> So, it depends on developer how the nodes and states are interpreted
+        -> Eventually Consistent
+            -> Asynchronous, low latency replication
+
+    -> RDBMS follows ACID
+    -> NoSQL follows BASE
+
+

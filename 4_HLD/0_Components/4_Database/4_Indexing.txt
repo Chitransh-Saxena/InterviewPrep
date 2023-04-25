@@ -8,3 +8,42 @@ Could be performed in multiple ways
 
 CREATE INDEX name_index ON Employee (Employee_Name)
 CREATE INDEX name_index ON Employee (Employee_Name, Employee_Age)
+
+
+###############
+
+Index, it is basically a separate data structure (Binary Tree type of thing, B+ Trees actually used by RDBMS), that is created over the selected rows.
+-> Example, if there is some Student database where we frequently need to fetch Students on the basis of their Marks
+    -> Let's say, we need to fetch students given within a price range
+    -> So, ideally we would store data in a list, in <marks, Student> sort of format, and sort on the basis of marks
+    -> Then, we can apply our search queries
+
+-> This is what indexing is.
+
+
+
+How does Indexing work in partitioned database?
+-> If separate rows are stored in separate servers, and let's say we apply index to marks.
+    -> So, ideally, index would be created in the same server for the rows present there
+    -> And, as the request comes to master node of DB, it will be redirected to the appropriate node which has the correct marks range
+        -> Over all indexing could also have been performed to understand, in which partition the request has to go
+
+
+Let's go step by step
+-> We had a huge database, and we sharded our data in such a way that each server receives almost same amount of requests
+    -> Vertical Sharding
+        -> Different tables are put in different physical servers
+    -> Horizontal sharding
+        -> All the tables will be present in all the shards, just different set of rows would be present.
+        -> Two strategies are used for it
+            -> Key Range based Hashing
+                -> Each partition is assigned a continuous range of primary keys
+                    -> Each continuous range is present in different shards
+                -> Pros and Cons here
+                    -> Search time is fast, as directly know which shard we need to go to
+                    -> It can create bottleneck, what if most of the requests are just for some set of keys, it will create extra load on that one server.
+                    -> Foreign keys are also to be taken into account.
+                        -> What if one primary key present in current shards refer to some foreign key present in some other shard?
+
+            -> Hash Based Sharding
+            
